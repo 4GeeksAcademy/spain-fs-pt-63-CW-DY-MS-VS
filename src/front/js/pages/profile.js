@@ -17,6 +17,7 @@ const Profile = () => {
             (<div>
                 Profile Client
             </div>)}
+            <p1>HOLA</p1>
         </div>
     )
 }
