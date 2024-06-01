@@ -5,13 +5,11 @@ db = SQLAlchemy()
 class User_Client(db.Model):
     __tablename__ = 'user_client'
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.String(36), primary_key=True)
     first_name = db.Column(db.String(80), nullable=False)
     last_name = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80),  nullable=False)
-    
-    
 
     def __repr__(self):
         return f'<User_Client {self.email}>'
@@ -28,7 +26,7 @@ class User_Client(db.Model):
 class User_Artist(db.Model):
     __tablename__ = 'user_artist'
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.String(36), primary_key=True)
     first_name = db.Column(db.String(80), nullable=False)
     last_name = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
@@ -52,14 +50,14 @@ class User_Artist(db.Model):
 class Work(db.Model):
     __tablename__ = 'work'
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.String(36), primary_key=True)
     title = db.Column(db.String(80), nullable=False)
     type = db.Column(db.String(80), nullable=False)
     year = db.Column(db.Integer, nullable=False)
     image = db.Column(db.String(200), nullable=False)
     description = db.Column(db.String(200), nullable=False)
     price = db.Column(db.Integer, nullable= False)
-    artist_id = db.Column(db.Integer,db.ForeignKey('user_artist.id'), nullable=False)
+    artist_id = db.Column(db.String(36), db.ForeignKey('user_artist.id'), nullable=False)
 
     user_artist = db.relationship(User_Artist)
   
@@ -79,9 +77,9 @@ class Work(db.Model):
 class Favorites(db.Model):
     __tablename__ = 'favorites'
 
-    id = db.Column(db.Integer, primary_key=True)
-    client_id = db.Column(db.Integer,db.ForeignKey('user_client.id'), nullable = False )
-    work_id = db.Column(db.Integer,db.ForeignKey('work.id'), nullable = False )
+    id = db.Column(db.String(36), primary_key=True)
+    client_id = db.Column(db.String(36), db.ForeignKey('user_client.id'), nullable=False)
+    work_id = db.Column(db.String(36), db.ForeignKey('work.id'), nullable=False)
 
     user_client = db.relationship(User_Client)
     work = db.relationship(Work)
@@ -91,15 +89,16 @@ class Favorites(db.Model):
             "id": self.id,
             "client_id": self.client_id,
             "work_id": self.work_id
-        }  
+        }
 
+## Ultimos modelos que implementar
 
 class Shopping_Cart(db.Model):
     __tablename__ = 'shopping_cart'
 
-    id = db.Column(db.Integer, primary_key=True)
-    user_client_id = db.Column(db.Integer,db.ForeignKey('user_client.id'), nullable = False )
-    work_id = db.Column(db.Integer,db.ForeignKey('work.id'), nullable = False )
+    id = db.Column(db.String, primary_key=True)
+    user_client_id = db.Column(db.String, db.ForeignKey('user_client.id'), nullable = False )
+    work_id = db.Column(db.String, db.ForeignKey('work.id'), nullable = False )
 
     user_client = db.relationship(User_Client)
     work = db.relationship(Work)
