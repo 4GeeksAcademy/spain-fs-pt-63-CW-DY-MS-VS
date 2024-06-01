@@ -1,39 +1,43 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-
 export const Navbar = () => {
-	return (
-		<nav class="navbar navbar-expand-lg bg-body-tertiary text-light ">
-			<div class="container-fluid text-white">
-				<a className="navbar-brand text-white" href="#">
-					<img src= "https://files.slack.com/files-pri/T0BFXMWMV-F0757DXV069/pixelarte__1_.png" />
-				</a>
-
-				<div class="collapse navbar-collapse text-white" id="navbarNavDropdown">
-					<ul class="navbar-nav">
-						<li class="nav-item">
-							<a class="nav-link active" aria-current="page" href="#">Home</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">Galeria</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">Perfil</a>
-						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								Menú
-							</a>
-							<ul class="dropdown-menu">
-								<li><a class="dropdown-item" href="#">Home</a></li>
-								<li><a class="dropdown-item" href="#">Galeria</a></li>
-								<li><a class="dropdown-item" href="#">Perfil</a></li>
-							</ul>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</nav>
-	);
+  return (
+    <nav className="navbar navbar-dark navbar-expand-lg bg-body-tertiary">
+      <div className="container-fluid">
+        <img src="/workspaces/spain-fs-pt-63-CW-DY-MS-VS/public/PIXELARTE (2).png"/>
+    
+        <button className="navbar-toggler mt-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <Link className="nav-link active" aria-current="page" to="/">Home</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/galeria">Galeria</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/perfil">Perfil</Link>
+            </li>
+            <li className="nav-item dropdown">
+              <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Menú
+              </a>
+              <ul className="dropdown-menu dropdown-menu-end">
+                <li><Link className="dropdown-item" to="/">Home</Link></li>
+                <li><Link className="dropdown-item" to="/galeria">Galeria</Link></li>
+                <li><Link className="dropdown-item" to="/perfil">Perfil</Link></li>
+              </ul>
+            </li>
+          </ul>
+          <form className="d-flex ms-auto mt-2" role="search">
+            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+            <button className="btn btn-outline-success" type="submit">Login</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+  );
 };
