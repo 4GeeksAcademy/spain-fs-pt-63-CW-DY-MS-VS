@@ -6,18 +6,19 @@ from api.models import db, User_Client, User_Artist, Work, Favorites
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 import uuid
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
-from flask_bcrypt import Bcrypt
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, JWTManager
+from flask_bcrypt import Bcrypt, generate_password_hash, check_password_hash
 
 api = Blueprint('api', __name__)
+app = Flask(__name__)
 
 # Allow CORS requests to this API
 CORS(api)
-# bcrypt = Bcrypt(api)
+bcrypt = Bcrypt(app)
 
 ##---------------------CLIENTS---------------------##
 
-@api.route('/user_client', methods=['POST'])
+@api.route('/user_client', methods=['POST'], endpoint='create_client')
 def create_client():
     data = request.json
     email = data.get("email")
@@ -31,11 +32,9 @@ def create_client():
         return jsonify({"Error": "User already exists"}), 400
     
     client_id = str(uuid.uuid4())
+    hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
-    ## Hay que encriptar la contarseña en el front, así al enviar los datos al endpoint
-    ## viene cifrada en el payload.
-
-    new_user = User_Client(id = client_id, email = email, password = password, first_name = first_name, last_name = last_name)
+    new_user = User_Client(id = client_id, email = email, password = hashed_password, first_name = first_name, last_name = last_name)
 
     try:
         db.session.add(new_user)
@@ -46,14 +45,29 @@ def create_client():
     
     return jsonify(new_user.serialize()), 201
 
+@api.route('/login_client', methods=['GET', 'POST'], endpoint='create_client_token')
+def create_client_token():
+    data = request.json
+    email = data.get("email")
+    password = data.get("password")
 
-@api.route('/user_client/<string:id>', methods=['GET'])
-def get_client(id):
-    client = User_Client.query.get_or_404(id)
+    user = User_Client.query.filter_by(email = email).first()
+
+    if user and bcrypt.check_password_hash(user.password, password):
+        token = create_access_token(identity=user.id)
+        return jsonify({'token': token, 'user': user.serialize()}), 200
+    else:
+        return jsonify({'message': 'Invalid email or password'}), 401
+
+@api.route('/user_client', methods=['GET'], endpoint='get_client')
+@jwt_required()
+def get_client():
+    id_client = get_jwt_identity()
+    client = User_Client.query.get_or_404(id_client)
     return jsonify(client.serialize()), 200
 
-## Create PUT endpoint
-@api.route('/user_client/<string:id>', methods=['PUT'])
+
+@api.route('/user_client/<string:id>', methods=['PUT'], endpoint='update_client')
 def update_client(id):
     data = request.json
     client = User_Client.query.get_or_404(id)
@@ -73,7 +87,7 @@ def update_client(id):
 
 ##---------------------ARTISTS---------------------##
 
-@api.route('/user_artist', methods=['POST'])
+@api.route('/user_artist', methods=['POST'], endpoint='create_artist')
 def create_artist():
     data = request.json
     email = data.get("email")
@@ -88,10 +102,9 @@ def create_artist():
         return jsonify({"Error": "User already exists"}), 400
     
     artist_id = str(uuid.uuid4())
-    ## Hay que encriptar la contarseña en el front, así al enviar los datos al endpoint
-    ## viene cifrada en el payload.
+    hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
-    new_user = User_Artist(id = artist_id, email = email, password = password, first_name = first_name, 
+    new_user = User_Artist(id = artist_id, email = email, password = hashed_password, first_name = first_name, 
                            last_name = last_name, description = description)
 
     try:
@@ -103,12 +116,28 @@ def create_artist():
     
     return jsonify(new_user.serialize()), 201
 
-@api.route('/user_artist/<string:id>', methods=['GET'])
-def get_artist(id):
-    artist = User_Artist.query.get_or_404(id)
+@api.route('/login_artist', methods=['GET', 'POST'], endpoint='create_artist_token')
+def create_artist_token():
+    data = request.json
+    email = data.get("email")
+    password = data.get("password")
+
+    user = User_Artist.query.filter_by(email = email).first()
+
+    if user and bcrypt.check_password_hash(user.password, password):
+        token = create_access_token(identity=user.id)
+        return jsonify({'token': token, 'user': user.serialize()}), 200
+    else:
+        return jsonify({'message': 'Invalid email or password'}), 401
+
+@api.route('/user_artist', methods=['GET'], endpoint='get_artist')
+@jwt_required()
+def get_artist():
+    id_artist = get_jwt_identity()
+    artist = User_Artist.query.get_or_404(id_artist)
     return jsonify(artist.serialize()), 200
 
-@api.route('/user_artist/<string:id>', methods=['PUT'])
+@api.route('/user_artist/<string:id>', methods=['PUT'], endpoint='update_artist')
 def update_artist(id):
     data = request.json
     artist = User_Artist.query.get_or_404(id)
@@ -173,7 +202,6 @@ def update_work(id):
     work.image = data.get("image", work.image)
     work.description = data.get("description", work.description)
     work.price = data.get("price", work.price)
-    ## Maybe not needed
     work.artist_id = data.get("artist_id", work.artist_id)
 
     try:
