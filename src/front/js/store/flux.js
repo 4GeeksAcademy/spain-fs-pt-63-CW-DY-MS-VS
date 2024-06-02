@@ -1,9 +1,13 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			message: null,
+			client:[],
+			artist:[]
 		},
 		actions: {
+
+
+			
 			// Use getActions to call a function within a fuction
 			getMessage: async () => {
 				try{

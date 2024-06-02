@@ -9,6 +9,7 @@ import uuid
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from flask_bcrypt import Bcrypt
 
+
 api = Blueprint('api', __name__)
 
 # Allow CORS requests to this API
