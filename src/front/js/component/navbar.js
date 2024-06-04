@@ -33,8 +33,7 @@ export const Navbar = () => {
             </li>
           </ul>
           <form className="d-flex ms-auto mt-2" role="search">
-            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-            <button className="btn btn-outline-success" type="submit">Login</button>
+            <Link className="login" to="/login"><button className="btn btn-outline-success" type="submit">Login</button></Link>
           </form>
         </div>
       </div>
