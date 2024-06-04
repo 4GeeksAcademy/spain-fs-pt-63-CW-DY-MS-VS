@@ -10,13 +10,14 @@ const Profile = () => {
         <div>
             <button onClick={() => setProfileType("Client")}></button>
             {profileType == "Artist" ?
-                (<div>
-                    Profile Artist
-                </div>)
-                :
-                (<div>
-                    Profile Client
-                </div>)}
+             (<div>
+                Profile Artist
+            </div>)
+            :
+            (<div>
+                Profile Client
+            </div>)}
+            <p1>HOLA</p1>
         </div>
     )
 }

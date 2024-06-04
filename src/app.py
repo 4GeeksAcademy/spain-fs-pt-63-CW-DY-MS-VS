@@ -10,34 +10,36 @@ from api.models import db
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
+from flask_jwt_extended import JWTManager
 
-# from models import Person
-
-ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
-static_file_dir = os.path.join(os.path.dirname(
-    os.path.realpath(__file__)), '../public/')
 app = Flask(__name__)
+
+app.config['JWT_SECRET_KEY'] = 'ensaimada'  # Change this to a secure key
+jwt = JWTManager(app)  # Initialize JWTManager with the Flask app
+
+# Set environment
+ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
+static_file_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../public/')
 app.url_map.strict_slashes = False
 
-# database condiguration
+# Database configuration
 db_url = os.getenv("DATABASE_URL")
-if db_url is not None:
-    app.config['SQLALCHEMY_DATABASE_URI'] = db_url.replace(
-        "postgres://", "postgresql://")
+if db_url:
+    app.config['SQLALCHEMY_DATABASE_URI'] = db_url.replace("postgres://", "postgresql://")
 else:
     app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:////tmp/test.db"
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-MIGRATE = Migrate(app, db, compare_type=True)
+Migrate(app, db, compare_type=True)
 db.init_app(app)
 
-# add the admin
+# Add the admin
 setup_admin(app)
 
-# add the admin
+# Add commands
 setup_commands(app)
 
-# Add all endpoints form the API with a "api" prefix
+# Register the Blueprint
 app.register_blueprint(api, url_prefix='/api')
 
 # Handle/serialize errors like a JSON object
