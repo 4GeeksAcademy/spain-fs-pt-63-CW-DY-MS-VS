@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import {Context} from "../store/appContext";
+import { Context } from "../store/appContext";
 
 
 
@@ -11,7 +11,7 @@ const PasswordErrorMessage = () => {
 };
 
 export const Register = () => {
-    const {actions}=useContext(Context)
+    const { actions } = useContext(Context)
     const [first_name, setFirstName] = useState("");
     const [last_name, setLastName] = useState("");
     const [email, setEmail] = useState("");
@@ -44,10 +44,10 @@ export const Register = () => {
     };
 
     const handleSubmit = (e) => {
-       // e.preventDefault();
-        role==='Artist'?actions.registerUserArtist({first_name,last_name,email,password:password.value}):
-        actions.registerUserClient({first_name,last_name,email,password:password.value});
-        
+        // e.preventDefault();
+        role === 'Artist' ? actions.registerUserArtist({ first_name, last_name, email, password: password.value }) :
+            actions.registerUserClient({ first_name, last_name, email, password: password.value });
+
         alert("Account created!");
         clearForm();
     };
@@ -109,15 +109,15 @@ export const Register = () => {
                     <div>
                         <div className="col-sm-5 d-flex justify-content-evenly m-auto">
                             <div className="form-check ">
-                                <label className="form-check-label" for="gridRadios1">
-                                    <input className="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value= 'Artist'  onChange={(e) => setRole(e.target.value)}  checked={role=='Artist'}/>
+                                <label className="form-check-label" htmlFor="gridRadios1">
+                                    <input className="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value='Artist' onChange={(e) => setRole(e.target.value)} checked={role == 'Artist'} />
                                     Artist
                                 </label>
                             </div>
                             <div className="form-check">
 
-                                <label className="form-check-label" for="gridRadios2">
-                                    <input className="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value='Client'  onChange={(e) => setRole(e.target.value)} checked={role=='Client'} />
+                                <label className="form-check-label" htmlFor="gridRadios2">
+                                    <input className="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value='Client' onChange={(e) => setRole(e.target.value)} checked={role == 'Client'} />
                                     Client
                                 </label>
                             </div>
