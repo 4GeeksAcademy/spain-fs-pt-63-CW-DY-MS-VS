@@ -5,8 +5,8 @@ export const Navbar = () => {
   return (
     <nav className="navbar navbar-dark navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
-        <img src="/workspaces/spain-fs-pt-63-CW-DY-MS-VS/public/PIXELARTE (2).png"/>
-    
+        <img src="/workspaces/spain-fs-pt-63-CW-DY-MS-VS/public/PIXELARTE (2).png" />
+
         <button className="navbar-toggler mt-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
@@ -16,10 +16,10 @@ export const Navbar = () => {
               <Link className="nav-link active" aria-current="page" to="/">Home</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/galeria">Galeria</Link>
+              <Link className="nav-link" to="/galeries">Galeries</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/perfil">Perfil</Link>
+              <Link className="nav-link" to="/profile">Profile</Link>
             </li>
             <li className="nav-item dropdown">
               <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -27,8 +27,8 @@ export const Navbar = () => {
               </a>
               <ul className="dropdown-menu dropdown-menu-end">
                 <li><Link className="dropdown-item" to="/">Home</Link></li>
-                <li><Link className="dropdown-item" to="/galeria">Galeria</Link></li>
-                <li><Link className="dropdown-item" to="/perfil">Perfil</Link></li>
+                <li><Link className="dropdown-item" to="/galeries">Galeries</Link></li>
+                <li><Link className="dropdown-item" to="/profile">Perfil</Link></li>
               </ul>
             </li>
           </ul>
