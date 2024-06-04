@@ -1,5 +1,6 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useContext } from "react";
+import {Context} from "../store/appContext";
+
 
 
 
@@ -10,8 +11,9 @@ const PasswordErrorMessage = () => {
 };
 
 export const Register = () => {
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
+    const {actions}=useContext(Context)
+    const [first_name, setFirstName] = useState("");
+    const [last_name, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState({
         value: "",
@@ -21,8 +23,8 @@ export const Register = () => {
 
     const getIsFormValid = () => {
         return (
-            firstName &&
-            lastName &&
+            first_name &&
+            last_name &&
             email &&
             password.value.length >= 8 &&
             role
@@ -42,7 +44,10 @@ export const Register = () => {
     };
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+       // e.preventDefault();
+        role==='Artist'?actions.registerUserArtist({first_name,last_name,email,password:password.value}):
+        actions.registerUserClient({first_name,last_name,email,password:password.value});
+        
         alert("Account created!");
         clearForm();
     };
@@ -55,7 +60,7 @@ export const Register = () => {
 
                     <div className="col-sm-5 m-auto">
                         <input type="name" className="form-control " id="inputName3"
-                            value={firstName}
+                            value={first_name}
                             onChange={(e) => {
                                 setFirstName(e.target.value);
                             }}
@@ -66,7 +71,7 @@ export const Register = () => {
 
                     <div className="col-sm-5 m-auto">
                         <input type="name" className="form-control" id="inputLastName3"
-                            value={lastName}
+                            value={last_name}
                             onChange={(e) => {
                                 setLastName(e.target.value);
                             }}

@@ -93,7 +93,7 @@ def create_artist():
     ## viene cifrada en el payload.
 
     new_user = User_Artist(id = artist_id, email = email, password = password, first_name = first_name, 
-                           last_name = last_name, description = description)
+                           last_name = last_name, description = description or 'new Artist')
 
     try:
         db.session.add(new_user)
