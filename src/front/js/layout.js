@@ -8,7 +8,7 @@ import { Home } from "./pages/home";
 import injectContext from "./store/appContext";
 import Galeries from "./pages/galeries";
 import Login from "./pages/login";
-import Profile from "./pages/profile"
+import artistDetail from "./pages/artistDetail";
 
 
 import { Navbar } from "./component/navbar";
@@ -28,6 +28,7 @@ const Layout = () => {
                 <ScrollToTop>
                     <Navbar />
                     <Routes>
+                        <Route element={<artistDetail />} path="/artistDetail" />
                         <Route element={<Galeries />} path="/galeries" />
                         <Route element={<Profile />} path="/profile" />
                         <Route element={<Login />} path="/login" />
