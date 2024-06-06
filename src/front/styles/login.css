@@ -1,0 +1,11 @@
+.radio-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Ajusta el espacio entre los radios */
+  }
+  
+  .radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Ajusta el espacio entre el texto y el radio */
+  }

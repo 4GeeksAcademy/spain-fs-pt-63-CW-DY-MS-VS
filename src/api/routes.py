@@ -105,7 +105,7 @@ def create_artist():
     artist_id = str(uuid.uuid4())
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
-    new_user = User_Artist(id = artist_id, email = email, password = password, first_name = first_name, 
+    new_user = User_Artist(id = artist_id, email = email, password = hashed_password, first_name = first_name, 
                            last_name = last_name, description = description or 'new Artist')
 
     try:
