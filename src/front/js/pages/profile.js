@@ -1,24 +1,37 @@
 import React, { useState } from "react";
 
 const Profile = () => {
-    const [profileType, setProfileType] = useState("Client");
+    const [profileType, setProfileType] = useState("Artist");
     const [works, setWorks] = useState([]);
+    const [selectedWork, setSelectedWork] = useState(null);
+    const [salesBalance, setSalesBalance] = useState(0);
+    const [newWorkTitle, setNewWorkTitle] = useState("");
 
     const addWork = () => {
-        setWorks([...works, { id: Date.now(), title: "" }]);
+        if (newWorkTitle.trim() !== "") {
+            setWorks([...works, { id: Date.now(), title: newWorkTitle.trim(), imageUrl: "" }]);
+            setNewWorkTitle("");
+        }
     };
 
     const removeWork = (id) => {
         setWorks(works.filter(work => work.id !== id));
     };
 
-    const handleWorkChange = (id, title) => {
-        setWorks(works.map(work => work.id === id ? { ...work, title } : work));
+    const handleWorkClick = (work) => {
+        setSelectedWork(work);
+    };
+
+    const handleCloseImage = () => {
+        setSelectedWork(null);
     };
 
     return (
         <div className="container mt-5">
-            <button className="btn btn-secondary mb-3" onClick={() => setProfileType(profileType === "Artist" ? "Client" : "Artist")}>
+            <button 
+                className="btn btn-secondary mb-3" 
+                onClick={() => setProfileType(profileType === "Artist" ? "Client" : "Artist")}
+            >
                 Cambiar a {profileType === "Artist" ? "Client" : "Artist"}
             </button>
 
@@ -26,71 +39,42 @@ const Profile = () => {
                 <div>
                     <h2>Perfil del Artista</h2>
                     <div className="mb-3">
-                        <label className="form-label">Obras:</label>
-                        <div id="worksContainer">
-                            {works.map((work) => (
-                                <div key={work.id} className="input-group mb-3 work-entry">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        value={work.title}
-                                        onChange={(e) => handleWorkChange(work.id, e.target.value)}
-                                        placeholder="Título de la obra"
-                                        required
-                                    />
-                                    <button
-                                        type="button"
-                                        className="btn btn-danger"
-                                        onClick={() => removeWork(work.id)}
-                                    >
-                                        Eliminar
-                                    </button>
-                                </div>
-                            ))}
+                        <div className="balance">
+                            <span>Balance de Ventas: </span>
+                            <p>{salesBalance}</p>
                         </div>
-                        <button type="button" className="btn btn-primary mt-2" onClick={addWork}>
-                            Añadir Obra
-                        </button>
+                    </div>
+                    <div className="mb-3">
+                        <label className="form-label">Obras:</label>
+                        <ul>
+                            {works.map((work) => (
+                                <li 
+                                    key={work.id} 
+                                    className="work-title"
+                                    onClick={() => handleWorkClick(work)}
+                                >
+                                    <span>{work.title}</span>
+                                </li>
+                            ))}
+                        </ul>
+                        <div className="input-group mb-3">
+                            <input
+                                type="text"
+                                className="form-control"
+                                value={newWorkTitle}
+                                onChange={(e) => setNewWorkTitle(e.target.value)}
+                                placeholder="Título de la nueva obra"
+                            />
+                            <button 
+                                type="button" 
+                                className="btn btn-secondary" 
+                                onClick={addWork}
+                            >
+                                Añadir Obra
+                            </button>
+                        </div>
                     </div>
                     <button className="btn btn-success">Guardar Perfil</button>
-                </div>
-            ) : (
-                <div>
-                    <h2></h2>
-                    {/* Contenido específico del perfil del cliente */}
-                </div>
-            )}
-{profileType === "Client" ? (
-                <div>
-                    <h2>Perfil del Cliente</h2>
-                    <div className="mb-3">
-                        <label className="form-label">Favoritos:</label>
-                        <div className="Cliente">
-                            {/* {favourites.map((work) => (
-                                <div key={work.id} className="input-group mb-3 work-entry">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        value={work.title}
-                                        onChange={(e) => handleWorkChange(work.id, e.target.value)}
-                                        placeholder="Título de la obra"
-                                        required
-                                    />
-                                    <button
-                                        type="button"
-                                        className="btn btn-danger"
-                                        onClick={() => removeWork(work.id)}
-                                    >
-                                        Eliminar
-                                    </button>
-                                </div>
-                            ))} */}
-                        </div>
-                        {/* <button type="button" className="btn btn-primary mt-2" onClick={addWork}>
-                            Añadir Obra
-                        </button> */}
-                    </div>
-                    <button className="btn btn-success">viendo cambios</button>
                 </div>
             ) : (
                 <div>
@@ -99,6 +83,22 @@ const Profile = () => {
                 </div>
             )}
 
+            {selectedWork && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <span className="close" onClick={handleCloseImage}>&times;</span>
+                        <h3>{selectedWork.title}</h3>
+                        {/* Aquí iría la imagen de la obra */}
+                        <button
+                            type="button"
+                            className="btn btn-danger mt-2"
+                            onClick={() => removeWork(selectedWork.id)}
+                        >
+                            Eliminar
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
