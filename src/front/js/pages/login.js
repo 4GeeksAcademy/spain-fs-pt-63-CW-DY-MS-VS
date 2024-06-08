@@ -1,18 +1,31 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/login.css";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const { store, actions } = useContext(Context);
 
-  const handleInputChange = (e) => {
-    actions.handleChange(e);
-  };
+  const [user, setUser] = useState({ email: "", password: "", userType: "" })
+
+
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    actions.login();
+
+    actions.login(user);
+    setUser({ email: "", password: "", userType: "" })
+
   };
+
+
+  console.log(store.token)
+
+
+
+
+
 
   return (
     <div className="container text-center">
@@ -24,8 +37,8 @@ const Login = () => {
             className="text-center"
             name="email"
             placeholder="email"
-            value={store.email}
-            onChange={handleInputChange}
+            value={user.email}
+            onChange={(event) => setUser({ ...user, email: event.target.value })}
           />
         </div>
 
@@ -35,12 +48,23 @@ const Login = () => {
             name="password"
             type="password"
             placeholder="password"
-            value={store.password}
-            onChange={handleInputChange}
+            value={user.password}
+            onChange={(event) => setUser({ ...user, password: event.target.value })}
           />
         </div>
 
         <div className="radio-group mt-4">
+
+        <label>
+            Artist
+            <input
+              className="artist"
+              type="radio"
+              name="userType"
+              value="artist"
+              onChange={(event) => setUser({ ...user, userType: event.target.value })}
+            />
+          </label>
           <label>
             Client
             <input
@@ -48,27 +72,18 @@ const Login = () => {
               type="radio"
               name="userType"
               value="client"
-              checked={store.userType === "client"}
-              onChange={handleInputChange}
+              onChange={(event) => setUser({ ...user, userType: event.target.value })}
             />
           </label>
-          <label>
-            Artist
-            <input
-              className="artist"
-              type="radio"
-              name="userType"
-              value="artist"
-              checked={store.userType === "artist"}
-              onChange={handleInputChange}
-            />
-          </label>
+          
         </div>
 
         <div>
-          <button className="mt-5 mb-5" type="submit">
+          <button className="mt-5 mb-5 go" type="submit">
             Go
           </button>
+
+         <Link to="/register"><p>¡Register here!</p></Link>
         </div>
       </form>
     </div>

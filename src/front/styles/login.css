@@ -9,3 +9,11 @@
     align-items: center;
     gap: 5px; /* Ajusta el espacio entre el texto y el radio */
   }
+  .go{
+    border-radius: 20px;
+    background-color: rgb(85, 8, 157);
+    color: antiquewhite;
+    box-shadow:0 15px 12px rgba(0, 0, 78, 0.2);
+
+  }
+  
