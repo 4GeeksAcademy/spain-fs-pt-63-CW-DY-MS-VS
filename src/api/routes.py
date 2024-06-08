@@ -9,6 +9,7 @@ import uuid
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, JWTManager
 from flask_bcrypt import Bcrypt, generate_password_hash, check_password_hash
 
+
 api = Blueprint('api', __name__)
 app = Flask(__name__)
 
@@ -104,8 +105,8 @@ def create_artist():
     artist_id = str(uuid.uuid4())
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
-    new_user = User_Artist(id = artist_id, email = email, password = hashed_password, first_name = first_name, 
-                           last_name = last_name, description = description)
+    new_user = User_Artist(id = artist_id, email = email, password = password, first_name = first_name, 
+                           last_name = last_name, description = description or 'new Artist')
 
     try:
         db.session.add(new_user)
