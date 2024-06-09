@@ -57,6 +57,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} catch (error) {
 					console.log("Error loading message from backend", error)
 				}
+			},
+			setImage: async (imgId) => {
+				const store = getStore()
+				setStore({ ...store, image: imgId })
 			}
 		}
 	};

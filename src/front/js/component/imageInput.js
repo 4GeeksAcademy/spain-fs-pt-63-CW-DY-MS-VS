@@ -9,7 +9,7 @@ const ImageInput = () => {
     const cloudinaryRef = useRef()
     const widgetRef = useRef()
     const [imgId, setImgId] = useState("")
-    const { store, actions } = useContext(Context)
+    const { actions } = useContext(Context)
 
     useEffect(() => {
         cloudinaryRef.current = window.cloudinary
@@ -31,11 +31,12 @@ const ImageInput = () => {
     })
 
     const myImage = imgId ? cld.image(imgId) : null
-    myImage && myImage.resize(fill().width(250).height(250))
+    myImage && myImage.resize(fill().height(225))
 
     const handleUploadImage = async (publicId) => {
         try {
             const image = await actions.uploadWorkImage(publicId);
+            actions.setImage(publicId)
             console.log("Image uploaded:", image);
         } catch (error) {
             console.error("Error uploading image:", error);
@@ -44,7 +45,7 @@ const ImageInput = () => {
 
     return (
         <div>
-            <button onClick={() => widgetRef.current.open()}>Open</button>
+            {!myImage && <button className="btn btn-secondary" onClick={() => widgetRef.current.open()}>Select Image</button>}
             {myImage && <AdvancedImage cldImg={myImage} />}
         </div>
     )

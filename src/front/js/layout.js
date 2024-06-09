@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
-
+import Profile from "./pages/profile";
 import { Home } from "./pages/home";
 import injectContext from "./store/appContext";
 import { Register } from "./pages/register";
@@ -26,7 +26,7 @@ const Layout = () => {
                 <ScrollToTop>
                     <Navbar />
                     <Routes>
-                        <Route element= {<Register />} path="/register" />
+                        <Route element={<Register />} path="/register" />
                         <Route element={<Galeries />} path="/galeries" />
                         <Route element={<Profile />} path="/profile" />
                         <Route element={<Login />} path="/login" />
