@@ -8,7 +8,7 @@ import injectContext from "./store/appContext";
 import { Register } from "./pages/register";
 import Galeries from "./pages/galeries";
 import Login from "./pages/login";
-
+import { Profile } from "./pages/profile";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 

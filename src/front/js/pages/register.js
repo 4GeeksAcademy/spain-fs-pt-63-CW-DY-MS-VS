@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -20,6 +21,8 @@ export const Register = () => {
         isTouched: false,
     });
     const [role, setRole] = useState("Artist");
+    const navigate = useNavigate()
+
 
     const getIsFormValid = () => {
         return (
@@ -50,6 +53,7 @@ export const Register = () => {
 
         alert("Account created!");
         clearForm();
+        navigate("/login")
     };
 
     return (
