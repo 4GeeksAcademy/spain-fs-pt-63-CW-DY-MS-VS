@@ -5,12 +5,8 @@ import { Link } from "react-router-dom";
 
 const Login = () => {
   const { store, actions } = useContext(Context);
-
   const [user, setUser] = useState({ email: "", password: "", userType: "" })
-
-
-
-
+ 
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -19,14 +15,6 @@ const Login = () => {
 
   };
 
-
-  console.log(store.token)
-
-
-
-
-
-
   return (
     <div className="container text-center">
       <h1 className="mt-5 mb-5">Login</h1>
@@ -34,7 +22,7 @@ const Login = () => {
       <form onSubmit={handleSubmit}>
         <div>
           <input
-            className="text-center"
+            className="text-center email"
             name="email"
             placeholder="email"
             value={user.email}
@@ -44,7 +32,7 @@ const Login = () => {
 
         <div className="mt-5">
           <input
-            className="text-center"
+            className="text-center password"
             name="password"
             type="password"
             placeholder="password"
@@ -55,7 +43,7 @@ const Login = () => {
 
         <div className="radio-group mt-4">
 
-        <label>
+          <label>
             Artist
             <input
               className="artist"
@@ -75,7 +63,7 @@ const Login = () => {
               onChange={(event) => setUser({ ...user, userType: event.target.value })}
             />
           </label>
-          
+
         </div>
 
         <div>
@@ -83,7 +71,7 @@ const Login = () => {
             Go
           </button>
 
-         <Link to="/register"><p>¡Register here!</p></Link>
+          <Link to="/register"><p>¡Register here!</p></Link>
         </div>
       </form>
     </div>
