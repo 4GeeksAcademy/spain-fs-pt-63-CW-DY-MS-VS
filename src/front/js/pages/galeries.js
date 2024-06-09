@@ -1,9 +1,10 @@
 import React from 'react'
+import ImageInput from '../component/imageInput'
 
 function galeries() {
   return (
     <div>
-      Hello
+      <ImageInput />
     </div>
   )
 }

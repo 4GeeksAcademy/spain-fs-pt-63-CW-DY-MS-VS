@@ -8,7 +8,9 @@ from flask_cors import CORS
 import uuid
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, JWTManager
 from flask_bcrypt import Bcrypt, generate_password_hash, check_password_hash
-
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 api = Blueprint('api', __name__)
 app = Flask(__name__)
@@ -176,7 +178,13 @@ def create_work():
     if not title or not artist_id or not image:
         return jsonify({"Error": "Title, Image and Artist ID are required"}), 400
 
-    new_work = Work(id = work_id, title=title, type=type, year=year, image=image, description=description, price=price, artist_id=artist_id)
+    try:
+        upload_result = cloudinary.uploader.upload(image)
+        image_url = upload_result.get("url")
+    except Exception as ex:
+        return jsonify({"Message": "Image upload failed", "Error": str(ex)}), 500
+
+    new_work = Work(id = work_id, title=title, type=type, year=year, image=image_url, description=description, price=price, artist_id=artist_id)
 
     try:
         db.session.add(new_work)
