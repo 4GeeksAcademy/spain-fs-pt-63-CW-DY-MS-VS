@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Profile = () => {
+ export const Profile = () => {
     const [profileType, setProfileType] = useState("Artist");
     const [works, setWorks] = useState([]);
     const [selectedWork, setSelectedWork] = useState(null);
@@ -139,4 +139,4 @@ const Profile = () => {
     );
 };
 
-export default Profile;
+
