@@ -50,7 +50,7 @@ export const Galery = () => {
       {
         artistsArray.map((el) => (
           <div className='artist my-2' >
-            <Link to={'/artistDetail'}>
+            <Link to={'/artistGalery'}>
               <h3 className="text-danger m-3">{el.first_name + ' ' + el.last_name}</h3>
             </Link>
             <div className='row'>

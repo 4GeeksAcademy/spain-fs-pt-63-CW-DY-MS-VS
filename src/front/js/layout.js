@@ -9,7 +9,6 @@ import { Register } from "./pages/register";
 import { Galery } from "./pages/galery";
 import Login from "./pages/login";
 import { Profile } from "./pages/profile";
-
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 
