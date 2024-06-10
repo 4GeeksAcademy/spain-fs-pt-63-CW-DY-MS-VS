@@ -11,6 +11,7 @@ import Login from "./pages/login";
 import { Profile } from "./pages/profile";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
+import ArtistGalery from "./pages/artistGalery";
 
 //create your first component
 const Layout = () => {
@@ -28,6 +29,7 @@ const Layout = () => {
                     <Routes>
                         <Route element= {<Register />} path="/register" />
                         <Route element={<Galery />} path="/galery" />
+                        <Route element={<ArtistGalery />} path="/artistgalery" />
                         <Route element={<Profile />} path="/profile" />
                         <Route element={<Login />} path="/login" />
                         <Route element={<Home />} path="/" />
