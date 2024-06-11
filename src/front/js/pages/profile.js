@@ -60,28 +60,35 @@ export const Profile = () => {
         setWorks(works.filter(work => work.id !== id));
     };
 
-    const handleWorkClick = (work) => {
-        setSelectedWork(work);
-    };
+    // const handleWorkClick = (work) => {
+    //     setSelectedWork(work);
+    // };
 
-    const handleOnSubmit = (e) => {
+    const settersFunction = async () => {
+        setNewWork({ ...newWork, image: store.image })
+        setShouldSubmit(true)
+        setOpenModal(false)
+    }
+
+    const handleOnSubmit = async (e) => {
         e.preventDefault()
-        setNewWork({ ...newWork, image: store.image }).then(
-            setShouldSubmit(true)).then(setOpenModal(false)).then(
-                actions.uploadWork(newWork))
+        await settersFunction()
+        addWork()
     }
 
     useEffect(() => {
         if (shouldSubmit) {
             console.log(newWork);
             setShouldSubmit(false);
-            addWork()
+            actions.uploadWork(newWork)
         }
     }, [shouldSubmit])
 
     useEffect(() => {
         console.log(works)
     }, [works])
+
+    console.log(shouldSubmit)
 
     return (
         <div className="container mt-5">

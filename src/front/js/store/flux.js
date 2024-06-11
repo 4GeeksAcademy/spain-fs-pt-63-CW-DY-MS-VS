@@ -61,10 +61,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}, body: JSON.stringify(work)
 					})
 					const newWork = await resp.json()
+					console.log(newWork)
 					return newWork
 				} catch (error) {
-					console.log("Error", error)
+					console.log("Error in FLUX", error)
 				}
+			},
+			setImage: async (imgId) => {
+				const store = getStore()
+				setStore({ ...store, image: imgId })
 			}
 		}
 	};
