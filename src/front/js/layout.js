@@ -8,7 +8,6 @@ import { Home } from "./pages/home";
 import injectContext from "./store/appContext";
 import Galeries from "./pages/galeries";
 import Login from "./pages/login";
-import Profile from "./pages/profile"
 
 
 import { Navbar } from "./component/navbar";
