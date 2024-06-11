@@ -45,7 +45,8 @@ const ImageInput = () => {
 
     return (
         <div>
-            {!myImage && <button className="btn btn-secondary" onClick={() => widgetRef.current.open()}>Select Image</button>}
+            {!myImage && <button className="btn btn-secondary" onClick={() => 
+                widgetRef.current.open()}>Select Image</button>}
             {myImage && <AdvancedImage cldImg={myImage} />}
         </div>
     )

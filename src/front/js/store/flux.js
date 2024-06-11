@@ -44,14 +44,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 			uploadWorkImage: async (imgId) => {
 				try {
 					const store = getStore();
+					const image = imgId
+					setStore({ ...store, image: image })
 					// const resp = await fetch(process.env.BACKEND_URL + "/api/work", {
 					// 	method: 'POST',
 					// 	headers: {
 					// 		'Content-Type': 'application/json'
 					// 	}, body: JSON.stringify(work)
 					//})
-					const image = imgId
-					setStore({ ...store, image: image })
 
 					return image;
 				} catch (error) {
