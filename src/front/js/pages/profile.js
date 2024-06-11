@@ -9,7 +9,7 @@ export const Profile = () => {
     const { store, actions } = useContext(Context)
     const [profileType, setProfileType] = useState("Artist");
     const [works, setWorks] = useState([{
-        artistId
+        artist_id
             :
             "0e322f1e-e2ef-42c1-8426-b7b389616f9e",
         description
@@ -39,7 +39,7 @@ export const Profile = () => {
 
     const [newWork, setNewWork] = useState({
         title: "", type: "", year: "", image: "",
-        description: "", price: "", artistId: "0e322f1e-e2ef-42c1-8426-b7b389616f9e"
+        description: "", price: "", artist_id: "0e322f1e-e2ef-42c1-8426-b7b389616f9e"
     })
 
     const cld = new Cloudinary({
@@ -52,7 +52,7 @@ export const Profile = () => {
         setWorks([...works, newWork]);
         setNewWork({
             title: "", type: "", year: "", image: "",
-            description: "", price: "", artistId: "0e322f1e-e2ef-42c1-8426-b7b389616f9e"
+            description: "", price: "", artist_id: "0e322f1e-e2ef-42c1-8426-b7b389616f9e"
         })
     };
 
@@ -66,9 +66,9 @@ export const Profile = () => {
 
     const handleOnSubmit = (e) => {
         e.preventDefault()
-        setNewWork({ ...newWork, image: store.image })
-        setShouldSubmit(true)
-        setOpenModal(false)
+        setNewWork({ ...newWork, image: store.image }).then(
+            setShouldSubmit(true)).then(setOpenModal(false)).then(
+                actions.uploadWork(newWork))
     }
 
     useEffect(() => {

@@ -46,21 +46,25 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const store = getStore();
 					const image = imgId
 					setStore({ ...store, image: image })
-					// const resp = await fetch(process.env.BACKEND_URL + "/api/work", {
-					// 	method: 'POST',
-					// 	headers: {
-					// 		'Content-Type': 'application/json'
-					// 	}, body: JSON.stringify(work)
-					//})
-
 					return image;
 				} catch (error) {
 					console.log("Error loading message from backend", error)
 				}
 			},
-			setImage: async (imgId) => {
-				const store = getStore()
-				setStore({ ...store, image: imgId })
+			uploadWork: async (work) => {
+				try {
+					const store = getStore()
+					const resp = await fetch(process.env.BACKEND_URL + "/api/work", {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json'
+						}, body: JSON.stringify(work)
+					})
+					const newWork = await resp.json()
+					return newWork
+				} catch (error) {
+					console.log("Error", error)
+				}
 			}
 		}
 	};
