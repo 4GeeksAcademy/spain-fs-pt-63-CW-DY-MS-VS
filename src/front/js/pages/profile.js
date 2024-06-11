@@ -1,9 +1,28 @@
 import React, { useState, useContext, useEffect } from "react";
-import { AdvancedImage } from '@cloudinary/react';
+import { MdOutlinePlaylistAdd } from "react-icons/md";
 import { Context } from "../store/appContext";
 import ImageInput from "../component/imageInput";
-import { Cloudinary } from "@cloudinary/url-gen/index";
-import { MdOutlinePlaylistAdd } from "react-icons/md";
+import ImageCloudinary from "../component/imageCloudinary";
+
+const WorksImages = ({ works }) => {
+
+    console.log(works)
+
+    return (
+        <>
+            {works.map((work, index) => (
+                <ImageCloudinary
+                    key={index}
+                    imgId={work.image}
+                    classNames="work-title d-flex flex-col"
+                    onClick={() => { }}//handleWorkClick(work)
+                    style={{ cursor: 'pointer', textDecoration: 'underline', width: "auto", height: "150px" }}
+                />
+                // {work.title}
+            ))}
+        </>
+    )
+}
 
 export const Profile = () => {
     const { store, actions } = useContext(Context)
@@ -84,11 +103,6 @@ export const Profile = () => {
         }
     }, [shouldSubmit])
 
-    useEffect(() => {
-        console.log(works)
-    }, [works])
-
-    console.log(shouldSubmit)
 
     return (
         <div className="container mt-5">
@@ -153,16 +167,7 @@ export const Profile = () => {
                                     <MdOutlinePlaylistAdd style={{ width: "25px", height: "25px" }} />
                                 </button>
                             </div>
-                            {works.map((work, index) => (
-                                <AdvancedImage
-                                    key={index}
-                                    cldImg={cld.image(work.image)}
-                                    className="work-title d-flex flex-col"
-                                    onClick={() => { }}//handleWorkClick(work)
-                                    style={{ cursor: 'pointer', textDecoration: 'underline', width: "auto", height: "150px" }}
-                                />
-                                // {work.title}
-                            ))}
+                            <WorksImages works={works} />
                         </div>
                         <div className="my-3">
                             <label className="form-label">Descripción del Artista:</label>
@@ -173,15 +178,11 @@ export const Profile = () => {
                                 placeholder="Escribe una breve descripción sobre ti como artista"
                             />
                         </div>
-
                     </div>
                     <button className="btn btn-secondary borderRadius 0">Guardar Perfil</button>
                 </div>
-
-
             ) : (
                 <div>
-
                     <h2>Perfil del Cliente</h2>
                     {/* Contenido específico del perfil del cliente */}
                 </div>
