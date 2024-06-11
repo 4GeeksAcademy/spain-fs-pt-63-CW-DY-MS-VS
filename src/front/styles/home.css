@@ -1,4 +1,3 @@
-
 /* 
     Colores: {
         blanco: #FFFFFF
@@ -8,23 +7,62 @@
         lavanda: #7C77B9
    }
  */
- .navbar {
-  background: #000000;
-  padding: 0%;
-  margin-top: 0%;
-  padding-bottom: 12px;
-  color: #FFFFFF;
- }
 
-text-white {
-  color: #FFFFFF 
+.frase {
+  background-color: #7c77b9;
+  border-radius: 20px;
+  color: #ffffff;
 }
- 
+body {
+  background-color: #a5a5a5;
+}
+#search-input {
+  border-radius: 15px;
+  margin-bottom: 10px;
+}
+.buscar {
+  border-radius: 8px;
+  background-color: #7c77b9;
+  color: #ffffff;
+  box-shadow:0 8px 12px rgba(0, 0, 78, 0.2);
+  
+}
+.card{
+  width: 300px;
+
+}
+.detalle{
+  color: #7c77b9;
+}
+.fixed-img {
+  width: 100%;
+  height: 200px; 
+  object-fit: cover;
+}
+
+.navbar a {
+  text-decoration: none; /* Asegúrate de que no haya subrayado por defecto */
+  color: inherit; /* Para heredar el color de la navbar */
+  padding: 0 0.5em 0.25em; /* Asegúrate de que haya padding consistente */
+}
+
+.navbar a:hover {
+  display: inline-block;
+  background: linear-gradient(transparent 70%, #7c77b9 70%);
+  background-size: 100% 12px; /* Grosor de la línea */
+  background-repeat: no-repeat;
+  background-position: 0 95%;
+  padding-bottom: 4px; /* Ajusta el padding según el grosor de la línea */
+  text-decoration: none; /* Elimina el subrayado por defecto */
+}
+
+
+
  footer {
   background: #000000;
   padding: 0%;
   margin-bottom: 0%;
   color:#FFFFFF
-
-
  }
+ 
+
