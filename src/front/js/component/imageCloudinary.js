@@ -7,14 +7,14 @@ const cld = new Cloudinary({
     }
 })
 
-const ImageCloudinary = ({ imgId, classNames, onClick }) => {
+const ImageCloudinary = ({ imgId, classNames, onClick, style }) => {
 
     return (
         <AdvancedImage
             cldImg={cld.image(imgId)}
             className={classNames}
             onClick={onClick}//handleWorkClick(work)
-        // style={{ cursor: 'pointer', textDecoration: 'underline', width: "auto", height: "150px" }}
+            style={style}
         />
     )
 }

@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { MdOutlinePlaylistAdd } from "react-icons/md";
 import { Context } from "../store/appContext";
-import ImageInput from "../component/imageInput";
+import WorksComponent from "../component/worksComponent";
 import ImageCloudinary from "../component/imageCloudinary";
 
 const WorksImages = ({ works }) => {
@@ -18,7 +18,6 @@ const WorksImages = ({ works }) => {
                     onClick={() => { }}//handleWorkClick(work)
                     style={{ cursor: 'pointer', textDecoration: 'underline', width: "auto", height: "150px" }}
                 />
-                // {work.title}
             ))}
         </>
     )
@@ -28,81 +27,30 @@ export const Profile = () => {
     const { store, actions } = useContext(Context)
     const [profileType, setProfileType] = useState("Artist");
     const [works, setWorks] = useState([{
-        artist_id
-            :
-            "0e322f1e-e2ef-42c1-8426-b7b389616f9e",
-        description
-            :
-            "s",
-        image
-            :
-            "xzzoast4kbiv0u9t1vkn",
-        price
-            :
-            "2",
-        title
-            :
-            "Straw",
-        type
-            :
-            "Photography",
-        year
-            :
-            "2010"
+        artist_id: "0e322f1e-e2ef-42c1-8426-b7b389616f9e", description: "s", image: "xzzoast4kbiv0u9t1vkn",
+        price: "2", title: "Straw", type: "Photography", year: "2010"
     }]);
     const [salesBalance, setSalesBalance] = useState(0);
     const [openModal, setOpenModal] = useState(false)
     const [selectedWork, setSelectedWork] = useState("");
     const [artistDescription, setArtistDescription] = useState("");
-    const [shouldSubmit, setShouldSubmit] = useState(false);
 
-    const [newWork, setNewWork] = useState({
-        title: "", type: "", year: "", image: "",
-        description: "", price: "", artist_id: "0e322f1e-e2ef-42c1-8426-b7b389616f9e"
-    })
-
-    const cld = new Cloudinary({
-        cloud: {
-            cloudName: 'dxnxb4dus'
-        }
-    })
-
-    const addWork = () => {
+    const addWork = (newWork) => {
         setWorks([...works, newWork]);
-        setNewWork({
-            title: "", type: "", year: "", image: "",
-            description: "", price: "", artist_id: "0e322f1e-e2ef-42c1-8426-b7b389616f9e"
-        })
     };
 
-    const removeWork = (id) => {
-        setWorks(works.filter(work => work.id !== id));
-    };
-
-    // const handleWorkClick = (work) => {
-    //     setSelectedWork(work);
-    // };
-
-    const settersFunction = async () => {
-        setNewWork({ ...newWork, image: store.image })
-        setShouldSubmit(true)
-        setOpenModal(false)
-    }
-
-    const handleOnSubmit = async (e) => {
+    const handleOnSubmit = async (e, newWork) => {
         e.preventDefault()
-        await settersFunction()
-        addWork()
+        const work = { ...newWork, image: store.image }
+        addWork(work)
+        setOpenModal(false)
+        actions.uploadWork(work)
     }
 
-    useEffect(() => {
-        if (shouldSubmit) {
-            console.log(newWork);
-            setShouldSubmit(false);
-            actions.uploadWork(newWork)
-        }
-    }, [shouldSubmit])
-
+    //TO DO: eliminar obra 
+    // const removeWork = (id) => {
+    //     setWorks(works.filter(work => work.id !== id));
+    // };
 
     return (
         <div className="container mt-5">
@@ -111,41 +59,7 @@ export const Profile = () => {
                 onClick={() => setProfileType(profileType === "Artist" ? "Client" : "Artist")}>
                 Cambiar a {profileType === "Artist" ? "Client" : "Artist"}
             </button>
-            {openModal && <form onSubmit={handleOnSubmit} className="modal position-absolute d-flex top-50 start-50 translate-middle 
-            justify-content-center align-items-center
-            bg-dark bg-opacity-50 w-100 h-100 z-3">
-                <div className="bg-light w-50 h-auto border rounded-3 p-4 d-flex flex-column gap-1
-                align-items-center">
-                    <div className="w-100 pt-0 pb-1 modal-header d-flex justify-content-between">
-                        <h5 className="modal-title">Add Your New Work</h5>
-                        <button type="button" className="btn-close" onClick={() => setOpenModal(false)}></button>
-                    </div>
-                    <div className="my-2">
-                        <ImageInput />
-                    </div>
-                    <input type="text" className="form-control" value={newWork.title} required
-                        onChange={(e) => setNewWork({ ...newWork, title: e.target.value })} placeholder="Title" />
-                    <textarea className="form-control" placeholder="Description" value={newWork.description} required
-                        onChange={(e) => setNewWork({ ...newWork, description: e.target.value })} ></textarea>
-                    <input className="form-control" type="number" placeholder="Price" value={newWork.price}
-                        onChange={(e) => setNewWork({ ...newWork, price: e.target.value })} required />
-                    <select className="form-select" placeholder="Type of Work" value={newWork.type}
-                        onChange={(e) => setNewWork({ ...newWork, type: e.target.value })} required >
-                        <option value={""}>Select Type of Work</option>
-                        <option>Painting</option>
-                        <option>Digital Art</option>
-                        <option>Photography</option>
-                    </select>
-                    <select value={newWork.year} className="form-select" required
-                        onChange={(e) => setNewWork({ ...newWork, year: e.target.value })}>
-                        <option value="">Select Year</option>
-                        <option value={2020}>2020</option>
-                        <option value={2010}>2010</option>
-                        <option value={2000}>2000</option>
-                    </select>
-                    <button type="submit" className="btn btn-primary align-self-end">Save</button>
-                </div>
-            </form>}
+            {openModal && <WorksComponent onSubmit={handleOnSubmit} closeModal={() => setOpenModal(false)} />}
             {profileType === "Artist" ? (
                 <div>
                     <h2>Perfil del Artista</h2>
@@ -188,7 +102,7 @@ export const Profile = () => {
                 </div>
             )}
 
-            {selectedWork && (
+            {/* {selectedWork && (
                 <div className="card" style={{
                     position: 'fixed',
                     top: '50%',
@@ -222,7 +136,7 @@ export const Profile = () => {
                         </button>
                     </div>
                 </div>
-            )}
+            )} */}
         </div>
     );
 };
