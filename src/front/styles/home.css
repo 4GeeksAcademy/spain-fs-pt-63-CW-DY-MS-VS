@@ -40,21 +40,52 @@ body {
   object-fit: cover;
 }
 
-.navbar a {
-  text-decoration: none; /* Asegúrate de que no haya subrayado por defecto */
-  color: inherit; /* Para heredar el color de la navbar */
-  padding: 0 0.5em 0.25em; /* Asegúrate de que haya padding consistente */
+.navbar {
+  font-size: 25px;
+  display: block;
+  color: #FFFFFF;
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;  
+}
+.nav-item:last-child {
+  margin-right: 0;
 }
 
+.dropdown-menu a:hover {
+  display: block; /* Asegura que los enlaces ocupen todo el espacio del li */
+  padding: 12px 16px; /* Espacio interno alrededor de cada item */
+  text-decoration: none; /* Quita el subrayado */
+  color:#ffffff ; /* Color del texto */
+  background-color:#a5a5a5 ; /* Fondo del dropdown */
+    min-width: 160px; /* Ancho mínimo del dropdown */
+    z-index: 1; /* Asegura que el dropdown esté por encima de otros elementos */
+}
+
+.nav-item {
+  padding: 20px 30px;
+  margin-right: 7px;
+}
 .navbar a:hover {
   display: inline-block;
-  background: linear-gradient(transparent 70%, #7c77b9 70%);
-  background-size: 100% 12px; /* Grosor de la línea */
+  background-size: 100% 14px; /* Grosor de la línea */
+  border-radius: 60px;
   background-repeat: no-repeat;
   background-position: 0 95%;
   padding-bottom: 4px; /* Ajusta el padding según el grosor de la línea */
-  text-decoration: none; /* Elimina el subrayado por defecto */
+  cursor:pointer;
+  scale: 1;
 }
+.navbar a:hover::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 4px;
+  width: 100%;
+  background-color: #7c77b9;
+  border-radius: 3px;
+}
+
 
 
 
