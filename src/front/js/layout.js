@@ -26,7 +26,7 @@ const Layout = () => {
                 <ScrollToTop>
                     <Navbar />
                     <Routes>
-                        <Route element= {<Register />} path="/register" />
+                        <Route element={<Register />} path="/register" />
                         <Route element={<Galery />} path="/galery" />
                         <Route element={<Profile />} path="/profile" />
                         <Route element={<Login />} path="/login" />
