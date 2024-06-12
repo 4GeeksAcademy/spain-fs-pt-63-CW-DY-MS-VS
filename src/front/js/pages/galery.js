@@ -1,10 +1,6 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { Context } from '../store/appContext'
-
-
-
-
 const artists = {
   artist1: {
     first_name: 'Pablo',
@@ -50,7 +46,7 @@ export const Galery = () => {
       {
         artistsArray.map((el) => (
           <div className='artist my-2' >
-            <Link to={`/artistGalery/${artists.artist1}/${artist.last_name}/${index}`}>
+            <Link to={'/artistGalery'}>
               <h3 className="text-danger m-3">{el.first_name + ' ' + el.last_name}</h3>
             </Link>
             <div className='row'>
@@ -65,12 +61,9 @@ export const Galery = () => {
               }
             </div>
           </div>
-
-
         ))
       }
     </div>
-
   )
 }
 

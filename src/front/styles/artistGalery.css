@@ -1,0 +1,38 @@
+.card-custom {
+  width: 28rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-custom img {
+  object-fit: cover;
+  height: 200px;
+  margin-top: 15px;
+}
+
+.card-custom .card-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+#texto{
+  display: inline-block;
+  vertical-align: top;
+}
+.container {
+  display: flex;
+  align-items: center;
+}
+
+#texto {
+  margin-right: 20px; /* Ajusta el espaciado según sea necesario */
+}
+
+.foto {
+  width: 100px; /* Ajusta el tamaño de la imagen según sea necesario */
+  height: 100px; /* Asegúrate de que la altura coincida con el ancho para que sea redonda */
+  border-radius: 50%; /* Hace la imagen redonda */
+  object-fit: cover; /* Asegura que la imagen se ajuste dentro del contenedor redondo */
+}
