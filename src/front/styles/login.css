@@ -1,0 +1,28 @@
+.radio-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px; 
+  }
+  
+  .radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 5px; 
+    border-radius: 20px;
+   
+  }
+  .go{
+    border-radius: 20px;
+    background-color: rgb(85, 8, 157);
+    color: antiquewhite;
+    box-shadow:0 15px 12px rgba(0, 0, 78, 0.2);
+
+  }
+  .email{
+    border-radius: 20px;
+    box-shadow:0 15px 12px rgba(0, 0, 78, 0.2);
+  }
+  .password{
+    border-radius: 20px;
+    box-shadow:0 15px 12px rgba(0, 0, 78, 0.2);
+  }
