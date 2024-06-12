@@ -66,24 +66,36 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error loading message from backend", error)
 				}
 			},
-			// uploadWorkImage: async (imgId) => {
-			// 	try {
-			// 		const store = getStore();
-			// 		// const resp = await fetch(process.env.BACKEND_URL + "/api/work", {
-			// 		// 	method: 'POST',
-			// 		// 	headers: {
-			// 		// 		'Content-Type': 'application/json'
-			// 		// 	}, body: JSON.stringify(work)
-			// 		//})
-			// 		const image = imgId
-			// 		setStore({ ...store, image: image })
-
-			// 		return image;
-			// 	} catch (error) {
-			// 		console.log("Error loading message from backend", error)
-			// 	}
-			// }
-
+			uploadWorkImage: async (imgId) => {
+				try {
+					const store = getStore();
+					const image = imgId
+					setStore({ ...store, image: image })
+					return image;
+				} catch (error) {
+					console.log("Error loading message from backend", error)
+				}
+			},
+			uploadWork: async (work) => {
+				try {
+					const store = getStore()
+					const resp = await fetch(process.env.BACKEND_URL + "/api/work", {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json'
+						}, body: JSON.stringify(work)
+					})
+					const newWork = await resp.json()
+					console.log(newWork)
+					return newWork
+				} catch (error) {
+					console.log("Error in FLUX", error)
+				}
+			},
+			setImage: async (imgId) => {
+				const store = getStore()
+				setStore({ ...store, image: imgId })
+			}
 		}
 	};
 };

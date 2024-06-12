@@ -1,42 +1,65 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { MdOutlinePlaylistAdd } from "react-icons/md";
+import { Context } from "../store/appContext";
+import WorksComponent from "../component/worksComponent";
+import ImageCloudinary from "../component/imageCloudinary";
 
- export const Profile = () => {
+const WorksImages = ({ works }) => {
+
+    console.log(works)
+
+    return (
+        <>
+            {works.map((work, index) => (
+                <ImageCloudinary
+                    key={index}
+                    imgId={work.image}
+                    classNames="work-title d-flex flex-col"
+                    onClick={() => { }}//handleWorkClick(work)
+                    style={{ cursor: 'pointer', textDecoration: 'underline', width: "auto", height: "150px" }}
+                />
+            ))}
+        </>
+    )
+}
+
+export const Profile = () => {
+    const { store, actions } = useContext(Context)
     const [profileType, setProfileType] = useState("Artist");
-    const [works, setWorks] = useState([]);
-    const [selectedWork, setSelectedWork] = useState(null);
+    const [works, setWorks] = useState([{
+        artist_id: "0e322f1e-e2ef-42c1-8426-b7b389616f9e", description: "s", image: "xzzoast4kbiv0u9t1vkn",
+        price: "2", title: "Straw", type: "Photography", year: "2010"
+    }]);
     const [salesBalance, setSalesBalance] = useState(0);
-    const [newWorkTitle, setNewWorkTitle] = useState("");
+    const [openModal, setOpenModal] = useState(false)
+    const [selectedWork, setSelectedWork] = useState("");
     const [artistDescription, setArtistDescription] = useState("");
 
-
-    const addWork = () => {
-        if (newWorkTitle.trim() !== "") {
-            setWorks([...works, { id: Date.now(), title: newWorkTitle.trim(), imageUrl: "https://via.placeholder.com/50" }]);
-            setNewWorkTitle("");
-        }
+    const addWork = (newWork) => {
+        setWorks([...works, newWork]);
     };
 
-    const removeWork = (id) => {
-        setWorks(works.filter(work => work.id !== id));
-    };
+    const handleOnSubmit = async (e, newWork) => {
+        e.preventDefault()
+        const work = { ...newWork, image: store.image }
+        addWork(work)
+        setOpenModal(false)
+        actions.uploadWork(work)
+    }
 
-    const handleWorkClick = (work) => {
-        setSelectedWork(work);
-    };
-
-    const handleCloseImage = () => {
-        setSelectedWork(null);
-    };
+    //TO DO: eliminar obra 
+    // const removeWork = (id) => {
+    //     setWorks(works.filter(work => work.id !== id));
+    // };
 
     return (
         <div className="container mt-5">
             <button
                 className="btn btn-secondary borderRadius 0 mb-3"
-                onClick={() => setProfileType(profileType === "Artist" ? "Client" : "Artist")}
-            >
+                onClick={() => setProfileType(profileType === "Artist" ? "Client" : "Artist")}>
                 Cambiar a {profileType === "Artist" ? "Client" : "Artist"}
             </button>
-
+            {openModal && <WorksComponent onSubmit={handleOnSubmit} closeModal={() => setOpenModal(false)} />}
             {profileType === "Artist" ? (
                 <div>
                     <h2>Perfil del Artista</h2>
@@ -46,38 +69,21 @@ import React, { useState } from "react";
                             <p>{salesBalance}</p>
                         </div>
                     </div>
-                    <div className="mb-3">
+                    <div className="">
                         <label className="form-label">Obras:</label>
-                        <div>
-                            {works.map((work, index) => (
-                                <span
-                                    key={work.id}
-                                    className="work-title"
-                                    onClick={() => handleWorkClick(work)}
-                                    style={{ cursor: 'pointer', textDecoration: 'underline', color: 'blue' }}
+                        <div className="d-flex align-items-center flex-wrap gap-2 border rounded-2 border-secondary p-3">
+                            <div className="p-2 border-dashed rounded-2 me-3">
+                                <button
+                                    type="button"
+                                    className="btn btn-secondary p-4 py-5 d-flex justify-content-center align-items-center"
+                                    onClick={() => setOpenModal(true)}
                                 >
-                                    {work.title}{index < works.length - 1 && ', '}
-                                </span>
-                            ))}
+                                    <MdOutlinePlaylistAdd style={{ width: "25px", height: "25px" }} />
+                                </button>
+                            </div>
+                            <WorksImages works={works} />
                         </div>
-                        <div className="input-group mb-3">
-                            <input
-                                type="text"
-                                className="form-control"
-                                value={newWorkTitle}
-                                onChange={(e) => setNewWorkTitle(e.target.value)}
-                                placeholder="Título de la nueva obra"
-                            />
-                            <button
-                                type="button"
-                                className="btn btn-secondary borderRadius 0"
-                                onClick={addWork}
-                            >
-                                Añadir Obra
-                            </button>
-
-                        </div>
-                        <div className="mb-3">
+                        <div className="my-3">
                             <label className="form-label">Descripción del Artista:</label>
                             <textarea
                                 className="form-control"
@@ -86,21 +92,17 @@ import React, { useState } from "react";
                                 placeholder="Escribe una breve descripción sobre ti como artista"
                             />
                         </div>
-
                     </div>
                     <button className="btn btn-secondary borderRadius 0">Guardar Perfil</button>
                 </div>
-
-
             ) : (
                 <div>
-
                     <h2>Perfil del Cliente</h2>
                     {/* Contenido específico del perfil del cliente */}
                 </div>
             )}
 
-            {selectedWork && (
+            {/* {selectedWork && (
                 <div className="card" style={{
                     position: 'fixed',
                     top: '50%',
@@ -134,7 +136,7 @@ import React, { useState } from "react";
                         </button>
                     </div>
                 </div>
-            )}
+            )} */}
         </div>
     );
 };
