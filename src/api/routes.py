@@ -193,13 +193,7 @@ def create_work():
     if not title or not artist_id or not image:
         return jsonify({"Error": "Title, Image and Artist ID are required"}), 400
 
-    try:
-        upload_result = cloudinary.uploader.upload(image)
-        image_url = upload_result.get("url")
-    except Exception as ex:
-        return jsonify({"Message": "Image upload failed", "Error": str(ex)}), 500
-
-    new_work = Work(id = work_id, title=title, type=type, year=year, image=image_url, description=description, price=price, artist_id=artist_id)
+    new_work = Work(id = work_id, title=title, type=type, year=year, image=image, description=description, price=price, artist_id=artist_id)
 
     try:
         db.session.add(new_work)
