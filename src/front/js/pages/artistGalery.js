@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { useParams } from "react-router-dom";
+import { color } from "@cloudinary/url-gen/qualifiers/background";
 
 const artists = {
   artist1: {
@@ -51,10 +52,19 @@ const ArtistGallery = () => {
 
   return (
     <div className="container text-center">
-    <div className="container">
-  <p id="texto">Lista de Lubricantes</p>
-  <img src="https://th.bing.com/th/id/R.0973017ae654bf15204c6c84613836e6?rik=%2bdvTDceq3eZPxw&riu=http%3a%2f%2f1.bp.blogspot.com%2f-YlE3uaRr1Mw%2fVq6CwYsuNYI%2fAAAAAAAAAFc%2fdfsXsS3ZysY%2fs1600%2fda-vinci.jpg&ehk=gvePfc1xadZGh9%2f0JD81AEdsmwFNms3VsQ3Q0ST%2buBk%3d&risl=&pid=ImgRaw&r=0" className="foto"/>
-</div>
+      <div className="encabezado  ">
+      <div className="row d-flex flex-nowrap text-start mt-5">
+  <div className="col-sm-12 col-md-6 col-lg-12 col-xl-2">
+    <img src="https://th.bing.com/th/id/R.0973017ae654bf15204c6c84613836e6?rik=%2bdvTDceq3eZPxw&riu=http%3a%2f%2f1.bp.blogspot.com%2f-YlE3uaRr1Mw%2fVq6CwYsuNYI%2fAAAAAAAAAFc%2fdfsXsS3ZysY%2fs1600%2fda-vinci.jpg&ehk=gvePfc1xadZGh9%2f0JD81AEdsmwFNms3VsQ3Q0ST%2buBk%3d&risl=&pid=ImgRaw&r=0"
+      style={{ height: "15rem", objectFit: "contain", border: "10px solid #000", borderRadius: "50%" }} />
+  </div>
+  <div className="col-sm-12 col-md-6 col-lg-12 col-xl-10   text-container  bg-dark text-white  ms-2   p-3">
+    <p>Leonardo da Vinci, cuyo nombre completo era Leonardo di ser Piero da Vinci, fue un polímata florentino  del  Renacimiento italiano  . Su genialidad abarcó diversas disciplinas: pintura, anatomía, arquitectura, ingeniería, escultura, filosofía, música, poesía y más. Entre sus obras más famosas se encuentran La Mona Lisa y La Última Cena. Además, desarrolló ideas avanzadas para su época, como el helicóptero y el automóvil. Aunque muchos de sus proyectos no se construyeron, su legado sigue inspirando a generaciones.</p>
+  </div>
+</div>          
+        
+
+      </div>
       <div>
         <div id="carouselExampleDark" className="carousel carousel-dark slide">
           <div className="carousel-indicators">
@@ -83,13 +93,14 @@ const ArtistGallery = () => {
             <div className="carousel-item active" data-bs-interval="10000">
               <div className="row">
                 <div className="col-sm-1 col-lg-6 col-xl-4 col-md-12">
-                  <div className="card" style={{ width: "18rem", height: "35rem" }}>
+                  <div className="card" style={{ width: "18rem", height: "35rem", backgroundColor: "rgba(255, 255, 255, 0.6)" }}>
                     <img
                       src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7KVQ9F9Wlrnd1psv2F5ekTLP-veNiCSRXYTKIGFygntGCUAe3Qg0dICves2ObP2Y9CLU&usqp=CAU"
-                      className="card-img-top mt-2"
+                      className="card-img-top mt-2 "
                       alt="..."
-                      style={{ height: "15rem", objectFit: "contain" }}
+                      style={{ height: "15rem", objectFit: "contain", border: "10px solid #000",padding:"10px", width:"200px", alignSelf:"center",boxShadow:"0 0 20px rgba(0, 0, 0, 0.5)",backgroundColor:" #5d5b5b" }}
                     />
+
                     <div className="card-body">
                       <h5 className="card-title">
                         <h3 className="mb-5">Cristo</h3>
@@ -103,12 +114,12 @@ const ArtistGallery = () => {
                   </div>
                 </div>
                 <div className="col-sm-1 col-lg-6 col-xl-4 col-md-12">
-                  <div className="card" style={{ width: "18rem", height: "35rem" }}>
+                  <div className="card" style={{ width: "18rem", height: "35rem", backgroundColor: "rgba(255, 255, 255, 0.6)" }}>
                     <img
                       src="https://cdn.culturagenial.com/es/imagenes/mona-lisa-0.jpg"
                       className="card-img-top mt-2"
                       alt="..."
-                      style={{ height: "15rem", objectFit: "contain" }}
+                      style={{ height: "15rem", objectFit: "contain", border: "10px solid #000",padding:"10px", width:"200px", alignSelf:"center",boxShadow:"0 0 20px rgba(0, 0, 0, 0.5)",backgroundColor:" #5d5b5b" }}
                     />
                     <div className="card-body">
                       <h5 className="card-title">
@@ -123,12 +134,12 @@ const ArtistGallery = () => {
                   </div>
                 </div>
                 <div className="col-sm-1 col-lg-6 col-xl-4 col-md-12">
-                  <div className="card" style={{ width: "18rem", height: "35rem", }}>
+                  <div className="card" style={{ width: "18rem", height: "35rem", backgroundColor: "rgba(255, 255, 255, 0.6)" }}>
                     <img
                       src="https://antigonejournal.com/wp-content/uploads/2021/05/VM2-1024x1010.png"
                       className="card-img-top mt-2"
                       alt="..."
-                      style={{ height: "15rem", objectFit: "contain" }}
+                      style={{ height: "15rem", objectFit: "contain", border: "10px solid #000",padding:"10px", width:"200px", alignSelf:"center",boxShadow:"0 0 20px rgba(0, 0, 0, 0.5)",backgroundColor:" #5d5b5b" }}
                     />
                     <div className="card-body">
 
@@ -137,7 +148,7 @@ const ArtistGallery = () => {
                       </h5>
                       <p className="card-text">Obra sobre lienzo</p>
                       <p className="card-text">Precio: 700.00 €</p>
-                       <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart  " viewBox="0 0 16 16">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart  " viewBox="0 0 16 16">
                         <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
                       </svg>
                     </div>
@@ -150,12 +161,12 @@ const ArtistGallery = () => {
             <div className="carousel-item" data-bs-interval="2000">
               <div className="row">
                 <div className="col-sm-1 col-lg-6 col-xl-4 col-md-12">
-                  <div className="card" style={{ width: "18rem", height: "35rem" }}>
+                  <div className="card" style={{ width: "18rem", height: "35rem", backgroundColor: "rgba(255, 255, 255, 0.6)" }}>
                     <img
                       src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/The_Last_Supper_-_Leonardo_Da_Vinci_-_High_Resolution_32x16.jpg/400px-The_Last_Supper_-_Leonardo_Da_Vinci_-_High_Resolution_32x16.jpg"//1
                       className="card-img-top mt-2"
                       alt="..."
-                      style={{ height: "15rem", objectFit: "contain" }}
+                      style={{ height: "15rem", objectFit: "contain", border: "10px solid #000",padding:"10px", width:"200px", alignSelf:"center",boxShadow:"0 0 20px rgba(0, 0, 0, 0.5)",backgroundColor:" #5d5b5b" }}
                     />
                     <div className="card-body">
                       <h5 className="card-title">
@@ -170,12 +181,12 @@ const ArtistGallery = () => {
                   </div>
                 </div>
                 <div className="col-sm-1 col-lg-6 col-xl-4 col-md-12">
-                  <div className="card" style={{ width: "18rem", height: "35rem" }}>
+                  <div className="card" style={{ width: "18rem", height: "35rem", backgroundColor: "rgba(255, 255, 255, 0.6)" }}>
                     <img
                       src="https://cdn.culturagenial.com/es/imagenes/mona-lisa-0.jpg"
                       className="card-img-top mt-2"
                       alt="..."
-                      style={{ height: "15rem", objectFit: "contain" }}
+                      style={{ height: "15rem", objectFit: "contain", border: "10px solid #000",padding:"10px", width:"200px", alignSelf:"center",boxShadow:"0 0 20px rgba(0, 0, 0, 0.5)",backgroundColor:" #5d5b5b" }}
                     />
                     <div className="card-body">
                       <h5 className="card-title">
@@ -190,12 +201,12 @@ const ArtistGallery = () => {
                   </div>
                 </div>
                 <div className="col-sm-1 col-lg-6 col-xl-4 col-md-12">
-                  <div className="card" style={{ width: "18rem", height: "35rem", }}>
+                  <div className="card" style={{ width: "18rem", height: "35rem", backgroundColor: "rgba(255, 255, 255, 0.6)" }}>
                     <img
                       src="https://antigonejournal.com/wp-content/uploads/2021/05/VM2-1024x1010.png"
                       className="card-img-top mt-2"
                       alt="..."
-                      style={{ height: "15rem", objectFit: "contain" }}
+                      style={{ height: "15rem", objectFit: "contain", border: "10px solid #000",padding:"10px", width:"200px", alignSelf:"center",boxShadow:"0 0 20px rgba(0, 0, 0, 0.5)",backgroundColor:" #5d5b5b" }}
                     />
                     <div className="card-body">
 
@@ -214,14 +225,14 @@ const ArtistGallery = () => {
 
             </div>
             <div className="carousel-item">
-            <div className="row">
+              <div className="row">
                 <div className="col-sm-1 col-lg-6 col-xl-4 col-md-12">
-                  <div className="card" style={{ width: "18rem", height: "35rem" }}>
+                  <div className="card" style={{ width: "18rem", height: "35rem", backgroundColor: "rgba(255, 255, 255, 0.6)" }}>
                     <img
                       src="https://sothebys-com.brightspotcdn.com/9d/54/c3ff319e46bf9ed2565160e11a98/rembrandt-portrait-of-saskia-van-uylenburgh-1612-1642-circa-1633-1634-gemaldegalerie-alte-meister-kassel.jpg"//1
                       className="card-img-top mt-2"
                       alt="..."
-                      style={{ height: "15rem", objectFit: "contain" }}
+                      style={{ height: "15rem", objectFit: "contain", border: "10px solid #000",padding:"10px", width:"200px", alignSelf:"center",boxShadow:"0 0 20px rgba(0, 0, 0, 0.5)",backgroundColor:" #5d5b5b" }}
                     />
                     <div className="card-body">
                       <h5 className="card-title">
@@ -236,12 +247,12 @@ const ArtistGallery = () => {
                   </div>
                 </div>
                 <div className="col-sm-1 col-lg-6 col-xl-4 col-md-12">
-                  <div className="card" style={{ width: "18rem", height: "35rem" }}>
+                  <div className="card" style={{ width: "18rem", height: "35rem", backgroundColor: "rgba(255, 255, 255, 0.6)" }}>
                     <img
                       src="https://cdn.culturagenial.com/es/imagenes/mona-lisa-0.jpg"
                       className="card-img-top mt-2"
                       alt="..."
-                      style={{ height: "15rem", objectFit: "contain" }}
+                      style={{ height: "15rem", objectFit: "contain", border: "10px solid #000",padding:"10px", width:"200px", alignSelf:"center",boxShadow:"0 0 20px rgba(0, 0, 0, 0.5)",backgroundColor:" #5d5b5b" }}
                     />
                     <div className="card-body">
                       <h5 className="card-title">
@@ -256,12 +267,12 @@ const ArtistGallery = () => {
                   </div>
                 </div>
                 <div className="col-sm-1 col-lg-6 col-xl-4 col-md-12">
-                  <div className="card" style={{ width: "18rem", height: "35rem", }}>
+                  <div className="card" style={{ width: "18rem", height: "35rem", backgroundColor: "rgba(255, 255, 255, 0.6)" }}>
                     <img
                       src="https://antigonejournal.com/wp-content/uploads/2021/05/VM2-1024x1010.png"
                       className="card-img-top mt-2"
                       alt="..."
-                      style={{ height: "15rem", objectFit: "contain" }}
+                      style={{ height: "15rem", objectFit: "contain", border: "10px solid #000",padding:"10px", width:"200px", alignSelf:"center",boxShadow:"0 0 20px rgba(0, 0, 0, 0.5)",backgroundColor:" #5d5b5b" }}
                     />
                     <div className="card-body">
 
@@ -277,7 +288,7 @@ const ArtistGallery = () => {
                   </div>
                 </div>
               </div>
-              
+
             </div>
           </div>
           <button

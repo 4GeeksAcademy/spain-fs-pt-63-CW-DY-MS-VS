@@ -27,7 +27,7 @@ export const Navbar = () => {
               </a>
               <ul className="dropdown-menu dropdown-menu-end">
                 <li><Link className="dropdown-item" to="/">Home</Link></li>
-                <li><Link className="dropdown-item" to="/galeries">Galery</Link></li>
+                <li><Link className="dropdown-item" to="/galery">Galery</Link></li>
                 <li><Link className="dropdown-item" to="/profile">Perfil</Link></li>
               </ul>
             </li>

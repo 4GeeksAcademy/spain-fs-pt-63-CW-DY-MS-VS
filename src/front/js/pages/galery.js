@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { Context } from '../store/appContext'
+import "../../styles/galery.css";
 const artists = {
   artist1: {
     first_name: 'Pablo',
@@ -53,8 +54,8 @@ export const Galery = () => {
               {
                 el.portraits.map((el) => (
                   <div className="col-12 col-md-3">
-                    <div className="card h-100"  >
-                      <img src={el} className="card-img-top w-auto" style={{ width: '400px', height: '300px' }} />
+                    <div className=" card h-100 " id="imagecontainer" >
+                      <img src={el} className="card-img-top w-auto foto " style={{ width: '400px', height: '300px' }} />
                     </div>
                   </div>
                 ))
