@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Context } from '../store/appContext'
 
@@ -44,7 +44,10 @@ const artists = {
 }
 const artistsArray = Object.values(artists);
 export const Galery = () => {
-  const { store } = useContext(Context)
+  const { store,actions } = useContext(Context)
+  useEffect(()=>{
+    actions.getAllArtists()
+  },[])
   return (
     <div>
       {
