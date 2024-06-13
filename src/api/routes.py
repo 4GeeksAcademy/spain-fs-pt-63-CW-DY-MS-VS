@@ -140,6 +140,21 @@ def get_artist():
     artist = User_Artist.query.get_or_404(id_artist)
     return jsonify(artist.serialize()), 200
 
+
+@api.route('/user_artists', methods=['GET'], endpoint='get_all_artists')
+def get_all_artists():
+    artists = User_Artist.query.all()
+    artists = [artist.serialize() for artist in artists]
+    print(artists)
+    return jsonify(artists), 200
+
+@api.route('/works/user_artist/<string:artist_id>', methods=['GET'], endpoint='get_works_by_artist')
+def get_works_by_artist(artist_id):
+    works = Work.query.filter_by(artist_id=artist_id).all()
+    return jsonify([work.serialize() for work in works]), 200
+
+
+
 @api.route('/user_artist/<string:id>', methods=['PUT'], endpoint='update_artist')
 def update_artist(id):
     data = request.json
