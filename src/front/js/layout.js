@@ -23,7 +23,7 @@ const Layout = () => {
                 <ScrollToTop>
                     <Navbar />
                     <Routes>
-                        <Route element= {<Register />} path="/register" />
+                        <Route element={<Register />} path="/register" />
                         <Route element={<Galery />} path="/galery" />
                         <Route element={<ArtistGalery />} path="/artistgalery" />
                         <Route element={<Profile />} path="/profile" />
@@ -37,4 +37,5 @@ const Layout = () => {
         </div>
     );
 };
+
 export default injectContext(Layout);

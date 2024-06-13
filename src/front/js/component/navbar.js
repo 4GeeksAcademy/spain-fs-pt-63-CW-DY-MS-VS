@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { IoFlowerOutline } from "react-icons/io5";
 
 export const Navbar = () => {
   return (
     <nav className="navbar navbar-dark navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
-        <img src="/workspaces/spain-fs-pt-63-CW-DY-MS-VS/public/PIXELARTE (2).png" />
-
+        <IoFlowerOutline />
         <button className="navbar-toggler mt-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
