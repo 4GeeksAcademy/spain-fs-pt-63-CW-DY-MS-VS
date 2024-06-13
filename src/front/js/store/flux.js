@@ -3,7 +3,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 
 			client: null,
-			artist: null
+			artist: null,
+			artists: null,
+			works: null
 		},
 		actions: {
 
@@ -66,25 +68,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error loading message from backend", error)
 				}
 			},
-			// uploadWorkImage: async (imgId) => {
-			// 	try {
-			// 		const store = getStore();
-			// 		// const resp = await fetch(process.env.BACKEND_URL + "/api/work", {
-			// 		// 	method: 'POST',
-			// 		// 	headers: {
-			// 		// 		'Content-Type': 'application/json'
-			// 		// 	}, body: JSON.stringify(work)
-			// 		//})
-			// 		const image = imgId
-			// 		setStore({ ...store, image: image })
 
-			// 		return image;
-			// 	} catch (error) {
-			// 		console.log("Error loading message from backend", error)
-			// 	}
-			// }
-
-		}
+			getAllArtists: async () => {
+				const resp = await fetch(process.env.BACKEND_URL + "/api/user_artists")
+				const data = await resp.json()
+				const store = getStore()
+				console.log(data)
+				setStore({...store, artists:data })
+			},
+           getWorks:async(id) =>{
+			 const resp = await fetch(process.env.BACKEND_URL + `/api/works/user_artist/${id}`)
+			 const data = await resp.json()
+			 const store = getStore()
+			 setStore({...store, works:data  })
+		   }
+		}  
 	};
 };
 
