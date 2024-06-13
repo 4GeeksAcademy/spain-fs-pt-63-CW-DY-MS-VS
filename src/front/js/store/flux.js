@@ -74,15 +74,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const data = await resp.json()
 				const store = getStore()
 				console.log(data)
-				setStore({...store, artists:data })
+				setStore({ ...store, artists: data })
 			},
-           getWorks:async(id) =>{
-			 const resp = await fetch(process.env.BACKEND_URL + `/api/works/user_artist/${id}`)
-			 const data = await resp.json()
-			 const store = getStore()
-			 setStore({...store, works:data  })
-		   }
-		}  
+			getWorks: async (id) => {
+				const resp = await fetch(process.env.BACKEND_URL + `/api/works/user_artist/${id}`)
+				const data = await resp.json()
+				const store = getStore()
+				setStore({ ...store, works: data })
+			},
+
 			uploadWorkImage: async (imgId) => {
 				try {
 					const store = getStore();
@@ -113,8 +113,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore()
 				setStore({ ...store, image: imgId })
 			}
-		}
-	};
+		},
+	}
 };
+
 
 export default getState;
