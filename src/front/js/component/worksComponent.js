@@ -5,7 +5,7 @@ const WorksComponent = ({ onSubmit, closeModal, }) => {
 
     let newWork = {
         title: "", type: "", year: "", image: "",
-        description: "", price: "", artist_id: "0e322f1e-e2ef-42c1-8426-b7b389616f9e"
+        description: "", price: "", artist_id: "d4ffa44e-67c2-40a5-be7a-08bb261acf26"
     }
 
     return (

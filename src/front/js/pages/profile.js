@@ -27,7 +27,7 @@ export const Profile = () => {
     const { store, actions } = useContext(Context)
     const [profileType, setProfileType] = useState("Artist");
     const [works, setWorks] = useState([{
-        artist_id: "0e322f1e-e2ef-42c1-8426-b7b389616f9e", description: "s", image: "xzzoast4kbiv0u9t1vkn",
+        artist_id: "d4ffa44e-67c2-40a5-be7a-08bb261acf26", description: "s", image: "xzzoast4kbiv0u9t1vkn",
         price: "2", title: "Straw", type: "Photography", year: "2010"
     }]);
     const [salesBalance, setSalesBalance] = useState(0);
@@ -51,7 +51,8 @@ export const Profile = () => {
     // const removeWork = (id) => {
     //     setWorks(works.filter(work => work.id !== id));
     // };
-
+console.log(works)
+console.log(store)
     return (
         <div className="container mt-5">
             <button
