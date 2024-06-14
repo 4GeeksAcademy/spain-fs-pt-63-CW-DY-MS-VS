@@ -8,6 +8,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 			works: null
 		},
 		actions: {
+			deleteToken: () =>{
+				setStore({ token: "" })
+						localStorage.setItem('token', "");
+				
+			},
 
 			login: async (user) => {
 

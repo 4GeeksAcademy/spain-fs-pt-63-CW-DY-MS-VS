@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const Login = () => {
   const { store, actions } = useContext(Context);
   const [user, setUser] = useState({ email: "", password: "", userType: "" })
- 
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -14,7 +14,7 @@ const Login = () => {
     setUser({ email: "", password: "", userType: "" })
 
   };
-
+console.log(store.token)
   return (
     <div className="container text-center">
       <h1 className="mt-5 mb-5">Login</h1>
@@ -65,14 +65,17 @@ const Login = () => {
           </label>
 
         </div>
-
+        
         <div>
-          <button className="mt-5 mb-5 go" type="submit">
-            Go
+          
+      
+          <button className="mt-5  go" type="submit">
+            Entrar Datos
           </button>
-
+          <div>     <Link to={"/"}> <button className="mt-5 mb-5 go">Gooooo!!!!</button></Link></div>
           <Link to="/register"><p>¡Register here!</p></Link>
         </div>
+     
       </form>
     </div>
   );
