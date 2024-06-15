@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import { IoFlowerOutline } from "react-icons/io5";
 
+
 export const Navbar = () => {
+  const { store, actions } = useContext(Context);
+
   return (
     <nav className="navbar navbar-dark navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
@@ -33,7 +37,13 @@ export const Navbar = () => {
             </li>
           </ul>
           <form className="d-flex ms-auto mt-2" role="search">
-            <Link className="login" to="/login"><button className="btn btn-outline-success" type="submit">Login</button></Link>
+            {
+             store.token? (<Link to="/"><button className="btn btn-outline-success" onClick={actions.deleteToken}>Logout</button></Link>
+
+             ):(
+             <Link className="login" to="/login"><button className="btn btn-outline-success" type="submit">Login</button></Link>)
+            }
+            
           </form>
         </div>
       </div>
