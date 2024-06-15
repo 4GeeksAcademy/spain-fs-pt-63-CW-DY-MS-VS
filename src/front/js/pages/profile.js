@@ -3,6 +3,7 @@ import { MdOutlinePlaylistAdd } from "react-icons/md";
 import { Context } from "../store/appContext";
 import WorksComponent from "../component/worksComponent";
 import ImageCloudinary from "../component/imageCloudinary";
+import { ClientProfile } from "../component/profileClient";
 
 const WorksImages = ({ works }) => {
 
@@ -98,7 +99,8 @@ console.log(store)
                 </div>
             ) : (
                 <div>
-                    <h2>Perfil del Cliente</h2>
+                    < ClientProfile/>
+                    
                     {/* Contenido específico del perfil del cliente */}
                 </div>
             )}

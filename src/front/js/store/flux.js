@@ -5,7 +5,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			client: null,
 			artist: null,
 			artists: null,
-			works: null
+			works: null,
+			userClient:null
 		},
 		actions: {
 
@@ -33,6 +34,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} catch (error) {
 					console.log("Error en la solicitud:", error);
 				}
+			},
+
+			getUserClient: async()=>{
+				const resp = await fetch(process.env.BACKEND_URL + `/api/user_client`)
+				const data = await resp.json();
+				const store = getStore();
+                setStore({... store, userClient:data})
+
 			},
 
 			registerUserClient: async (userClient) => {
@@ -112,8 +121,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 			setImage: async (imgId) => {
 				const store = getStore()
 				setStore({ ...store, image: imgId })
-			}
-		},
+			},
+
+			
+		}
 	}
 };
 
