@@ -13,10 +13,11 @@ const Login = () => {
 
     actions.login(user);
     setUser({ email: "", password: "", userType: "" });
-    
-     };
-     
-console.log(store.token)
+
+  };
+
+  console.log(store.token)
+
   return (
     <div className="container text-center">
       <h1 className="mt-5 mb-5">Login</h1>
@@ -69,15 +70,12 @@ console.log(store.token)
         </div>
         
         <div>
-          
-      
           <button className="mt-5  go" type="submit">
             Enviar Datos
           </button>
           <div>     <Link to={"/"}> <button className="mt-5 mb-5 go">Aceptar</button></Link></div>
-          <Link to="/register"><p>¡Register here!</p></Link>  
+          <Link to="/register"><p>¡Register here!</p></Link>
         </div>
-     
       </form>
     </div>
   );
