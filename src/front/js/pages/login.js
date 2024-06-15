@@ -7,13 +7,14 @@ import { Link, Navigate } from "react-router-dom";
 const Login = () => {
   const { store, actions } = useContext(Context);
   const [user, setUser] = useState({ email: "", password: "", userType: "" })
-  const navigate = useNavigate();
+  const navigate = useNavigate()
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     actions.login(user);
-    setUser({ email: "", password: "", userType: "" });
-
+    setUser({ email: "", password: "", userType: "" })
+    navigate("/")
   };
 
   console.log(store.token)
@@ -70,10 +71,9 @@ const Login = () => {
         </div>
         
         <div>
-          <button className="mt-5  go" type="submit">
+          <button className="mt-5 go" type="submit">
             Enviar Datos
           </button>
-          <div>     <Link to={"/"}> <button className="mt-5 mb-5 go">Aceptar</button></Link></div>
           <Link to="/register"><p>¡Register here!</p></Link>
         </div>
       </form>

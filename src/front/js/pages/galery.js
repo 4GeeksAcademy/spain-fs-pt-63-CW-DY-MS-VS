@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Context } from '../store/appContext'
 import "../../styles/galery.css";
+
 const artists = {
   artist1: {
     first_name: 'Pablo',
