@@ -1,10 +1,9 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-
+			artists: null,
 			client: null,
 			artist: null,
-			artists: null,
 			works: null
 		},
 		actions: {
@@ -70,17 +69,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			getAllArtists: async () => {
+				const store = getStore()
 				const resp = await fetch(process.env.BACKEND_URL + "/api/user_artists")
 				const data = await resp.json()
-				const store = getStore()
-				console.log(data)
+
 				setStore({ ...store, artists: data })
+				return data
 			},
+
 			getWorks: async (id) => {
+				const store = getStore()
 				const resp = await fetch(process.env.BACKEND_URL + `/api/works/user_artist/${id}`)
 				const data = await resp.json()
-				const store = getStore()
+
 				setStore({ ...store, works: data })
+				return data
 			},
 
 			uploadWorkImage: async (imgId) => {
