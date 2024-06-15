@@ -51,8 +51,8 @@ export const Profile = () => {
     // const removeWork = (id) => {
     //     setWorks(works.filter(work => work.id !== id));
     // };
-console.log(works)
-console.log(store)
+console.log('works',works)
+console.log('store',store)
     return (
         <div className="container mt-5">
             <button
@@ -94,7 +94,7 @@ console.log(store)
                             />
                         </div>
                     </div>
-                    <button className="btn btn-secondary borderRadius 0">Guardar Perfil</button>
+                    <button className="btn btn-secondary borderRadius 0 mb-5">Guardar Perfil</button>
                 </div>
             ) : (
                 <div>
