@@ -76,6 +76,58 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ ...store, artists: data })
 				return data
 			},
+			// getArtistFromId: async (id) => {
+			// 	const resp = await fetch(process.env.BACKEND_URL + `/api/user_artist/${id}`)
+			// 	const data = await resp.json()
+
+			// 	console.log(data)
+			// 	return data
+			// },
+
+			getArtistsWithWorks: async () => {
+				try {
+					await getActions().getAllArtists();  // Fetch all artists and set them in the store
+					const artistsData = getStore().artists;
+
+					if (artistsData) {
+						const artistMap = artistsData.reduce((acc, artist) => {
+							acc[artist.id] = {
+								name: `${artist.first_name} ${artist.last_name}`,
+								works: []
+							};
+							return acc;
+						}, {});
+
+						//console.log(artistMap)
+						const artistIds = artistsData.map(el => el.id);
+						//console.log(artistIds);
+
+						const worksPromises = artistIds.map(id => getActions().getWorks(id));
+						const worksData = await Promise.all(worksPromises);
+
+						// Flatten the array of works arrays
+						const flattenedWorks = worksData.flat();
+
+						flattenedWorks.forEach(work => {
+							if (artistMap[work.user_artist]) {
+								artistMap[work.user_artist].works.push(work);
+							}
+						});
+
+						// Add the artist name to each work
+						const artistsWithWorks = Object.keys(artistMap).map(id => ({
+							id,
+							name: artistMap[id].name,
+							works: artistMap[id].works
+						}));
+
+						console.log(artistsWithWorks);
+						return artistsWithWorks
+					}
+				} catch (error) {
+					console.error('Error fetching data:', error);
+				}
+			},
 
 			getWorks: async (id) => {
 				const store = getStore()
