@@ -1,16 +1,22 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-
 			client: null,
 			artist: null,
 			artists: null,
 			works: null
 		},
 		actions: {
-
+			deleteToken: () => {
+				const store = getStore()
+				const token = localStorage.getItem("token")
+				if (token) {
+					localStorage.removeItem("token");
+					setStore({ ...store, token: null })
+				}
+			},
 			login: async (user) => {
-
+				const store = getStore()
 				try {
 					const resp = await fetch(process.env.BACKEND_URL + `/api/login_${user.userType}`, {
 						method: 'POST',
@@ -23,9 +29,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					if (resp.ok) {
 						const data = await resp.json();
 
-						setStore({ token: data.token })
 						localStorage.setItem('token', data.token);
-
+						setStore({ ...store, token: data.token })
 
 					} else {
 						console.log("Error en la solicitud:", resp.statusText);

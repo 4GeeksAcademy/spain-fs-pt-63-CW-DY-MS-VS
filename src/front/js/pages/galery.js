@@ -2,9 +2,6 @@ import React, { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Context } from '../store/appContext'
 
-
-
-
 const artists = {
   artist1: {
     first_name: 'Pablo',
