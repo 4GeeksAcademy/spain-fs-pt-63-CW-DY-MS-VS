@@ -1,7 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
+import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import { IoFlowerOutline } from "react-icons/io5";
 import { Context } from "../store/appContext";
+
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
