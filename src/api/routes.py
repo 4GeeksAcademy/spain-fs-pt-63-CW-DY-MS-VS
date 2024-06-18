@@ -74,10 +74,8 @@ def get_client():
 def update_client(id):
     data = request.json
     client = User_Client.query.get_or_404(id)
-
     client.first_name = data.get("first_name", client.first_name)
     client.last_name = data.get("last_name", client.last_name)
-    client.email = data.get("email", client.email)
     client.password = data.get("password", client.password)
 
     try:
@@ -108,7 +106,7 @@ def create_artist():
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
     new_user = User_Artist(id = artist_id, email = email, password = hashed_password, first_name = first_name, 
-                           last_name = last_name, description = description or 'new Artist')
+                           last_name = last_name, description = description or 'About You')
 
     try:
         db.session.add(new_user)

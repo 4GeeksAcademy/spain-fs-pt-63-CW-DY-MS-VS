@@ -1,13 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState , useEffect} from "react";
 import { Context } from "../store/appContext";
 import "../../styles/login.css";
 import { useNavigate } from 'react-router-dom';
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const { store, actions } = useContext(Context);
   const [user, setUser] = useState({ email: "", password: "", userType: "" })
   const navigate = useNavigate()
+ 
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -72,7 +73,7 @@ const Login = () => {
         
         <div>
           <button className="mt-5 go" type="submit">
-            Enviar Datos
+            Login
           </button>
           <Link to="/register"><p>¡Register here!</p></Link>
         </div>
