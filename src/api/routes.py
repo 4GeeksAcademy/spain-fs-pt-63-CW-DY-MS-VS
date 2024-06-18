@@ -131,11 +131,17 @@ def create_artist_token():
     else:
         return jsonify({'message': 'Invalid email or password'}), 401
 
-@api.route('/user_artist', methods=['GET'], endpoint='get_artist')
+@api.route('/user_artist', methods=['GET'], endpoint='login_artist')
 @jwt_required()
 def get_artist():
     id_artist = get_jwt_identity()
     artist = User_Artist.query.get_or_404(id_artist)
+    return jsonify(artist.serialize()), 200
+
+@api.route('/user_artist/<string:id>', methods=['GET'], endpoint='get_artist')
+def get_artist_from_id(id):
+    print(id)
+    artist = User_Artist.query.filter_by(id = id).first()
     return jsonify(artist.serialize()), 200
 
 
@@ -150,7 +156,6 @@ def get_all_artists():
 def get_works_by_artist(artist_id):
     works = Work.query.filter_by(artist_id=artist_id).all()
     return jsonify([work.serialize() for work in works]), 200
-
 
 
 @api.route('/user_artist/<string:id>', methods=['PUT'], endpoint='update_artist')

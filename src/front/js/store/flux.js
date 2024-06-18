@@ -1,6 +1,7 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
+			artists: null,
 			client: null,
 			artist: null,
 			artists: null,
@@ -19,7 +20,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 			login: async (user) => {
-				const store = getStore()
 				try {
 					const resp = await fetch(process.env.BACKEND_URL + `/api/login_${user.userType}`, {
 						method: 'POST',
@@ -127,16 +127,77 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			getAllArtists: async () => {
+				const store = getStore()
 				const resp = await fetch(process.env.BACKEND_URL + "/api/user_artists")
 				const data = await resp.json()
 				const store = getStore()
+
 				setStore({ ...store, artists: data })
+				return data
 			},
+			// getArtistFromId: async (id) => {
+			// 	const resp = await fetch(process.env.BACKEND_URL + `/api/user_artist/${id}`)
+			// 	const data = await resp.json()
+
+			// 	console.log(data)
+			// 	return data
+			// },
+
+			getArtistsWithWorks: async () => {
+				const store = getStore()
+
+				try {
+					await getActions().getAllArtists();  // Fetch all artists and set them in the store
+					const artistsData = getStore().artists;
+
+					if (artistsData) {
+						const artistMap = artistsData.reduce((acc, artist) => {
+							acc[artist.id] = {
+								name: `${artist.first_name} ${artist.last_name}`,
+								works: []
+							};
+							return acc;
+						}, {});
+
+						//console.log(artistMap)
+						const artistIds = artistsData.map(el => el.id);
+						//console.log(artistIds);
+
+						const worksPromises = artistIds.map(id => getActions().getWorks(id));
+						const worksData = await Promise.all(worksPromises);
+
+						// Flatten the array of works arrays
+						const flattenedWorks = worksData.flat();
+
+						flattenedWorks.forEach(work => {
+							if (artistMap[work.user_artist]) {
+								artistMap[work.user_artist].works.push(work);
+							}
+						});
+
+						// Add the artist name to each work
+						const artistsWithWorks = Object.keys(artistMap).map(id => ({
+							id,
+							name: artistMap[id].name,
+							works: artistMap[id].works
+						}));
+
+						setStore({ ...store, gallery: artistsWithWorks })
+						console.log(artistsWithWorks);
+						return artistsWithWorks
+					}
+				} catch (error) {
+					console.error('Error fetching data:', error);
+				}
+			},
+
 			getWorks: async (id) => {
+				const store = getStore()
 				const resp = await fetch(process.env.BACKEND_URL + `/api/works/user_artist/${id}`)
 				const data = await resp.json()
-				const store = getStore()
+
 				setStore({ ...store, works: data })
+				return data
 			},
 
 			uploadWorkImage: async (imgId) => {

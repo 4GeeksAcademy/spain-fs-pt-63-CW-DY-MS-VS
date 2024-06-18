@@ -7,9 +7,6 @@ import { ClientProfile } from "../component/profileClient";
 import ImageInput from "../component/imageInput";
 
 const WorksImages = ({ works }) => {
-
-    console.log(works)
-
     return (
         <>
             {works.map((work, index) => (
