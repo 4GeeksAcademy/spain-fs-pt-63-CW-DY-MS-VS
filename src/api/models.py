@@ -9,7 +9,8 @@ class User_Client(db.Model):
     first_name = db.Column(db.String(80), nullable=False)
     last_name = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(80),  nullable=False)
+    password = db.Column(db.String(80), nullable=False)
+    image = db.Column(db.String(80), nullable=False)
 
     def __repr__(self):
         return f'<User_Client {self.email}>'
@@ -19,7 +20,8 @@ class User_Client(db.Model):
             "id": self.id,
             "first_name": self.first_name,
             "last_name": self.last_name,
-            "email": self.email
+            "email": self.email,
+            "image": self.image
             # do not serialize the password, its a security breach
         }
     

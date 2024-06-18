@@ -4,7 +4,6 @@ import { Context } from '../store/appContext'
 import ImageCloudinary from '../component/imageCloudinary'
 
 export const Galery = () => {
-  // const [artistsArray, setArtistsArray] = useState("")
   const { store, actions } = useContext(Context)
   const [allWorks, setAllWorks] = useState([])
 
