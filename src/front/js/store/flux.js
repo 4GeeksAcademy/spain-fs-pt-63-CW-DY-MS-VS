@@ -6,7 +6,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			artist: null,
 			artists: null,
 			works: null,
-			userClient:null,
+			userClient: null,
 			userArtist: null
 		},
 		actions: {
@@ -15,11 +15,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const token = localStorage.getItem("token")
 				if (token) {
 					localStorage.removeItem("token");
-					setStore({ ...store, token: null, userClient:null,userArtist:null })
-					
+					setStore({ ...store, token: null, userClient: null, userArtist: null })
+
 				}
 			},
 			login: async (user) => {
+				const store = getStore()
 				try {
 					const resp = await fetch(process.env.BACKEND_URL + `/api/login_${user.userType}`, {
 						method: 'POST',
@@ -34,7 +35,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 						localStorage.setItem('token', data.token);
 						setStore({ ...store, token: data.token })
-						if (user.userType==='artist'){
+						if (user.userType === 'artist') {
 							await getActions().getUserArtist();
 							return
 						};
