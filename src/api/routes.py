@@ -79,6 +79,7 @@ def update_client(id):
     client.last_name = data.get("last_name", client.last_name)
     client.email = data.get("email", client.email)
     client.password = data.get("password", client.password)
+    client.image = data.get("image", client.image)
 
     try:
         db.session.commit()
@@ -170,6 +171,7 @@ def update_artist(id):
     artist.email = data.get("email", artist.email)
     artist.password = data.get("password", artist.password)
     artist.description = data.get("description", artist.description)
+    artist.image = data.get("image", artist.image)
 
     try:
         db.session.commit()

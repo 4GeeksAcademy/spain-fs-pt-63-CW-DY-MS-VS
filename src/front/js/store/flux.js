@@ -80,14 +80,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ ...store, artists: data })
 				return data
 			},
-			// getArtistFromId: async (id) => {
-			// 	const resp = await fetch(process.env.BACKEND_URL + `/api/user_artist/${id}`)
-			// 	const data = await resp.json()
-
-			// 	console.log(data)
-			// 	return data
-			// },
-
 			getArtistsWithWorks: async () => {
 				const store = getStore()
 
