@@ -1,11 +1,15 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 
 import "../../styles/home.css";
 
 export const Home = () => {
-  const { store, actions } = useContext(Context);
-
+  const { store } = useContext(Context);
+  
+  
+  if(store.token){
+    console.log ("ya existe el token") 
+  }else console.log("no hay token")
   return (
     <div className="text-center mt-5">
       <div className="row frase mb-3 mt-1">

@@ -5,7 +5,7 @@ import { fill } from "@cloudinary/url-gen/actions/resize";
 import { useContext } from "react";
 import { Context } from "../store/appContext";
 
-const ImageInput = () => {
+const ImageInput = ({ onImageUpload }) => {
     const cloudinaryRef = useRef()
     const widgetRef = useRef()
     const [imgId, setImgId] = useState("")
@@ -22,13 +22,13 @@ const ImageInput = () => {
                 handleUploadImage(result.info.public_id)
             }
         })
-    }, [])
+    }, []);
 
     const cld = new Cloudinary({
         cloud: {
             cloudName: 'dxnxb4dus'
         }
-    })
+    });
 
     const myImage = imgId ? cld.image(imgId) : null
     myImage && myImage.resize(fill().height(225))
@@ -38,10 +38,11 @@ const ImageInput = () => {
             const image = await actions.uploadWorkImage(publicId);
             actions.setImage(publicId)
             console.log("Image uploaded:", image);
+            onImageUpload(publicId);  // Call the callback function with the new image URL
         } catch (error) {
             console.error("Error uploading image:", error);
         }
-    }
+    };
 
     return (
         <div>

@@ -1,19 +1,24 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState , useEffect} from "react";
 import { Context } from "../store/appContext";
 import "../../styles/login.css";
+import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 
 const Login = () => {
   const { store, actions } = useContext(Context);
   const [user, setUser] = useState({ email: "", password: "", userType: "" })
+  const navigate = useNavigate()
  
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     actions.login(user);
     setUser({ email: "", password: "", userType: "" })
-
+    navigate("/")
   };
+
+  console.log(store.token)
 
   return (
     <div className="container text-center">
@@ -65,12 +70,11 @@ const Login = () => {
           </label>
 
         </div>
-
+        
         <div>
-          <button className="mt-5 mb-5 go" type="submit">
-            Go
+          <button className="mt-5 go" type="submit">
+            Login
           </button>
-
           <Link to="/register"><p>¡Register here!</p></Link>
         </div>
       </form>
