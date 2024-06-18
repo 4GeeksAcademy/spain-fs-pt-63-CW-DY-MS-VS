@@ -7,7 +7,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 			works: null
 		},
 		actions: {
-
+			deleteToken: () => {
+				const store = getStore()
+				const token = localStorage.getItem("token")
+				if (token) {
+					localStorage.removeItem("token");
+					setStore({ ...store, token: null })
+				}
+			},
 			login: async (user) => {
 				try {
 					const resp = await fetch(process.env.BACKEND_URL + `/api/login_${user.userType}`, {
@@ -21,7 +28,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					if (resp.ok) {
 						const data = await resp.json();
 
-						setStore({ token: data.token })
 						localStorage.setItem('token', data.token);
 
 					} else {
