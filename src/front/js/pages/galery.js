@@ -4,7 +4,7 @@ import { Context } from '../store/appContext'
 import ImageCloudinary from '../component/imageCloudinary'
 
 export const Galery = () => {
-  const [artistsArray, setArtistsArray] = useState("")
+  // const [artistsArray, setArtistsArray] = useState("")
   const { store, actions } = useContext(Context)
   const [allWorks, setAllWorks] = useState([])
 
@@ -14,36 +14,36 @@ export const Galery = () => {
       setAllWorks(data)
     }
     fetchData()
-    console.log(allWorks);
   }, []);
 
   return (
     <div>
-      {
-        allWorks?.map((el, index) => (
-          el.works.length > 0 && (
-            <div key={index} className='artist my-2'>
-              <Link to={'/artistGalery'}>
-                <h3 className="text-danger m-3">{el.name}</h3>
-              </Link>
-              <div className='row'>
-                {el.works.map(work => (
-                  <div key={work.id} className="col-12 col-md-3">
-                    <div className="card h-100">
-                      <ImageCloudinary
-                        imgId={work.image}
-                        className="card-img-top w-auto"
-                        style={{ width: 'auto', height: 'auto' }}
-                        onClick={() => { }}
-                      />
-                    </div>
+      {allWorks?.map((el, index) => (
+        el.works.length > 0 && (
+          <div key={index} className='artist my-2'>
+            <Link to={'/artistGalery'}>
+              <h3 className="text-danger m-3">{el.name}</h3>
+            </Link>
+            <div className='row'>
+              {el.works.map(work => (
+                <div key={work.id} className="col-12 col-md-4">
+                  <div className="container bg-white bg-opacity-50 h-100 d-flex
+                  justify-content-center flex-column gap-2 pt-2
+                  align-items-center" style={{ width: "300px" }}>
+                    <ImageCloudinary
+                      imgId={work.image}
+                      className=""
+                      style={{ width: 'auto', height: '200px', objectFit: "contain" }}
+                      onClick={() => { }}
+                    />
+                    <p>{work.title}</p>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
-          )
-        ))
-      }
+          </div>
+        )
+      ))}
     </div>
 
   )

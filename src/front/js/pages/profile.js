@@ -5,9 +5,6 @@ import WorksComponent from "../component/worksComponent";
 import ImageCloudinary from "../component/imageCloudinary";
 
 const WorksImages = ({ works }) => {
-
-    console.log(works)
-
     return (
         <>
             {works.map((work, index) => (

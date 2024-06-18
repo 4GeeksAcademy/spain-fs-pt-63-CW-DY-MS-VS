@@ -9,7 +9,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 		actions: {
 
 			login: async (user) => {
-
 				try {
 					const resp = await fetch(process.env.BACKEND_URL + `/api/login_${user.userType}`, {
 						method: 'POST',
@@ -24,7 +23,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 						setStore({ token: data.token })
 						localStorage.setItem('token', data.token);
-
 
 					} else {
 						console.log("Error en la solicitud:", resp.statusText);
@@ -85,6 +83,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// },
 
 			getArtistsWithWorks: async () => {
+				const store = getStore()
+
 				try {
 					await getActions().getAllArtists();  // Fetch all artists and set them in the store
 					const artistsData = getStore().artists;
@@ -121,6 +121,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							works: artistMap[id].works
 						}));
 
+						setStore({ ...store, gallery: artistsWithWorks })
 						console.log(artistsWithWorks);
 						return artistsWithWorks
 					}
