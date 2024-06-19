@@ -4,13 +4,19 @@ import { Context } from "../store/appContext";
 import "../../styles/home.css";
 
 export const Home = () => {
-  const { store } = useContext(Context);
-  
-  
-  if(store.token){
-    console.log ("ya existe el token") 
-  }else console.log("no hay token")
-  
+  const { store, actions } = useContext(Context);
+
+
+  useEffect(() => {
+    actions.getAllArtists();
+  }, []);
+
+  if (store.token) {
+    console.log("ya existe el token")
+  } else console.log("no hay token")
+
+
+
   return (
     <div className="text-center mt-5">
       <div className="row frase mb-3 mt-1">
@@ -35,6 +41,7 @@ export const Home = () => {
             <button className="buscar" type="submit">
               Buscar
             </button>
+            <button type="submit" onClick={console.log('hola')}>traer Artistas</button>
           </form>
         </div>
       </div>
@@ -486,25 +493,26 @@ export const Home = () => {
           </div>
         </div>
       </div>
-      <div>
-        <h1 className="detalle mt-4 mb-4">Nombre de los artistas</h1>
-        <div className="row">
-          <ol>
-            <li>
-              <h3>Charlie</h3>
-            </li>
-            <li>
-              <h3>Maria</h3>
-            </li>
-            <li>
-              {" "}
-              <h3>Varos</h3>
-            </li>
-            <li>
-              <h3>Dayloc</h3>
-            </li>
-          </ol>
+      <div className="showArtists text-center mb-3">
+        <h1 className="detalle mt-4 mb-4">Nuestros artistas</h1>
+        <div className="row  mb-4 mt-4 p-4">
+          {store.artists && store.artists.length > 0 ? (
+            <ul className="list-group col-12 ">
+              {store.artists.map(artist => (
+                <li className="list-group-item bg-dark " key={artist.id}>
+                  {artist.first_name} {artist.last_name}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <div className="col-12">
+              <p>No hay artistas disponibles</p>
+            </div>
+          )}
         </div>
+        </div>
+      <div>
+        
       </div>
     </div>
   );
