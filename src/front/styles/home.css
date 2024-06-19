@@ -79,15 +79,20 @@ body {
 
 }
 
- .footer {
-  background: #000000;
-  padding: 0%;
-  margin-bottom: 0%;
-  color:#FFFFFF;
-  font-family: "Playfair Display", serif;
-  font-optical-sizing: auto; 
-  font-size: 20px;
-  display: block;
- }
+ /* styles.css o el archivo CSS que estés utilizando */
+.footer {
+  position: relative;  /* Posición relativa para el contenedor */
+  margin-top: auto;
+  padding: 1rem;
+  background-color: #f8f9fa;  /* Ajusta el color de fondo según tu preferencia */
+  text-align: center;
+  width: 100%;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);  /* Sombra superior para darle un efecto elegante */
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: flex-end;  /* Alinea en la parte inferior */
+  height: 60px; /* Ajusta la altura del footer según sea necesario */
+}
+
  
 
