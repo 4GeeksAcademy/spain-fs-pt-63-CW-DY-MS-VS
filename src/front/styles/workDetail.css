@@ -1,0 +1,35 @@
+/* pages/DetalleObra.css */
+.container {
+  margin-bottom: 40px; /* Margen inferior para separar del footer */
+}
+
+.card {
+  margin: auto;
+  max-width: 90%;
+  border: 5px solid #747272; /* Marco gris claro */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra elegante */
+  overflow: hidden; /* Asegura que el contenido no se desborde */
+  max-height: 80vh  /* Máximo alto de 80% de la vista */
+  
+}
+
+.card-img-top {
+  height: auto;
+  max-width: 100%;
+  border-bottom: 2px solid #ddd; /* Línea separadora */
+}
+
+.card-body {
+  padding: 1.5rem; /* Espaciado interno */
+  background-color: #f8f9fa; /* Fondo claro */
+}
+
+.card-title {
+  font-weight: bold; /* Texto en negrita */
+  font-size: 1.5rem; /* Tamaño del título */
+}
+
+.card-text {
+  margin-bottom: 1rem; /* Espaciado inferior */
+}
