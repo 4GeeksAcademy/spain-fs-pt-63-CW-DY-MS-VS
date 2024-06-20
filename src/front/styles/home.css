@@ -80,19 +80,18 @@ body {
 }
 
  /* styles.css o el archivo CSS que estés utilizando */
-.footer {
-  position: relative;  /* Posición relativa para el contenedor */
-  margin-top: auto;
-  padding: 1rem;
-  background-color: #f8f9fa;  /* Ajusta el color de fondo según tu preferencia */
-  text-align: center;
-  width: 100%;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);  /* Sombra superior para darle un efecto elegante */
+ .footer {
   display: flex;
-  justify-content: center; /* Centra horizontalmente */
-  align-items: flex-end;  /* Alinea en la parte inferior */
-  height: 60px; /* Ajusta la altura del footer según sea necesario */
+  justify-content: center;
+  align-items: flex-end; /* Esto alinea el contenido al final del contenedor */
+  height: 80px; /* Ajusta la altura según tus necesidades */
+  background-color: #000000; 
+  color:#FFFFFF;
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
 }
 
- 
+.footer p {
+  margin: 0; 
 
+}
