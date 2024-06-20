@@ -1,15 +1,37 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
-
+import { Search } from "./../component/search";
+import { Link } from 'react-router-dom'
 import "../../styles/home.css";
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
 
+  const [filteredArtists, setFilteredArtists] = useState([]);
+  const [showResults, setShowResults] = useState(false); 
+
 
   useEffect(() => {
     actions.getAllArtists();
   }, []);
+
+
+  useEffect(() => {
+    setFilteredArtists(store.artists);
+  }, [store.artists]);
+
+  const handleSearch = (query) => {
+    if (query) {
+      const filtered = store.artists.filter(artist =>
+        artist.first_name.toLowerCase().includes(query.toLowerCase()) ||
+        artist.last_name.toLowerCase().includes(query.toLowerCase())
+      );
+      setFilteredArtists(filtered);
+    } else {
+      setFilteredArtists(store.artists);
+    }
+    setShowResults(true); 
+  };
 
   if (store.token) {
     console.log("ya existe el token")
@@ -17,41 +39,35 @@ export const Home = () => {
 
 
 
+
   return (
-    <div className="text-center mt-5">
-      <div className="row frase mb-3 mt-1">
-        <div className="col-sm-12">
-          <p>
-            "Encuentra la belleza en cada detalle con nuestras imágenes
-            profesionales."
-          </p>
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-sm-12">
-          <form action="/search" method="get">
-            <div className="autocomplete">
-              <input
-                id="search-input"
-                type="text"
-                name="query"
-                placeholder="Buscar..."
-              />
+    <div className="text-center mt-0">
+      <div className="background-image-div ">
+      <h1>“En cada momento se esconde una eternidad.”</h1>
+    </div>
+      <div>
+        <Search onSearch={handleSearch} />
+        {showResults && ( 
+        <div className="row mb-3 mt-4">
+          <div className="col-sm-12">
+            <div className="list-group " style={{ textAlign: "left" }}>
+              {filteredArtists.map((artist, index) => (
+                <div key={index} className="list-group-item1">
+                  <Link to="artistGalery"><span>{artist.first_name} {artist.last_name} {artist.description} </span></Link>
+                </div>
+              ))}
             </div>
-            <button className="buscar" type="submit">
-              Buscar
-            </button>
-            <button type="submit" onClick={console.log('hola')}>traer Artistas</button>
-          </form>
+
+         
+
+           
+
         </div>
+      )}
       </div>
       <div className="row mb-4 mt-4">
         <div className="col-sm-12">
-          <div
-            id="carouselExampleIndicators"
-            className="carousel slide"
-            data-bs-ride="carousel"
-          >
+          <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">
             <div className="carousel-indicators">
               <button
                 type="button"
@@ -91,50 +107,6 @@ export const Home = () => {
                     </div>
                   </div>
                   <div className="col-md-6 col-sm-12 col-xl-4 mt-4">
-                    {" "}
-                    <div className="card" style={{ width: "2 rem" }}>
-                      <img
-                        src="https://tse4.mm.bing.net/th?id=OIP.nvRs6Egs-U4XBijZZmPUHAHaDt&pid=Api&P=0&h=180"
-                        className="card-img-top"
-                        alt="..."
-                      />
-                      <div className="card-body">
-                        <p className="card-text">Bailarina</p>
-                        <p>Precio</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-6 col-sm-12 col-xl-4 mt-4">
-                    {" "}
-                    <div className="card" style={{ width: "2 rem" }}>
-                      <img
-                        src="https://tse4.mm.bing.net/th?id=OIP.nvRs6Egs-U4XBijZZmPUHAHaDt&pid=Api&P=0&h=180"
-                        className="card-img-top"
-                        alt="..."
-                      />
-                      <div className="card-body">
-                        <p className="card-text">Bailarina</p>
-                        <p>Precio</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-md-6 col-sm-12 col-xl-4 mt-4">
-                    {" "}
-                    <div className="card" style={{ width: "2 rem" }}>
-                      <img
-                        src="https://tse4.mm.bing.net/th?id=OIP.nvRs6Egs-U4XBijZZmPUHAHaDt&pid=Api&P=0&h=180"
-                        className="card-img-top"
-                        alt="..."
-                      />
-                      <div className="card-body">
-                        <p className="card-text">Bailarina</p>
-                        <p>Precio</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-6 col-sm-12 col-xl-4 mt-4">
                     <div className="card" style={{ width: "2 rem" }}>
                       <img
                         src="https://tse4.mm.bing.net/th?id=OIP.nvRs6Egs-U4XBijZZmPUHAHaDt&pid=Api&P=0&h=180"
@@ -163,7 +135,6 @@ export const Home = () => {
                 </div>
                 <div className="row">
                   <div className="col-md-6 col-sm-12 col-xl-4 mt-4">
-                    {" "}
                     <div className="card" style={{ width: "2 rem" }}>
                       <img
                         src="https://tse4.mm.bing.net/th?id=OIP.nvRs6Egs-U4XBijZZmPUHAHaDt&pid=Api&P=0&h=180"
@@ -190,137 +161,6 @@ export const Home = () => {
                     </div>
                   </div>
                   <div className="col-md-6 col-sm-12 col-xl-4 mt-4">
-                    {" "}
-                    <div className="card" style={{ width: "2 rem" }}>
-                      <img
-                        src="https://tse4.mm.bing.net/th?id=OIP.nvRs6Egs-U4XBijZZmPUHAHaDt&pid=Api&P=0&h=180"
-                        className="card-img-top"
-                        alt="..."
-                      />
-                      <div className="card-body">
-                        <p className="card-text">Bailarina</p>
-                        <p>Precio</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="carousel-item">
-                <div className="row">
-                  <div className="col-md-6 col-sm-12 col-xl-4 p-4">
-                    <div className="card" style={{ width: "2 rem" }}>
-                      <img
-                        src="https://tse4.mm.bing.net/th?id=OIP.nvRs6Egs-U4XBijZZmPUHAHaDt&pid=Api&P=0&h=180"
-                        className="card-img-top"
-                        alt="..."
-                      />
-                      <div className="card-body">
-                        <p className="card-text">Bailarina</p>
-                        <p>Precio</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-6 col-sm-12 col-xl-4 mt-4">
-                    {" "}
-                    <div className="card" style={{ width: "2 rem" }}>
-                      <img
-                        src="https://tse4.mm.bing.net/th?id=OIP.nvRs6Egs-U4XBijZZmPUHAHaDt&pid=Api&P=0&h=180"
-                        className="card-img-top"
-                        alt="..."
-                      />
-                      <div className="card-body">
-                        <p className="card-text">Bailarina</p>
-                        <p>Precio</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-6 col-sm-12 col-xl-4 mt-4">
-                    {" "}
-                    <div className="card" style={{ width: "2 rem" }}>
-                      <img
-                        src="https://tse4.mm.bing.net/th?id=OIP.nvRs6Egs-U4XBijZZmPUHAHaDt&pid=Api&P=0&h=180"
-                        className="card-img-top"
-                        alt="..."
-                      />
-                      <div className="card-body">
-                        <p className="card-text">Bailarina</p>
-                        <p>Precio</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-md-6 col-sm-12 col-xl-4 mt-4">
-                    {" "}
-                    <div className="card" style={{ width: "2 rem" }}>
-                      <img
-                        src="https://tse4.mm.bing.net/th?id=OIP.nvRs6Egs-U4XBijZZmPUHAHaDt&pid=Api&P=0&h=180"
-                        className="card-img-top"
-                        alt="..."
-                      />
-                      <div className="card-body">
-                        <p className="card-text">Bailarina</p>
-                        <p>Precio</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-6 col-sm-12 col-xl-4 mt-4">
-                    <div className="card" style={{ width: "2 rem" }}>
-                      <img
-                        src="https://tse4.mm.bing.net/th?id=OIP.nvRs6Egs-U4XBijZZmPUHAHaDt&pid=Api&P=0&h=180"
-                        className="card-img-top"
-                        alt="..."
-                      />
-                      <div className="card-body">
-                        <p className="card-text">Bailarina</p>
-                        <p>Precio</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-6 col-sm-12 col-xl-4 mt-4">
-                    <div className="card" style={{ width: "2 rem" }}>
-                      <img
-                        src="https://tse4.mm.bing.net/th?id=OIP.nvRs6Egs-U4XBijZZmPUHAHaDt&pid=Api&P=0&h=180"
-                        className="card-img-top"
-                        alt="..."
-                      />
-                      <div className="card-body">
-                        <p className="card-text">Bailarina</p>
-                        <p>Precio</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-md-6 col-sm-12 col-xl-4 mt-4">
-                    {" "}
-                    <div className="card" style={{ width: "2 rem" }}>
-                      <img
-                        src="https://tse4.mm.bing.net/th?id=OIP.nvRs6Egs-U4XBijZZmPUHAHaDt&pid=Api&P=0&h=180"
-                        className="card-img-top"
-                        alt="..."
-                      />
-                      <div className="card-body">
-                        <p className="card-text">Bailarina</p>
-                        <p>Precio</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-6 col-sm-12 col-xl-4 mt-4">
-                    <div className="card" style={{ width: "2 rem" }}>
-                      <img
-                        src="https://tse4.mm.bing.net/th?id=OIP.nvRs6Egs-U4XBijZZmPUHAHaDt&pid=Api&P=0&h=180"
-                        className="card-img-top"
-                        alt="..."
-                      />
-                      <div className="card-body">
-                        <p className="card-text">Bailarina</p>
-                        <p>Precio</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-6 col-sm-12 col-xl-4 mt-4">
-                    {" "}
                     <div className="card" style={{ width: "2 rem" }}>
                       <img
                         src="https://tse4.mm.bing.net/th?id=OIP.nvRs6Egs-U4XBijZZmPUHAHaDt&pid=Api&P=0&h=180"
@@ -351,7 +191,6 @@ export const Home = () => {
                     </div>
                   </div>
                   <div className="col-md-6 col-sm-12 col-xl-4 mt-4">
-                    {" "}
                     <div className="card" style={{ width: "2 rem" }}>
                       <img
                         src="https://tse4.mm.bing.net/th?id=OIP.nvRs6Egs-U4XBijZZmPUHAHaDt&pid=Api&P=0&h=180"
@@ -365,7 +204,6 @@ export const Home = () => {
                     </div>
                   </div>
                   <div className="col-md-6 col-sm-12 col-xl-4 mt-4">
-                    {" "}
                     <div className="card" style={{ width: "2 rem" }}>
                       <img
                         src="https://tse4.mm.bing.net/th?id=OIP.nvRs6Egs-U4XBijZZmPUHAHaDt&pid=Api&P=0&h=180"
@@ -381,7 +219,6 @@ export const Home = () => {
                 </div>
                 <div className="row">
                   <div className="col-md-6 col-sm-12 col-xl-4 mt-4">
-                    {" "}
                     <div className="card" style={{ width: "2 rem" }}>
                       <img
                         src="https://tse4.mm.bing.net/th?id=OIP.nvRs6Egs-U4XBijZZmPUHAHaDt&pid=Api&P=0&h=180"
@@ -407,7 +244,50 @@ export const Home = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="col-md-6 col-sm-12 col-xl-4  mt-4">
+                  <div className="col-md-6 col-sm-12 col-xl-4 mt-4">
+                    <div className="card" style={{ width: "2 rem" }}>
+                      <img
+                        src="https://tse4.mm.bing.net/th?id=OIP.nvRs6Egs-U4XBijZZmPUHAHaDt&pid=Api&P=0&h=180"
+                        className="card-img-top"
+                        alt="..."
+                      />
+                      <div className="card-body">
+                        <p className="card-text">Bailarina</p>
+                        <p>Precio</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="carousel-item">
+                <div className="row">
+                  <div className="col-md-6 col-sm-12 col-xl-4 p-4">
+                    <div className="card" style={{ width: "2 rem" }}>
+                      <img
+                        src="https://tse4.mm.bing.net/th?id=OIP.nvRs6Egs-U4XBijZZmPUHAHaDt&pid=Api&P=0&h=180"
+                        className="card-img-top"
+                        alt="..."
+                      />
+                      <div className="card-body">
+                        <p className="card-text">Bailarina</p>
+                        <p>Precio</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-md-6 col-sm-12 col-xl-4 mt-4">
+                    <div className="card" style={{ width: "2 rem" }}>
+                      <img
+                        src="https://tse4.mm.bing.net/th?id=OIP.nvRs6Egs-U4XBijZZmPUHAHaDt&pid=Api&P=0&h=180"
+                        className="card-img-top"
+                        alt="..."
+                      />
+                      <div className="card-body">
+                        <p className="card-text">Bailarina</p>
+                        <p>Precio</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-md-6 col-sm-12 col-xl-4 mt-4">
                     <div className="card" style={{ width: "2 rem" }}>
                       <img
                         src="https://tse4.mm.bing.net/th?id=OIP.nvRs6Egs-U4XBijZZmPUHAHaDt&pid=Api&P=0&h=180"
@@ -423,7 +303,6 @@ export const Home = () => {
                 </div>
                 <div className="row">
                   <div className="col-md-6 col-sm-12 col-xl-4 mt-4">
-                    {" "}
                     <div className="card" style={{ width: "2 rem" }}>
                       <img
                         src="https://tse4.mm.bing.net/th?id=OIP.nvRs6Egs-U4XBijZZmPUHAHaDt&pid=Api&P=0&h=180"
@@ -450,7 +329,6 @@ export const Home = () => {
                     </div>
                   </div>
                   <div className="col-md-6 col-sm-12 col-xl-4 mt-4">
-                    {" "}
                     <div className="card" style={{ width: "2 rem" }}>
                       <img
                         src="https://tse4.mm.bing.net/th?id=OIP.nvRs6Egs-U4XBijZZmPUHAHaDt&pid=Api&P=0&h=180"
@@ -472,10 +350,7 @@ export const Home = () => {
               data-bs-target="#carouselExampleIndicators"
               data-bs-slide="prev"
             >
-              <span
-                className="carousel-control-prev-icon"
-                aria-hidden="true"
-              ></span>
+              <span className="carousel-control-prev-icon" aria-hidden="true"></span>
               <span className="visually-hidden">Previous</span>
             </button>
             <button
@@ -484,22 +359,25 @@ export const Home = () => {
               data-bs-target="#carouselExampleIndicators"
               data-bs-slide="next"
             >
-              <span
-                className="carousel-control-next-icon"
-                aria-hidden="true"
-              ></span>
+              <span className="carousel-control-next-icon" aria-hidden="true"></span>
               <span className="visually-hidden">Next</span>
             </button>
           </div>
         </div>
-      </div>
+
+ 
       <div className="showArtists text-center mb-3">
+
         <h1 className="detalle mt-4 mb-4">Nuestros artistas</h1>
         <div className="row  mb-4 mt-4 p-4">
           {store.artists && store.artists.length > 0 ? (
             <ul className="list-group col-12 ">
               {store.artists.map(artist => (
-                <li className="list-group-item bg-dark " key={artist.id}>
+
+                <li className="list-group-item2 bg-dark " key={artist.id}>
+
+
+
                   {artist.first_name} {artist.last_name}
                 </li>
               ))}
@@ -511,9 +389,14 @@ export const Home = () => {
           )}
         </div>
         </div>
+
+
       <div>
         
+
       </div>
+
+    
     </div>
   );
 };
