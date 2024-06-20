@@ -8,11 +8,15 @@ export const Galery = () => {
   const [allWorks, setAllWorks] = useState([])
 
   useEffect(() => {
+    let isMounted = true;
+
     const fetchData = async () => {
       const data = await actions.getArtistsWithWorks()
       setAllWorks(data)
     }
     fetchData()
+
+    return () => { isMounted = false }
   }, []);
 
   return (
