@@ -37,7 +37,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						setStore({ ...store, token: data.token })
 						if (user.userType === 'artist') {
 							await getActions().getUserArtist();
-						} else if(user.userType === "client") {
+						} else if (user.userType === "client") {
 							await getActions().getUserClient();
 						}
 					} else {
@@ -99,7 +99,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json'
-						}, body: JSON.stringify()
+						}, body: JSON.stringify(userClient)
 					})
 					const client = await resp.json()
 					setStore({ ...store, client })
@@ -127,11 +127,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			getAllArtists: async () => {
-				const store = getStore()
-				const resp = await fetch(process.env.BACKEND_URL + "/api/user_artists")
-				const data = await resp.json()
+				const store = getStore();
+				const resp = await fetch(process.env.BACKEND_URL + "/api/user_artists");
+				const data = await resp.json();
 
-				setStore({ ...store, artists: data })
+				setStore({ ...store, artists: data });
 				return data
 			},
 			getArtistsWithWorks: async () => {
@@ -193,7 +193,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const resp = await fetch(process.env.BACKEND_URL + `/api/works`)
 				const data = await resp.json()
 
-				setStore({...store, allWorks: data})
+				setStore({ ...store, allWorks: data })
 				return data
 			},
 

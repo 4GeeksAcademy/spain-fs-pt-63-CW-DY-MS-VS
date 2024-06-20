@@ -212,7 +212,7 @@ def create_work():
 @api.route('/works', methods=['GET'], endpoint="get_all_works")
 def get_all_works():
     works = Work.query.all()
-    works = [works.serialize() for work in works]
+    works = [work.serialize() for work in works]
     print(works)
     return jsonify(works), 200
 
