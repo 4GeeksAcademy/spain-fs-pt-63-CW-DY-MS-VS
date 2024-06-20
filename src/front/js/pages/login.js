@@ -1,4 +1,4 @@
-import React, { useContext, useState , useEffect} from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/login.css";
 import { useNavigate } from 'react-router-dom';
@@ -8,17 +8,14 @@ const Login = () => {
   const { store, actions } = useContext(Context);
   const [user, setUser] = useState({ email: "", password: "", userType: "" })
   const navigate = useNavigate()
- 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    actions.login(user);
+    await actions.login(user);
     setUser({ email: "", password: "", userType: "" })
     navigate("/")
   };
 
-  console.log(store.token)
 
   return (
     <div className="container text-center">
@@ -70,7 +67,7 @@ const Login = () => {
           </label>
 
         </div>
-        
+
         <div>
           <button className="mt-5 go" type="submit">
             Login

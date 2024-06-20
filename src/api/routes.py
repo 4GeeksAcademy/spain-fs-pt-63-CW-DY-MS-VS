@@ -209,6 +209,13 @@ def create_work():
 
     return jsonify(new_work.serialize()), 201
 
+@api.route('/works', methods=['GET'], endpoint="get_all_works")
+def get_all_works():
+    works = Work.query.all()
+    works = [work.serialize() for work in works]
+    print(works)
+    return jsonify(works), 200
+
 @api.route('/work/<string:id>', methods=['GET'])
 def get_work(id):
     work = Work.query.get_or_404(id)

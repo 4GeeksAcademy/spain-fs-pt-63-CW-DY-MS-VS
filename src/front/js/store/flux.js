@@ -15,8 +15,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const token = localStorage.getItem("token")
 				if (token) {
 					localStorage.removeItem("token");
+					localStorage.removeItem("userData")
 					setStore({ ...store, token: null, userClient: null, userArtist: null })
-
 				}
 			},
 			login: async (user) => {
@@ -37,11 +37,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 						setStore({ ...store, token: data.token })
 						if (user.userType === 'artist') {
 							await getActions().getUserArtist();
-							return
-						};
-						await getActions().getUserClient();
-						return;
-
+						} else if (user.userType === "client") {
+							await getActions().getUserClient();
+						}
 					} else {
 						console.log("Error en la solicitud:", resp.statusText);
 					}
@@ -51,7 +49,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			getUserClient: async () => {
-				console.log('funciona')
 				const resp = await fetch(process.env.BACKEND_URL + '/api/user_client', {
 					headers: {
 						'Content-Type': 'application/json',
@@ -61,7 +58,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const data = await resp.json()
 				console.log(data)
 				setStore({ userClient: data })
-
+				localStorage.setItem("userData", JSON.stringify(data))
+				return data
 			},
 
 			updateUserClient: async () => {
@@ -88,9 +86,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 				})
 				const data = await resp.json()
-				console.log(data)
-				setStore({ userArtist: data })
 
+				localStorage.setItem("userData", JSON.stringify(data))
+				await setStore({ userArtist: data })
+				return data
 			},
 
 			registerUserClient: async (userClient) => {
@@ -100,7 +99,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json'
-						}, body: JSON.stringify()
+						}, body: JSON.stringify(userClient)
 					})
 					const client = await resp.json()
 					setStore({ ...store, client })
@@ -139,7 +138,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore()
 
 				try {
-					await getActions().getAllArtists();  // Fetch all artists and set them in the store
+					await getActions().getAllArtists();
 					const artistsData = getStore().artists;
 
 					if (artistsData) {
@@ -151,9 +150,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							return acc;
 						}, {});
 
-						//console.log(artistMap)
 						const artistIds = artistsData.map(el => el.id);
-						//console.log(artistIds);
 
 						const worksPromises = artistIds.map(id => getActions().getWorks(id));
 						const worksData = await Promise.all(worksPromises);
@@ -182,13 +179,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error('Error fetching data:', error);
 				}
 			},
-
 			getWorks: async (id) => {
 				const store = getStore()
 				const resp = await fetch(process.env.BACKEND_URL + `/api/works/user_artist/${id}`)
 				const data = await resp.json()
 
 				setStore({ ...store, works: data })
+				return data
+			},
+
+			getAllWorks: async () => {
+				const store = getStore()
+				const resp = await fetch(process.env.BACKEND_URL + `/api/works`)
+				const data = await resp.json()
+
+				setStore({ ...store, allWorks: data })
 				return data
 			},
 
@@ -204,7 +209,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			uploadWork: async (work) => {
 				try {
-					const store = getStore()
 					const resp = await fetch(process.env.BACKEND_URL + "/api/work", {
 						method: 'POST',
 						headers: {
@@ -222,7 +226,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore()
 				setStore({ ...store, image: imgId })
 			},
-
 
 		}
 	}
