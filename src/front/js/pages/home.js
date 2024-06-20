@@ -6,12 +6,15 @@ import "../../styles/home.css";
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
+
   const [filteredArtists, setFilteredArtists] = useState([]);
   const [showResults, setShowResults] = useState(false); 
+
 
   useEffect(() => {
     actions.getAllArtists();
   }, []);
+
 
   useEffect(() => {
     setFilteredArtists(store.artists);
@@ -30,6 +33,13 @@ export const Home = () => {
     setShowResults(true); 
   };
 
+  if (store.token) {
+    console.log("ya existe el token")
+  } else console.log("no hay token")
+
+
+
+
   return (
     <div className="text-center mt-0">
       <div className="background-image-div ">
@@ -47,7 +57,11 @@ export const Home = () => {
                 </div>
               ))}
             </div>
-          </div>
+
+         
+
+           
+
         </div>
       )}
       </div>
@@ -350,13 +364,20 @@ export const Home = () => {
             </button>
           </div>
         </div>
-        <div className="showArtists text-center mb-3">
+
+ 
+      <div className="showArtists text-center mb-3">
+
         <h1 className="detalle mt-4 mb-4">Nuestros artistas</h1>
         <div className="row  mb-4 mt-4 p-4">
           {store.artists && store.artists.length > 0 ? (
             <ul className="list-group col-12 ">
               {store.artists.map(artist => (
+
                 <li className="list-group-item2 bg-dark " key={artist.id}>
+
+
+
                   {artist.first_name} {artist.last_name}
                 </li>
               ))}
@@ -368,7 +389,11 @@ export const Home = () => {
           )}
         </div>
         </div>
-      <div></div>
+
+
+      <div>
+        
+
       </div>
 
     

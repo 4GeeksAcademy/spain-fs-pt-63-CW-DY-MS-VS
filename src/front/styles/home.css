@@ -23,6 +23,7 @@
   gap: 10px;
 }
 
+
 .artist-name {
   font-family: "Georgia", serif; /* Fuente bonita */
   font-size: 18px;
@@ -30,6 +31,17 @@
   padding: 10px;
   border-bottom: 1px solid #ccc;
 }
+
+
+
+.artist-name {
+  font-family: "Georgia", serif; /* Fuente bonita */
+  font-size: 18px;
+  color: #333;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
 
 .no-artists {
   text-align: center;
@@ -89,7 +101,11 @@ body {
   border-radius: 60px;
   background-repeat: no-repeat;
   background-position: 0 95%;
+
   padding-bottom: 4px; 
+
+  padding-bottom: 4px; /* Ajusta el padding según el grosor de la línea */
+
   cursor: pointer;
   scale: 1;
 }
@@ -114,6 +130,7 @@ body {
   font-size: 20px;
   display: block;
 }
+
 
 .showArtists {
   width: 600px;
@@ -157,3 +174,19 @@ body {
     margin-bottom: 10px;
     
   }
+
+
+.showArtists {
+  width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+  background-color: dimgrey;
+}
+.list-group-item{
+  color:aliceblue
+}
+
