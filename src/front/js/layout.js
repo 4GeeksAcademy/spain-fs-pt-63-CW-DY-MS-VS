@@ -12,6 +12,7 @@ import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import ArtistGalery from "./pages/artistGalery";
 import Shopping from "./pages/shopping";
+import WorkDetail from "./pages/workDatail";
 import  WorkCard  from "./component/workCard";
 import { Edit } from "./pages/edit";
 
@@ -30,8 +31,9 @@ const Layout = () => {
                         <Route element={<Shopping />} path="/shopping" />   
                         <Route element={<WorkCard />} path="/workCard" />
                         <Route element={<Register />} path="/register" />
+                        <Route element={<WorkDetail />} path="/workDetail" />
                         <Route element={<Galery />} path="/galery" />
-                        <Route element={<ArtistGalery />} path="/artistgalery" /> 
+                        <Route element={<ArtistGalery />} path="/artistgalery/:id" /> 
                         <Route element={<Profile />} path="/profile" />
                         <Route element={<Edit />} path="/edit" />
                         <Route element={<Login />} path="/login" />

@@ -5,6 +5,7 @@ import WorkCard from "./../component/workCard";
 import { Link } from 'react-router-dom'
 import "../../styles/home.css";
 
+
 export const Home = () => {
   const { store, actions } = useContext(Context);
   const [filteredArtists, setFilteredArtists] = useState([]);
@@ -47,7 +48,7 @@ export const Home = () => {
               <div className="list-group" style={{ textAlign: "left" }}>
                 {filteredArtists.map((artist, index) => (
                   <div key={index} className="list-group-item1">
-                    <Link to="artistGalery">
+                    <Link to={`artistGalery/${artist.id}`}>
                       <span>{artist.first_name} {artist.last_name} {artist.description}</span>
                     </Link>
                   </div>
@@ -120,7 +121,7 @@ export const Home = () => {
             <ul className="list-group col-12">
               {store.artists.map(artist => (
                 <li className="list-group-item2 bg-dark" key={artist.id}>
-                  {artist.first_name} {artist.last_name}
+                  <Link to={`artistGalery/${artist.id}`}>{artist.first_name} {artist.last_name}</Link>
                 </li>
               ))}
             </ul>
