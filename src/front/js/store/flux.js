@@ -10,6 +10,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 			userArtist: null
 		},
 		actions: {
+			getWorks:()=>{
+
+
+			},
+
 			deleteToken: () => {
 				const store = getStore()
 				const token = localStorage.getItem("token")

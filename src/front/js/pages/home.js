@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import { Search } from "./../component/search";
+import WorkCard from "./../component/workCard";
 import { Link } from 'react-router-dom'
 import "../../styles/home.css";
 
@@ -12,6 +13,7 @@ export const Home = () => {
 
   useEffect(() => {
     actions.getAllArtists();
+   
   }, []);
 
   useEffect(() => {
@@ -30,6 +32,7 @@ export const Home = () => {
     }
     setShowResults(true);
   };
+
 
   return (
     <div className="text-center mt-0">
@@ -54,6 +57,7 @@ export const Home = () => {
           </div>
         )}
       </div>
+      
       <div className="row mb-4 mt-4">
         <div className="col-sm-12">
           <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">
@@ -81,21 +85,11 @@ export const Home = () => {
             </div>
             <div className="carousel-inner p-4">
               <div className="carousel-item active">
-                <div className="row">
-                  <div className="col-md-6 col-sm-12 col-xl-4 p-4">
-                    <div className="card" style={{ width: "18rem" }}>
-                      <img
-                        src="https://tse4.mm.bing.net/th?id=OIP.nvRs6Egs-U4XBijZZmPUHAHaDt&pid=Api&P=0&h=180"
-                        className="card-img-top"
-                        alt="..."
-                      />
-                      <div className="card-body">
-                        <p className="card-text">Bailarina</p>
-                        <p>Precio</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <div className="works-list">
+        {
+          <WorkCard />
+        }
+      </div>
               </div>
             </div>
             <button
