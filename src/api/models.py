@@ -9,7 +9,8 @@ class User_Client(db.Model):
     first_name = db.Column(db.String(80), nullable=False)
     last_name = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(80),  nullable=False)
+    password = db.Column(db.String(80), nullable=False)
+    image = db.Column(db.String(80), nullable=True)
 
     def __repr__(self):
         return f'<User_Client {self.email}>'
@@ -19,7 +20,8 @@ class User_Client(db.Model):
             "id": self.id,
             "first_name": self.first_name,
             "last_name": self.last_name,
-            "email": self.email
+            "email": self.email,
+            "image": self.image
             # do not serialize the password, its a security breach
         }
     
@@ -32,13 +34,14 @@ class User_Artist(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80),  nullable=False)
     description = db.Column(db.String(200), nullable=False)
-    
+    image = db.Column(db.String(80), nullable=True)
 
     def __repr__(self):
         return f'<User_Artist {self.email}>'
 
     def serialize(self):
         return {
+            "image": self.image,
             "id": self.id,
             "first_name": self.first_name,
             "last_name": self.last_name,
@@ -96,7 +99,7 @@ class Favorites(db.Model):
 class Shopping_Cart(db.Model):
     __tablename__ = 'shopping_cart'
 
-    id = db.Column(db.String, primary_key=True)
+    id = db.Column(db.String(36), primary_key=True)
     user_client_id = db.Column(db.String, db.ForeignKey('user_client.id'), nullable = False )
     work_id = db.Column(db.String, db.ForeignKey('work.id'), nullable = False )
 
@@ -111,12 +114,12 @@ class Shopping_Cart(db.Model):
         }  
     
 
-class Order(db.Model):
-    id = db.Column(db.Integer,db.ForeignKey('user_client.id'), primary_key=True)
+# class Order(db.Model):
+#     id = db.Column(db.Integer,db.ForeignKey('user_client.id'), primary_key=True)
 
-    user_client = db.relationship(User_Client)
+#     user_client = db.relationship(User_Client)
 
-    def serialize(self):
-        return {
-            "id": self.id
-        }  
+#     def serialize(self):
+#         return {
+#             "id": self.id
+#         }  

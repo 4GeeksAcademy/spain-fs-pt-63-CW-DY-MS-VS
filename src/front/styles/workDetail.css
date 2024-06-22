@@ -1,0 +1,32 @@
+.work-detail {
+  display: flex;
+  gap: 20px;
+}
+
+.work-image {
+  flex: 1;
+}
+
+.work-image img {
+  width: 100%;
+  height: auto;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.work-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.work-info h5 {
+  margin: 0;
+}
+
+.work-info p {
+  margin: 0;
+}
+

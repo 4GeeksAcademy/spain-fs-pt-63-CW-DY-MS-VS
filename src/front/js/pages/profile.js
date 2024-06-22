@@ -3,11 +3,10 @@ import { MdOutlinePlaylistAdd } from "react-icons/md";
 import { Context } from "../store/appContext";
 import WorksComponent from "../component/worksComponent";
 import ImageCloudinary from "../component/imageCloudinary";
+import { ClientProfile } from "../component/profileClient";
+import ImageInput from "../component/imageInput";
 
 const WorksImages = ({ works }) => {
-
-    console.log(works)
-
     return (
         <>
             {works.map((work, index) => (
@@ -24,16 +23,27 @@ const WorksImages = ({ works }) => {
 }
 
 export const Profile = () => {
+    const userData = JSON.parse(localStorage.getItem("userData"));
     const { store, actions } = useContext(Context)
-    const [profileType, setProfileType] = useState("Artist");
-    const [works, setWorks] = useState([{
-        artist_id: "0e322f1e-e2ef-42c1-8426-b7b389616f9e", description: "s", image: "xzzoast4kbiv0u9t1vkn",
-        price: "2", title: "Straw", type: "Photography", year: "2010"
-    }]);
+    const [imageUrl, setImageUrl] = useState("https://oasys.ch/wp-content/uploads/2019/03/photo-avatar-profil.png");
+    const [works, setWorks] = useState([]);
     const [salesBalance, setSalesBalance] = useState(0);
     const [openModal, setOpenModal] = useState(false)
     const [selectedWork, setSelectedWork] = useState("");
     const [artistDescription, setArtistDescription] = useState("");
+    const token = localStorage.getItem("token")
+    const handleImageUpload = (publicId) => {
+        const cloudinaryUrl = `https://res.cloudinary.com/dxnxb4dus/image/upload/${publicId}.jpg`;  // Construct the URL
+        setImageUrl(cloudinaryUrl);
+    };
+
+    useEffect(() => {
+        const getArtistWorks = async () => {
+            const artistWorks = await actions.getWorks(userData?.id)
+            setWorks( artistWorks )
+        }
+        getArtistWorks()
+    }, []);
 
     const addWork = (newWork) => {
         setWorks([...works, newWork]);
@@ -53,16 +63,19 @@ export const Profile = () => {
     // };
 
     return (
-        <div className="container mt-5">
-            <button
-                className="btn btn-secondary borderRadius 0 mb-3"
-                onClick={() => setProfileType(profileType === "Artist" ? "Client" : "Artist")}>
-                Cambiar a {profileType === "Artist" ? "Client" : "Artist"}
-            </button>
-            {openModal && <WorksComponent onSubmit={handleOnSubmit} closeModal={() => setOpenModal(false)} />}
-            {profileType === "Artist" ? (
+        <div>
+            <div className="container mt-5">
                 <div>
-                    <h2>Perfil del Artista</h2>
+                    {openModal && <WorksComponent onSubmit={handleOnSubmit} closeModal={() => setOpenModal(false)} />}
+
+                    <h3>{store.userArtist?.first_name} {store.userArtist?.last_name}</h3>
+                    <div className="position-relative " style={{ width: '150px', height: '150px' }}>
+                        <img src={imageUrl} className="img-fluid rounded-circle bg-light  object-fit-cover" style={{ width: '100%', height: '100%' }} />
+                        <div className="position-absolute" style={{ bottom: '10px', right: '10px' }}>
+                            <ImageInput name={"+"} onImageUpload={handleImageUpload} />
+                        </div>
+
+                    </div>
                     <div className="mb-3">
                         <div className="balance">
                             <span>Balance de Ventas: </span>
@@ -83,60 +96,15 @@ export const Profile = () => {
                             </div>
                             <WorksImages works={works} />
                         </div>
-                        <div className="my-3">
-                            <label className="form-label">Descripción del Artista:</label>
-                            <textarea
-                                className="form-control"
-                                value={artistDescription}
-                                onChange={(e) => setArtistDescription(e.target.value)}
-                                placeholder="Escribe una breve descripción sobre ti como artista"
-                            />
+                        <div className="card my-2 w-75 mb-5">
+                            <h5 className="card-header">Description</h5>
+                            <div className="card-body">
+                                <p className="card-text">{store.userArtist?.description}</p>
+                            </div>
                         </div>
                     </div>
-                    <button className="btn btn-secondary borderRadius 0">Guardar Perfil</button>
                 </div>
-            ) : (
-                <div>
-                    <h2>Perfil del Cliente</h2>
-                    {/* Contenido específico del perfil del cliente */}
-                </div>
-            )}
-
-            {/* {selectedWork && (
-                <div className="card" style={{
-                    position: 'fixed',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: '300px',
-                    padding: '20px',
-                    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-                    zIndex: 1000,
-                    backgroundColor: 'white'
-                }}>
-                    <div className="card-body">
-                        <span className="close" onClick={handleCloseImage} style={{
-                            position: 'absolute',
-                            top: '10px',
-                            right: '10px',
-                            cursor: 'pointer',
-                            fontSize: '20px'
-                        }}>&times;</span>
-                        <img src={selectedWork.imageUrl} alt={selectedWork.title} style={{ width: '50px', height: '50px', marginBottom: '15px' }} />
-                        <h5 className="card-title">{selectedWork.title}</h5>
-                        <button
-                            type="button"
-                            className="btn btn-secondary borderRadius 0 mt-2"
-                            onClick={() => {
-                                removeWork(selectedWork.id);
-                                handleCloseImage();
-                            }}
-                        >
-                            Eliminar
-                        </button>
-                    </div>
-                </div>
-            )} */}
+            </div>
         </div>
     );
 };

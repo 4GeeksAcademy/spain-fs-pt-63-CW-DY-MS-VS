@@ -1,0 +1,11 @@
+#imagecontainer {
+  display: inline-block; 
+  border: 10px solid #171313; 
+  padding: 3px; /* Espacio entre la imagen y el borde */
+  box-shadow: 0 0 20px rgba(0, 0, 1, 1); /* Sombra para darle un efecto de cuadro */
+}
+.foto {
+    display: block; 
+    max-width: 100%; 
+    height: auto; 
+  }

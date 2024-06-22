@@ -1,0 +1,9 @@
+.flex-item {
+    margin-right: 0.5rem; /* Ajusta el valor según el espaciado que necesites */
+  }
+  
+  .gap {
+    gap: 0.5rem; /* Ajusta el valor según el espaciado que necesites */
+    color: rgb(173, 222, 222);
+  }
+  
