@@ -41,7 +41,7 @@ body {
 }
 
 .navbar {
-  font-size: 25px;
+  font-size: 18px;
   display: block;
   color: #FFFFFF;
   font-family: "Playfair Display", serif;
@@ -51,6 +51,9 @@ body {
   width: 100%;
   z-index: 1000;
   background-color: #000000; 
+  padding: 0px 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 .nav-item:last-child {
@@ -86,10 +89,11 @@ body {
 
  /* styles.css o el archivo CSS que estés utilizando */
  .footer {
+  font-size: 15px;
   display: flex; 
   justify-content: center; 
-  align-items: flex-end; /* Esto alinea el contenido al final del contenedor */
-  height: 80px; /* Ajusta la altura según tus necesidades */
+  align-items: flex-end;
+  height: 50px; 
   background-color: #000000; 
   color:#FFFFFF;
   font-family: "Playfair Display", serif;
@@ -98,7 +102,10 @@ body {
   top: 0;
   bottom: 0; 
   width: 100%; 
-  z-index: 1000; 
+  z-index: 1000;
+  padding: 0px 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 .footer p {
