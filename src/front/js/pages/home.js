@@ -58,7 +58,7 @@ export const Home = () => {
           </div>
         )}
       </div>
-      <div class="scrollable-div "><WorkCard /></div>    
+      <div className="scrollable-div "><WorkCard /></div>    
       
       {/* <div className="row mb-4 mt-4">
       <div className="col-sm-12">
