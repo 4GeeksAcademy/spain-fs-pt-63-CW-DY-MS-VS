@@ -41,7 +41,7 @@ body {
 }
 
 .navbar {
-  font-size: 18px;
+  font-size: 16px;
   display: block;
   color: #FFFFFF;
   font-family: "Playfair Display", serif;
@@ -54,6 +54,7 @@ body {
   padding: 0px 0px;
   margin-top: 0px;
   margin-bottom: 0px;
+  
 }
 
 .nav-item:last-child {
@@ -62,16 +63,16 @@ body {
 }
 
 .nav-item {
-  padding: 20px 30px;
+  padding: 1px 3px;
   margin-right: 7px;
 }
 .navbar a:hover:not(.login) {
   display: inline-block;
-  background-size: 100% 14px; /* Grosor de la línea */
+  background-size: 100% 3px;
   border-radius: 60px;
   background-repeat: no-repeat;
   background-position: 0 95%;
-  padding-bottom: 4px; /* Ajusta el padding según el grosor de la línea */
+  padding-bottom: 2px;
   cursor:pointer;
   scale: 1;
 }
@@ -80,7 +81,7 @@ body {
   position: absolute;
   left: 0;
   bottom: 0;
-  height: 4px;
+  height: 2px;
   width: 100%;
   background-color: #7c77b9;
   border-radius: 3px;
