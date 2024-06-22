@@ -15,9 +15,9 @@ export const Search = ({ onSearch }) => {
   };
 
   return (
-    <div className="search-bar ">
+    <div className="search-bar mb-5 ">
       <input
-        className="isearch"
+        className="isearch w-10 text-center"
         type="text"
         value={query}
         onChange={handleInputChange}

@@ -37,7 +37,7 @@ console.log()
                       style={{ width: 'auto', height: '200px', objectFit: "contain" }}
                       onClick={() => { }}
                     />
-                    <p>{work.title}</p>
+                    
                   </div>
                 </div>
               </div></Link>
@@ -45,7 +45,7 @@ console.log()
          <p>{work.description}</p>
          <p>{work.type}</p>
          <p>{work.price} €</p>
-         <p>{work.user_artist}</p>
+         {/* <p>{work.user_artist}</p> */}
        </div>
         ))
       ) : (

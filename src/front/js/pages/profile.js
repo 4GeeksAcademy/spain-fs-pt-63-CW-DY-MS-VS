@@ -96,7 +96,7 @@ export const Profile = () => {
                             </div>
                             <WorksImages works={works} />
                         </div>
-                        <div className="card my-2 w-75 ">
+                        <div className="card my-2 w-75 mb-5">
                             <h5 className="card-header">Description</h5>
                             <div className="card-body">
                                 <p className="card-text">{store.userArtist?.description}</p>

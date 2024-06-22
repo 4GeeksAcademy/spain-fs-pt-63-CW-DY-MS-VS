@@ -28,7 +28,7 @@ const ArtistGallery = () => {
   console.log(store.artists);
   console.log(store.works);
 
-  // Verificar si store.works está definido y no es null antes de usarlo
+ 
   const works = store.works || [];
 
   return (
@@ -46,7 +46,7 @@ const ArtistGallery = () => {
 
       <div className="row">
         {works.map(work => (
-                <div key={work.id} className="col-12 col-md-4">
+                <div key={work.id} className="col-12 col-md-4 mb-3">
                   <div className="container bg-white bg-opacity-50 h-100 d-flex
                   justify-content-center flex-column gap-2 pt-2
                   align-items-center" style={{ width: "300px" }}>
