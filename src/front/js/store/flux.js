@@ -1,14 +1,26 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-
+			artists: null,
 			client: null,
-			artist: null
+			artist: null,
+			artists: null,
+			works: null,
+			userClient: null,
+			userArtist: null
 		},
 		actions: {
-
+			deleteToken: () => {
+				const store = getStore()
+				const token = localStorage.getItem("token")
+				if (token) {
+					localStorage.removeItem("token");
+					localStorage.removeItem("userData")
+					setStore({ ...store, token: null, userClient: null, userArtist: null })
+				}
+			},
 			login: async (user) => {
-
+				const store = getStore()
 				try {
 					const resp = await fetch(process.env.BACKEND_URL + `/api/login_${user.userType}`, {
 						method: 'POST',
@@ -21,16 +33,63 @@ const getState = ({ getStore, getActions, setStore }) => {
 					if (resp.ok) {
 						const data = await resp.json();
 
-						setStore({ token: data.token })
 						localStorage.setItem('token', data.token);
-
-
+						setStore({ ...store, token: data.token })
+						if (user.userType === 'artist') {
+							await getActions().getUserArtist();
+						} else if (user.userType === "client") {
+							await getActions().getUserClient();
+						}
 					} else {
 						console.log("Error en la solicitud:", resp.statusText);
 					}
 				} catch (error) {
 					console.log("Error en la solicitud:", error);
 				}
+			},
+
+			getUserClient: async () => {
+				const resp = await fetch(process.env.BACKEND_URL + '/api/user_client', {
+					headers: {
+						'Content-Type': 'application/json',
+						'Authorization': 'Bearer ' + localStorage.getItem('token')
+					}
+				})
+				const data = await resp.json()
+				console.log(data)
+				setStore({ userClient: data })
+				localStorage.setItem("userData", JSON.stringify(data))
+				return data
+			},
+
+			updateUserClient: async () => {
+				const resp = await fetch(process.env.BACKEND_URL + `/api/user_client`, {
+					method: 'PUT',
+					headers: {
+						'Content-Type': 'application/json',
+						'Authorization': 'Bearer ' + localStorage.getItem('token')
+					},
+					body: JSON.stringify()
+				})
+				const data = await resp.json({
+					first_name: first_name, last_name: last_name, password: password
+				})
+				console.log(data)
+			},
+
+			getUserArtist: async () => {
+				console.log('funciona')
+				const resp = await fetch(process.env.BACKEND_URL + '/api/user_artist', {
+					headers: {
+						'Content-Type': 'application/json',
+						'Authorization': 'Bearer ' + localStorage.getItem('token')
+					}
+				})
+				const data = await resp.json()
+
+				localStorage.setItem("userData", JSON.stringify(data))
+				await setStore({ userArtist: data })
+				return data
 			},
 
 			registerUserClient: async (userClient) => {
@@ -66,6 +125,78 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error loading message from backend", error)
 				}
 			},
+
+			getAllArtists: async () => {
+				const store = getStore();
+				const resp = await fetch(process.env.BACKEND_URL + "/api/user_artists");
+				const data = await resp.json();
+
+				setStore({ ...store, artists: data });
+				return data
+			},
+			getArtistsWithWorks: async () => {
+				const store = getStore()
+
+				try {
+					await getActions().getAllArtists();
+					const artistsData = getStore().artists;
+
+					if (artistsData) {
+						const artistMap = artistsData.reduce((acc, artist) => {
+							acc[artist.id] = {
+								name: `${artist.first_name} ${artist.last_name}`,
+								works: []
+							};
+							return acc;
+						}, {});
+
+						const artistIds = artistsData.map(el => el.id);
+
+						const worksPromises = artistIds.map(id => getActions().getWorks(id));
+						const worksData = await Promise.all(worksPromises);
+
+						// Flatten the array of works arrays
+						const flattenedWorks = worksData.flat();
+
+						flattenedWorks.forEach(work => {
+							if (artistMap[work.user_artist]) {
+								artistMap[work.user_artist].works.push(work);
+							}
+						});
+
+						// Add the artist name to each work
+						const artistsWithWorks = Object.keys(artistMap).map(id => ({
+							id,
+							name: artistMap[id].name,
+							works: artistMap[id].works
+						}));
+
+						setStore({ ...store, gallery: artistsWithWorks })
+						console.log(artistsWithWorks);
+						return artistsWithWorks
+					}
+				} catch (error) {
+					console.error('Error fetching data:', error);
+				}
+			},
+			getWorks: async (id) => {
+				const store = getStore()
+				const resp = await fetch(process.env.BACKEND_URL + `/api/works/user_artist/${id}`)
+				const data = await resp.json()
+
+				setStore({ ...store, works: data })
+				return data
+			},
+
+			getAllWorks: async () => {
+				const store = getStore()
+				const resp = await fetch(process.env.BACKEND_URL + `/api/works`)
+				const data = await resp.json()
+
+				setStore({ ...store, allWorks: data })
+				return data
+			},
+
 			uploadWorkImage: async (imgId) => {
 				try {
 					const store = getStore();
@@ -78,7 +209,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			uploadWork: async (work) => {
 				try {
-					const store = getStore()
 					const resp = await fetch(process.env.BACKEND_URL + "/api/work", {
 						method: 'POST',
 						headers: {
@@ -95,9 +225,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 			setImage: async (imgId) => {
 				const store = getStore()
 				setStore({ ...store, image: imgId })
-			}
+			},
+
 		}
-	};
+	}
 };
+
 
 export default getState;

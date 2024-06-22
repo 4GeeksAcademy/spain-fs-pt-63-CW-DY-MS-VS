@@ -3,9 +3,11 @@ import ImageInput from "./imageInput";
 
 const WorksComponent = ({ onSubmit, closeModal, }) => {
 
+    const userData = JSON.parse(localStorage.getItem("userData"));
+
     let newWork = {
         title: "", type: "", year: "", image: "",
-        description: "", price: "", artist_id: "0e322f1e-e2ef-42c1-8426-b7b389616f9e"
+        description: "", price: "", artist_id: userData?.id
     }
 
     return (
@@ -20,7 +22,7 @@ const WorksComponent = ({ onSubmit, closeModal, }) => {
                         <button type="button" className="btn-close" onClick={closeModal}></button>
                     </div>
                     <div className="my-2">
-                        <ImageInput />
+                        <ImageInput name={"Select Image"} />
                     </div>
                     <input type="text" className="form-control" required
                         onChange={(e) => newWork = { ...newWork, title: e.target.value }} placeholder="Title" />

@@ -74,11 +74,10 @@ def get_client():
 def update_client(id):
     data = request.json
     client = User_Client.query.get_or_404(id)
-
     client.first_name = data.get("first_name", client.first_name)
     client.last_name = data.get("last_name", client.last_name)
-    client.email = data.get("email", client.email)
     client.password = data.get("password", client.password)
+    client.image = data.get("image", client.image)
 
     try:
         db.session.commit()
@@ -108,7 +107,7 @@ def create_artist():
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
     new_user = User_Artist(id = artist_id, email = email, password = hashed_password, first_name = first_name, 
-                           last_name = last_name, description = description or 'new Artist')
+                           last_name = last_name, description = description or 'About You')
 
     try:
         db.session.add(new_user)
@@ -133,12 +132,32 @@ def create_artist_token():
     else:
         return jsonify({'message': 'Invalid email or password'}), 401
 
-@api.route('/user_artist', methods=['GET'], endpoint='get_artist')
+@api.route('/user_artist', methods=['GET'], endpoint='login_artist')
 @jwt_required()
 def get_artist():
     id_artist = get_jwt_identity()
     artist = User_Artist.query.get_or_404(id_artist)
     return jsonify(artist.serialize()), 200
+
+@api.route('/user_artist/<string:id>', methods=['GET'], endpoint='get_artist')
+def get_artist_from_id(id):
+    print(id)
+    artist = User_Artist.query.filter_by(id = id).first()
+    return jsonify(artist.serialize()), 200
+
+
+@api.route('/user_artists', methods=['GET'], endpoint='get_all_artists')
+def get_all_artists():
+    artists = User_Artist.query.all()
+    artists = [artist.serialize() for artist in artists]
+    print(artists)
+    return jsonify(artists), 200
+
+@api.route('/works/user_artist/<string:artist_id>', methods=['GET'], endpoint='get_works_by_artist')
+def get_works_by_artist(artist_id):
+    works = Work.query.filter_by(artist_id=artist_id).all()
+    return jsonify([work.serialize() for work in works]), 200
+
 
 @api.route('/user_artist/<string:id>', methods=['PUT'], endpoint='update_artist')
 def update_artist(id):
@@ -150,6 +169,7 @@ def update_artist(id):
     artist.email = data.get("email", artist.email)
     artist.password = data.get("password", artist.password)
     artist.description = data.get("description", artist.description)
+    artist.image = data.get("image", artist.image)
 
     try:
         db.session.commit()
@@ -188,6 +208,13 @@ def create_work():
         return jsonify({"Message": "Something went wrong", "Error": str(ex)}), 500
 
     return jsonify(new_work.serialize()), 201
+
+@api.route('/works', methods=['GET'], endpoint="get_all_works")
+def get_all_works():
+    works = Work.query.all()
+    works = [work.serialize() for work in works]
+    print(works)
+    return jsonify(works), 200
 
 @api.route('/work/<string:id>', methods=['GET'])
 def get_work(id):
