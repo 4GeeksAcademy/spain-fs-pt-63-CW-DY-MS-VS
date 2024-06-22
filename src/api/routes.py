@@ -28,6 +28,7 @@ def create_client():
     password = data.get("password")
     first_name = data.get("first_name")
     last_name = data.get("last_name")
+    image = "user_elfdss"
 
     if not email or not password:
         return jsonify({"Error": "Username or Password are required"}), 400
@@ -37,7 +38,7 @@ def create_client():
     client_id = str(uuid.uuid4())
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
-    new_user = User_Client(id = client_id, email = email, password = hashed_password, first_name = first_name, last_name = last_name)
+    new_user = User_Client(id = client_id, email = email, password = hashed_password, first_name = first_name, last_name = last_name, image = image)
 
     try:
         db.session.add(new_user)
@@ -97,6 +98,7 @@ def create_artist():
     first_name = data.get("first_name")
     last_name = data.get("last_name")
     description = data.get("description")
+    image = "user_elfdss"
 
     if not email or not password:
         return jsonify({"Error": "Username or Password are required"}), 400
@@ -107,7 +109,7 @@ def create_artist():
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
     new_user = User_Artist(id = artist_id, email = email, password = hashed_password, first_name = first_name, 
-                           last_name = last_name, description = description or 'About You')
+                           last_name = last_name, description = description or 'About You', image = image)
 
     try:
         db.session.add(new_user)
