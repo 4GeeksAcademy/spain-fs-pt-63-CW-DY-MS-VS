@@ -200,7 +200,11 @@ body {
   color:aliceblue
 }
 
-.footer p {
-  margin: 0; 
-
+.scrollable-div {
+  width: 100%;
+  height:500px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  overflow: auto; /* Esto activa el scroll en ambas direcciones si es necesario */
+  margin-bottom: 10px;
 }

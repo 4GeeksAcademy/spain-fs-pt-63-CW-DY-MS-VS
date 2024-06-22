@@ -13,6 +13,8 @@ import { Footer } from "./component/footer";
 import ArtistGalery from "./pages/artistGalery";
 import WorkDetail from "./pages/workDetail";
 import Shopping from "./pages/shopping";
+import WorkDetail from "./pages/workDatail";
+import  WorkCard  from "./component/workCard";
 import { Edit } from "./pages/edit";
 
 //create your first component
@@ -28,9 +30,11 @@ const Layout = () => {
                     <Navbar />
                     <Routes>
                         <Route element={<Shopping />} path="/shopping" />   
+                        <Route element={<WorkCard />} path="/workCard" />
                         <Route element={<Register />} path="/register" />
+                        <Route element={<WorkDetail />} path="/workDetail" />
                         <Route element={<Galery />} path="/galery" />
-                        {/* <Route element={<ArtistGalery />} path="/artistgalery" /> */}
+                        <Route element={<ArtistGalery />} path="/artistgalery/:id" /> 
                         <Route element={<Profile />} path="/profile" />
                         <Route element={<Edit />} path="/edit" />
                         <Route element={<Login />} path="/login" />
