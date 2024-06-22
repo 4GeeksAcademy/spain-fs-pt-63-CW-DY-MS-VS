@@ -41,7 +41,7 @@ class User_Artist(db.Model):
 
     def serialize(self):
         return {
-            "image": self.id,
+            "image": self.image,
             "id": self.id,
             "first_name": self.first_name,
             "last_name": self.last_name,
