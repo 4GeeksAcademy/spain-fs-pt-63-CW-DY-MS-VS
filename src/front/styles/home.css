@@ -85,6 +85,11 @@ body {
   color: #ffffff;
   font-family: "Playfair Display", serif;
   font-optical-sizing: auto;
+  position: fixed;
+  top: 0; 
+  width: 100%;
+  z-index: 1000;
+  background-color: #000000; 
 }
 
 .nav-item:last-child {
@@ -120,17 +125,21 @@ body {
   border-radius: 3px;
 }
 
-.footer {
-  background: #000000;
-  padding: 0%;
-  margin-bottom: 0%;
-  color: #ffffff;
+ /* styles.css o el archivo CSS que estés utilizando */
+ .footer {
+  display: flex; 
+  justify-content: center; 
+  align-items: flex-end; /* Esto alinea el contenido al final del contenedor */
+  height: 80px; /* Ajusta la altura según tus necesidades */
+  background-color: #000000; 
+  color:#FFFFFF;
   font-family: "Playfair Display", serif;
   font-optical-sizing: auto;
-  font-size: 20px;
-  display: block;
-}
-
+  position: fixed; 
+  top: 0;
+  bottom: 0; 
+  width: 100%; 
+  z-index: 1000; 
 
 .showArtists {
   width: 600px;
@@ -186,7 +195,12 @@ body {
   font-family: 'Arial', sans-serif;
   background-color: dimgrey;
 }
+   
 .list-group-item{
   color:aliceblue
 }
 
+.footer p {
+  margin: 0; 
+
+}
