@@ -7,7 +7,48 @@
         lavanda: #7C77B9
    }
  */
+.artist-list-container {
+  width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+}
 
+.artist-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+
+.artist-name {
+  font-family: "Georgia", serif; /* Fuente bonita */
+  font-size: 18px;
+  color: #333;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+
+
+.artist-name {
+  font-family: "Georgia", serif; /* Fuente bonita */
+  font-size: 18px;
+  color: #333;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+
+.no-artists {
+  text-align: center;
+  font-family: "Georgia", serif;
+  font-size: 18px;
+  color: #999;
+}
 .frase {
   background-color: #7c77b9;
   border-radius: 20px;
@@ -24,33 +65,35 @@ body {
   border-radius: 8px;
   background-color: #7c77b9;
   color: #ffffff;
-  box-shadow:0 8px 12px rgba(0, 0, 78, 0.2);
-  
+  box-shadow: 0 8px 12px rgba(0, 0, 78, 0.2);
 }
-.card{
+.card {
   width: 300px;
-
 }
-.detalle{
+.detalle {
   color: #7c77b9;
 }
 .fixed-img {
   width: 100%;
-  height: 200px; 
+  height: 200px;
   object-fit: cover;
 }
 
 .navbar {
   font-size: 25px;
   display: block;
-  color: #FFFFFF;
+  color: #ffffff;
   font-family: "Playfair Display", serif;
-  font-optical-sizing: auto;  
+  font-optical-sizing: auto;
+  position: fixed;
+  top: 0; 
+  width: 100%;
+  z-index: 1000;
+  background-color: #000000; 
 }
 
 .nav-item:last-child {
   margin-right: 0;
-  
 }
 
 .nav-item {
@@ -59,16 +102,20 @@ body {
 }
 .navbar a:hover:not(.login) {
   display: inline-block;
-  background-size: 100% 14px; /* Grosor de la línea */
+  background-size: 100% 14px; 
   border-radius: 60px;
   background-repeat: no-repeat;
   background-position: 0 95%;
+
+  padding-bottom: 4px; 
+
   padding-bottom: 4px; /* Ajusta el padding según el grosor de la línea */
-  cursor:pointer;
+
+  cursor: pointer;
   scale: 1;
 }
 .navbar a:hover:not(.login)::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   bottom: 0;
@@ -76,18 +123,84 @@ body {
   width: 100%;
   background-color: #7c77b9;
   border-radius: 3px;
-
 }
 
+ /* styles.css o el archivo CSS que estés utilizando */
  .footer {
-  background: #000000;
-  padding: 0%;
-  margin-bottom: 0%;
+  display: flex; 
+  justify-content: center; 
+  align-items: flex-end; /* Esto alinea el contenido al final del contenedor */
+  height: 80px; /* Ajusta la altura según tus necesidades */
+  background-color: #000000; 
   color:#FFFFFF;
   font-family: "Playfair Display", serif;
-  font-optical-sizing: auto; 
-  font-size: 20px;
-  display: block;
- }
- 
+  font-optical-sizing: auto;
+  position: fixed; 
+  top: 0;
+  bottom: 0; 
+  width: 100%; 
+  z-index: 1000; 
 
+.showArtists {
+  width: 600px;
+  margin: 0 auto;
+  padding: 3px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: "Arial", sans-serif;
+  background-color: dimgrey;
+}
+.list-group-item2 {
+  color: rgb(255, 252, 252);
+}
+.list-group-item1 {
+  color: #0c0a0a;
+}
+.list-group {
+  width: 600px;
+  margin: 0 auto;
+  padding: 3px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: "Arial", sans-serif;
+  background-color: rgb(255, 255, 250);
+}
+.background-image-div {
+  background-image: url('https://pre00.deviantart.net/4cf3/th/pre/f/2010/271/f/b/fb08ddc0b09c8dbc2de2b0a7e022ebab-d2xy78s.jpg');
+
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center center; 
+    height: 300px; 
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: top;
+    position: relative;
+    color: rgb(115, 99, 78);
+    margin-bottom: 10px;
+    
+  }
+
+
+.showArtists {
+  width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+  background-color: dimgrey;
+}
+   
+.list-group-item{
+  color:aliceblue
+}
+
+.footer p {
+  margin: 0; 
+
+}
