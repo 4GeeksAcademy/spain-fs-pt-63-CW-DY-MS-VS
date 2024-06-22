@@ -140,6 +140,7 @@ body {
   bottom: 0; 
   width: 100%; 
   z-index: 1000; 
+ }
 
 .showArtists {
   width: 600px;
