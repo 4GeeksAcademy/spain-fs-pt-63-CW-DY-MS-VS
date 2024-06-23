@@ -1,6 +1,7 @@
 .work-detail {
   display: flex;
   gap: 20px;
+  margin-top: 20px;
 }
 
 .work-image {
@@ -12,7 +13,7 @@
   height: auto;
   border: 2px solid #ccc;
   border-radius: 8px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .work-info {
@@ -30,3 +31,22 @@
   margin: 0;
 }
 
+.informacion-container {
+  flex: 1; /* Ocupa todo el espacio disponible */
+  display: flex;
+  align-items: center; /* Alinea verticalmente el contenido */
+}
+
+.informacion {
+  text-align: start;
+  margin-left: 20px; /* Espacio entre la imagen y el texto */
+}
+.enviarShop{
+  border-radius: 20px;
+  margin-left: 10px;
+}
+.like-button{
+  border-radius: 20px;
+  background-color: blanchedalmond;
+  color: red;
+}

@@ -23,7 +23,7 @@ export const Home = () => {
 
   const handleSearch = (query) => {
     if (query) {
-      const filtered = store.artists.filter(artist =>
+         const filtered = store.artists.filter(artist =>
         artist.first_name.toLowerCase().includes(query.toLowerCase()) ||
         artist.last_name.toLowerCase().includes(query.toLowerCase())
       );
@@ -60,70 +60,7 @@ export const Home = () => {
       </div>
       <div className="scrollable-div "><WorkCard /></div>    
       
-      {/* <div className="row mb-4 mt-4">
-      <div className="col-sm-12">
-        <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">
-          <div className="carousel-indicators">
-            <button
-              type="button"
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide-to="0"
-              className="active"
-              aria-current="true"
-              aria-label="Slide 1"
-            ></button>
-            <button
-              type="button"
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide-to="1"
-              aria-label="Slide 2"
-            ></button>
-            <button
-              type="button"
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide-to="2"
-              aria-label="Slide 3"
-            ></button>
-          </div>
-          <div className="carousel-inner p-4">
-            <div className="carousel-item active">
-              <div className="works-list">
-                <WorkCard />
-              </div>
-            </div>
-            <div className="carousel-item">
-              <div className="works-list">
-                <WorkCard />
-              </div>
-            </div>
-            <div className="carousel-item">
-              <div className="works-list">
-                <WorkCard />
-              </div>
-            </div>
-          </div>
-          <button
-            className="carousel-control-prev"
-            type="button"
-            data-bs-target="#carouselExampleIndicators"
-            data-bs-slide="prev"
-          >
-            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span className="visually-hidden">Previous</span>
-          </button>
-          <button
-            className="carousel-control-next"
-            type="button"
-            data-bs-target="#carouselExampleIndicators"
-            data-bs-slide="next"
-          >
-            <span className="carousel-control-next-icon" aria-hidden="true"></span>
-            <span className="visually-hidden">Next</span>
-          </button>
-        </div>
-      </div>
-    </div>
-   */}
+    
       <div className="showArtists text-center mb-3">
         <h1 className="detalle mt-4 mb-4">Nuestros artistas</h1>
         <div className="row mb-4 mt-4 p-4">
