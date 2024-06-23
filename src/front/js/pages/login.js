@@ -6,16 +6,16 @@ import { Link } from "react-router-dom";
 
 const Login = () => {
   const { store, actions } = useContext(Context);
-  const [user, setUser] = useState({ email: "", password: "", userType: "" })
-  const navigate = useNavigate()
+  const [user, setUser] = useState({ email: "", password: "", userType: "" });
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     await actions.login(user);
-    setUser({ email: "", password: "", userType: "" })
-    navigate("/")
+    localStorage.token?(navigate("/")):alert("Usuario o contraseña incorrecto")
+    
   };
-
 
   return (
     <div className="container text-center">
@@ -32,19 +32,24 @@ const Login = () => {
           />
         </div>
 
-        <div className="mt-5">
+        <div className="mt-5 position-relative password-wrapper">
           <input
             className="text-center password"
             name="password"
-            type="password"
+            type={showPassword ? "text" : "password"}
             placeholder="password"
             value={user.password}
             onChange={(event) => setUser({ ...user, password: event.target.value })}
           />
+          <span
+            className="password-toggle"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? "🙈" : "👁️"} {/* Ícono de ojo */}
+          </span>
         </div>
 
         <div className="radio-group mt-4">
-
           <label>
             Artist
             <input
@@ -65,14 +70,13 @@ const Login = () => {
               onChange={(event) => setUser({ ...user, userType: event.target.value })}
             />
           </label>
-
         </div>
 
         <div>
           <button className="mt-5 go" type="submit">
             Login
           </button>
-          <Link to="/register"><p>¡Register here!</p></Link>
+          <Link to="/register"><p className="mt-5">¡Register here!</p></Link>
         </div>
       </form>
     </div>
