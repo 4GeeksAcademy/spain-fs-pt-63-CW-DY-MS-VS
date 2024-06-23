@@ -4,7 +4,7 @@ import "../../styles/shopping.css";
 export default function Shopping() {
   return (
     <div className="container text-left">
-      <h3>Car-Shop <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
+      <h3>Car-Shop <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-cart3" viewBox="0 0 16 16">
         <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l.84 4.479 9.144-.459L13.89 4zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
       </svg></h3>
       <div className="row d-flex text-start">
@@ -14,12 +14,12 @@ export default function Shopping() {
         <div className="col-6">
           <h3 className="text-dark mb-2">24360000.00 €</h3>
         </div>
-        <div className="col-4 text-end">Vaciar el carro <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-trash text-danger" viewBox="0 0 16 16">
+        <div className="col-4 text-end">Vaciar el carro <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" className="bi bi-trash text-danger" viewBox="0 0 16 16">
           <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
           <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
         </svg> </div>
       </div>
-      <div class="alert alert-warning alert-dismissible fade show text-center p-3" role="alert" style={{ boxShadow: "0 0 20px rgba(0, 0, 0, 0.5)", }}>
+      <div className="alert alert-warning alert-dismissible fade show text-center p-3" role="alert" style={{ boxShadow: "0 0 20px rgba(0, 0, 0, 0.5)", }}>
 
         <strong>Tramitar pedidos</strong> (4 productos)
       </div>

@@ -58,7 +58,7 @@ export const Home = () => {
           </div>
         )}
       </div>
-      <div class="scrollable-div "><WorkCard /></div>    
+      <div className="scrollable-div "><WorkCard /></div>    
       
     
       <div className="showArtists text-center mb-3">
