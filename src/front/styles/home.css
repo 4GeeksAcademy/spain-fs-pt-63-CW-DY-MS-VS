@@ -23,7 +23,6 @@
   gap: 10px;
 }
 
-
 .artist-name {
   font-family: "Georgia", serif; /* Fuente bonita */
   font-size: 18px;
@@ -32,8 +31,6 @@
   border-bottom: 1px solid #ccc;
 }
 
-
-
 .artist-name {
   font-family: "Georgia", serif; /* Fuente bonita */
   font-size: 18px;
@@ -41,7 +38,6 @@
   padding: 10px;
   border-bottom: 1px solid #ccc;
 }
-
 
 .no-artists {
   text-align: center;
@@ -80,17 +76,23 @@ body {
 }
 
 .navbar {
-  font-size: 25px;
-  display: block;
+  font-size: 15px;
+  display: flex; /* Usar flex para alinear el contenido */
+  justify-content: center; /* Centra horizontalmente el contenido */
+  align-items: center; /* Centra verticalmente el contenido */
   color: #ffffff;
   font-family: "Playfair Display", serif;
   font-optical-sizing: auto;
   position: fixed;
-  top: 0; 
+  top: 0;
   width: 100%;
-  z-index: 1000;
-  background-color: #000000; 
+  z-index: 500;
+  background-color: #000000; /* Fondo negro */
+  height: 40px; /* Ajusta la altura según tus necesidades */
+  padding: 0; /* Elimina el padding para centrar perfectamente */
+  margin: 0; /* Asegura que no haya márgenes adicionales */
 }
+
 
 .nav-item:last-child {
   margin-right: 0;
@@ -102,12 +104,12 @@ body {
 }
 .navbar a:hover:not(.login) {
   display: inline-block;
-  background-size: 100% 14px; 
-  border-radius: 60px;
+  background-size: 100% 14px;
+  border-radius: 30px;
   background-repeat: no-repeat;
   background-position: 0 95%;
 
-  padding-bottom: 4px; 
+  padding-bottom: 4px;
 
   padding-bottom: 4px; /* Ajusta el padding según el grosor de la línea */
 
@@ -119,27 +121,28 @@ body {
   position: absolute;
   left: 0;
   bottom: 0;
-  height: 4px;
+  height: 1px;
   width: 100%;
   background-color: #7c77b9;
   border-radius: 3px;
 }
 
- /* styles.css o el archivo CSS que estés utilizando */
- .footer {
-  display: flex; 
-  justify-content: center; 
-  align-items: flex-end; /* Esto alinea el contenido al final del contenedor */
-  height: 80px; /* Ajusta la altura según tus necesidades */
-  background-color: #000000; 
-  color:#FFFFFF;
+.footer {
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  height: 30px; /* Ajusta la altura según tus necesidades */
+  background-color: #000000;
+  color: #ffffff;
   font-family: "Playfair Display", serif;
   font-optical-sizing: auto;
-  position: fixed; 
-  top: 0;
-  bottom: 0; 
-  width: 100%; 
-  z-index: 1000; 
+  position: fixed;
+  bottom: 0; /* Posiciona el pie de página en la parte inferior */
+  width: 100%;
+  z-index: 1000;
+  padding: 0; /* Elimina el padding para centrar perfectamente */
+  margin: 0; /* Asegura que no haya márgenes adicionales */
+}
 
 .showArtists {
   width: 600px;
@@ -168,22 +171,20 @@ body {
   background-color: rgb(255, 255, 250);
 }
 .background-image-div {
-  background-image: url('https://pre00.deviantart.net/4cf3/th/pre/f/2010/271/f/b/fb08ddc0b09c8dbc2de2b0a7e022ebab-d2xy78s.jpg');
+  background-image: url("https://pre00.deviantart.net/4cf3/th/pre/f/2010/271/f/b/fb08ddc0b09c8dbc2de2b0a7e022ebab-d2xy78s.jpg");
 
-    background-size: cover; 
-    background-repeat: no-repeat; 
-    background-position: center center; 
-    height: 300px; 
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: top;
-    position: relative;
-    color: rgb(115, 99, 78);
-    margin-bottom: 10px;
-    
-  }
-
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 300px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: top;
+  position: relative;
+  color: rgb(115, 99, 78);
+  margin-bottom: 10px;
+}
 
 .showArtists {
   width: 600px;
@@ -192,17 +193,17 @@ body {
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   background-color: dimgrey;
 }
-   
-.list-group-item{
-  color:aliceblue
+
+.list-group-item {
+  color: aliceblue;
 }
 
 .scrollable-div {
   width: 100%;
-  height:500px;
+  height: 500px;
   border: 1px solid #ccc;
   padding: 10px;
   overflow: auto; /* Esto activa el scroll en ambas direcciones si es necesario */

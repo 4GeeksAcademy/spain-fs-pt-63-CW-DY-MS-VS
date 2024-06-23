@@ -25,10 +25,6 @@ const ArtistGallery = () => {
     return <p>No se encontró ningún artista con el ID {id}</p>;
   }
 
-  console.log(store.artists);
-  console.log(store.works);
-
- 
   const works = store.works || [];
 
   return (

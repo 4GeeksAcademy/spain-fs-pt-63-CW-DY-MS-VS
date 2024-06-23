@@ -11,10 +11,9 @@ import { Profile } from "./pages/profile";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import ArtistGalery from "./pages/artistGalery";
-import WorkDetail from "./pages/workDetail";
 import Shopping from "./pages/shopping";
-import WorkDetail from "./pages/workDatail";
-import  WorkCard  from "./component/workCard";
+import WorkDetail from "./pages/workDetail";
+import WorkCard from "./component/workCard";
 import { Edit } from "./pages/edit";
 
 //create your first component
@@ -29,18 +28,18 @@ const Layout = () => {
                 <ScrollToTop>
                     <Navbar />
                     <Routes>
-                        <Route element={<Shopping />} path="/shopping" />   
+                        <Route element={<Shopping />} path="/shopping" />
                         <Route element={<WorkCard />} path="/workCard" />
                         <Route element={<Register />} path="/register" />
-                        <Route element={<WorkDetail />} path="/workDetail" />
                         <Route element={<Galery />} path="/galery" />
-                        <Route element={<ArtistGalery />} path="/artistgalery/:id" /> 
+                        <Route element={<WorkDetail />} path="/workDetail/:id" />
+                        <Route element={<ArtistGalery />} path="/artistgalery/:id" />
                         <Route element={<Profile />} path="/profile" />
                         <Route element={<Edit />} path="/edit" />
                         <Route element={<Login />} path="/login" />
                         <Route element={<Home />} path="/" />
                         <Route element={<h1>Not found!</h1>} />
-                        <Route element={<WorkDetail />} path="/workDetail" />
+
                     </Routes>
                     <Footer />
                 </ScrollToTop>
