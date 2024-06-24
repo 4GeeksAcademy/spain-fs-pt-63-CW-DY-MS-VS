@@ -71,8 +71,8 @@ export const Profile = () => {
                     <h3>{store.userArtist?.first_name} {store.userArtist?.last_name}</h3>
                     <div className="position-relative " style={{ width: '150px', height: '150px' }}>
                         <img src={imageUrl} className="img-fluid rounded-circle bg-light  object-fit-cover" style={{ width: '100%', height: '100%' }} />
-                        <div className="position-absolute" style={{ bottom: '10px', right: '10px' }}>
-                            <ImageInput name={"+"} onImageUpload={handleImageUpload} />
+                        <div className="position-absolute " style={{ bottom: '10px', right: '10px'}}>
+                            <ImageInput  name={"+"} onImageUpload={handleImageUpload} />
                         </div>
 
                     </div>

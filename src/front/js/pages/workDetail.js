@@ -50,8 +50,8 @@ const WorkDetail = ({ obra }) => {
                 style={{ width: 'auto', height: '400px', objectFit: "contain", boxShadow: " 0 8px 12px rgba(0, 0, 0, 0.6)", border: "10px solid #000" }}
                 onClick={() => { }}
               /></div>
-              <div className=" informacion-container col-6">
-                <div className="work-info">
+              <div className=" informacion-container col-6 mx-5">
+                <div className="work-info mx-5">
                   <h5>{work.title}</h5>
                   <p>
                     {work.description}
