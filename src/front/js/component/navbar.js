@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext} from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import { IoFlowerOutline } from "react-icons/io5";
@@ -30,7 +30,7 @@ export const Navbar = () => {
         </div>
         <div className="d-flex float-end">
           {
-            token ? (<p className="px-2">Hi, {userData?.first_name} {userData?.last_name}</p>) : null
+            token ? (<p className="px-2">Hi, {userData?.first_name}</p>) : null
           }
           {
             token ? (<Link to="/shopping"><span className="px-2"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" className="bi bi-cart4" viewBox="0 0 16 16">
