@@ -71,22 +71,44 @@ def get_client():
     return jsonify(client.serialize()), 200
 
 
-@api.route('/user_client/<string:id>', methods=['PUT'], endpoint='update_client')
-def update_client(id):
+@api.route('/user_client', methods=['PUT'], endpoint='update_client')
+@jwt_required()
+def update_client():
+    id = get_jwt_identity()
     data = request.json
     client = User_Client.query.get_or_404(id)
-    client.first_name = data.get("first_name", client.first_name)
-    client.last_name = data.get("last_name", client.last_name)
-    client.password = data.get("password", client.password)
-    client.image = data.get("image", client.image)
+    client.first_name = data["first_name"]
+    client.last_name = data["last_name"]
 
     try:
         db.session.commit()
+        return jsonify({
+            "first_name": client.first_name,
+            "last_name": client.last_name,
+            "description": client.description
+        })
     except Exception as ex:
         db.session.rollback()
         return jsonify({"Message": "Something went wrong", "Error": str(ex)}), 500
+    
 
-    return jsonify(client.serialize()), 200
+@api.route('/user_client', methods=['PUT'], endpoint='update_client_password')
+@jwt_required()
+def update_client_password():
+    id = get_jwt_identity()
+    data = request.json
+    client = User_Client.query.get_or_404(id)
+    hashed_password = bcrypt.generate_password_hash(data['password']).decode('utf-8')
+    client.password =hashed_password
+   
+    try:
+        db.session.commit()
+        return jsonify({"Message":'ok'})
+    except Exception as ex:
+        db.session.rollback()
+        return jsonify({"Message": "Something went wrong", "Error": str(ex)}), 500    
+
+
 
 ##---------------------ARTISTS---------------------##
 
@@ -160,26 +182,42 @@ def get_works_by_artist(artist_id):
     works = Work.query.filter_by(artist_id=artist_id).all()
     return jsonify([work.serialize() for work in works]), 200
 
-
-@api.route('/user_artist/<string:id>', methods=['PUT'], endpoint='update_artist')
-def update_artist(id):
+@api.route('/user_artist', methods=['PUT'], endpoint='update_artist')
+@jwt_required()
+def update_artist():
+    id = get_jwt_identity()
     data = request.json
-    artist = User_Artist.query.get_or_404(id)
-
-    artist.first_name = data.get("first_name", artist.first_name)
-    artist.last_name = data.get("last_name", artist.last_name)
-    artist.email = data.get("email", artist.email)
-    artist.password = data.get("password", artist.password)
-    artist.description = data.get("description", artist.description)
-    artist.image = data.get("image", artist.image)
+    client = User_Artist.query.get_or_404(id)
+    client.first_name = data["first_name"]
+    client.last_name = data["last_name"]
+    client.description = data["description"]
 
     try:
         db.session.commit()
+        return jsonify({
+            "first_name": client.first_name,
+            "last_name": client.last_name,
+            "description": client.description
+        })
     except Exception as ex:
         db.session.rollback()
         return jsonify({"Message": "Something went wrong", "Error": str(ex)}), 500
+    
 
-    return jsonify(artist.serialize()), 200
+@api.route('/user_artist', methods=['PUT'], endpoint='update_artist_password')
+@jwt_required()
+def update_client_password():
+    id = get_jwt_identity()
+    data = request.json
+    client = User_Artist.query.get_or_404(id)
+    hashed_password = bcrypt.generate_password_hash(data['password']).decode('utf-8')
+    client.password =hashed_password
+    try:
+        db.session.commit()
+        return jsonify({"Message":'ok'})
+    except Exception as ex:
+        db.session.rollback()
+        return jsonify({"Message": "Something went wrong", "Error": str(ex)}), 500    
 
 ##---------------------WORKS---------------------##
 

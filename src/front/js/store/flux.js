@@ -1,7 +1,6 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			artists: null,
 			client: null,
 			artist: null,
 			artists: null,
@@ -61,26 +60,76 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 				})
 				const data = await resp.json()
-				console.log(data)
-				setStore({ userClient: data })
+				data.type = 'client';
 				localStorage.setItem("userData", JSON.stringify(data))
+				await setStore({ userClient: data })
 				return data
 			},
 
-			updateUserClient: async () => {
+			updateUserClient: async (first_name,last_name) => {
 				const resp = await fetch(process.env.BACKEND_URL + `/api/user_client`, {
 					method: 'PUT',
 					headers: {
 						'Content-Type': 'application/json',
 						'Authorization': 'Bearer ' + localStorage.getItem('token')
 					},
-					body: JSON.stringify()
+					body: JSON.stringify({
+						first_name: first_name, last_name: last_name
+					})	
 				})
-				const data = await resp.json({
-					first_name: first_name, last_name: last_name, password: password
+				const data = await resp.json()
+				localStorage.setItem("userData", JSON.stringify(data))
+				console.log(data)
+				return data
+			},
+
+			updateUserClientPassword: async (password) => {
+				const resp = await fetch(process.env.BACKEND_URL + `/api/user_client`, {
+					method: 'PUT',
+					headers: {
+						'Content-Type': 'application/json',
+						'Authorization': 'Bearer ' + localStorage.getItem('token')
+					},
+					body: JSON.stringify({
+						password:password
+					})
 				})
+				const data = await resp.json()
 				console.log(data)
 			},
+
+			updateUserArtist: async (first_name,last_name,description) => {
+				const resp = await fetch(process.env.BACKEND_URL + `/api/user_artist`, {
+					method: 'PUT',
+					headers: {
+						'Content-Type': 'application/json',
+						'Authorization': 'Bearer ' + localStorage.getItem('token')
+					},
+					body: JSON.stringify({
+						first_name: first_name, last_name: last_name, description:description
+					})	
+				});
+				const data = await resp.json()
+				localStorage.setItem("userData", JSON.stringify(data))
+				console.log(data)
+				return data
+			},
+
+			updateUserArtistPassword: async (password) => {
+				const resp = await fetch(process.env.BACKEND_URL + `/api/user_artist`, {
+					method: 'PUT',
+					headers: {
+						'Content-Type': 'application/json',
+						'Authorization': 'Bearer ' + localStorage.getItem('token')
+					},
+					body: JSON.stringify({
+						password:password
+					})
+				})
+				const data = await resp.json()
+				console.log(data)
+			},
+
 
 			getUserArtist: async () => {
 				console.log('funciona')
@@ -91,11 +140,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 				})
 				const data = await resp.json()
-
+				data.type = 'artist';
 				localStorage.setItem("userData", JSON.stringify(data))
 				await setStore({ userArtist: data })
 				return data
 			},
+
+			
 
 			registerUserClient: async (userClient) => {
 				try {
