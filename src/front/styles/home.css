@@ -80,7 +80,7 @@ body {
 }
 
 .navbar {
-  font-size: 16px;
+  font-size: 18px;
   display: block;
   color: #ffffff;
   font-family: "Playfair Display", serif;
@@ -90,7 +90,7 @@ body {
   width: 100%;
   z-index: 1000;
   background-color: #000000; 
-  padding: 0px 0px;
+  padding: 4px 0px;
   margin-top: 0px;
   margin-bottom: 0px;
   
