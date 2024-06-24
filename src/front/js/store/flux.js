@@ -10,7 +10,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			userArtist: null
 		},
 		actions: {
-			getWorks:()=>{
+			getWorks: () => {
 
 
 			},
@@ -231,6 +231,85 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore()
 				setStore({ ...store, image: imgId })
 			},
+			addToFavorites: async (work, userData) => {
+				const store = getStore()
+				const user = JSON.parse(userData)
+				try {
+					if (user.userType === "client") {
+						const body = JSON.stringify({
+							client_id: user.id,
+							work_id: work.id,
+						})
+
+						const resp = await fetch(process.env.BACKEND_URL + `/api/favorites_${user.userType}`, {
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json'
+							}, body: body
+						})
+						const workAdded = await resp.json()
+						setStore({ ...store, favorites: [...store.favorites, workAdded] })
+						console.log("Successfully added to favorites:", workAdded)
+
+					} else if (user.userType === "artist") {
+						const body = JSON.stringify({
+							artist_id: user.id,
+							work_id: work.id
+						})
+
+						const resp = await fetch(process.env.BACKEND_URL + `/api/favorites_${user.userType}`, {
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json'
+							}, body: body
+						})
+						const workAdded = await resp.json()
+						setStore({ ...store, favorites: [...store.favorites, workAdded] })
+						console.log("Successfully added to favorites:", workAdded)
+					}
+				} catch (error) {
+					console.log(error, "Failed to add to favorites.")
+				}
+			},
+			getFavorites: async (user) => {
+				const store = getStore()
+				try {
+					const query = new URLSearchParams({
+						user_id: user.id,
+						user_type: user.userType
+					}).toString();
+
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/favorites?${query}`);
+					const favorites = await resp.json();
+
+					setStore({ ...store, favorites: favorites })
+					console.log(favorites);
+					return favorites;
+				} catch (error) {
+					console.log(error, "Error fetching favorites");
+				}
+			},
+			deleteFromFavorites: async (workId) => {
+				const store = getStore()
+				try {
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/favorites/${workId}`, {
+						method: 'DELETE',
+						headers: {
+							'Content-Type': 'application/json'
+						}
+					});
+
+					if (resp.ok) {
+						const updatedFavorites = store.favorites.filter(fav => fav.id !== workId);
+						setStore({ ...store, favorites: updatedFavorites });
+
+					} else {
+						throw new Error('Failed to delete favorite');
+					}
+				} catch (error) {
+					console.error('Error deleting favorite:', error.message);
+				}
+			}
 
 		}
 	}

@@ -32,6 +32,7 @@ export const Profile = () => {
     const [selectedWork, setSelectedWork] = useState("");
     const [artistDescription, setArtistDescription] = useState("");
     const token = localStorage.getItem("token")
+    
     const handleImageUpload = (publicId) => {
         const cloudinaryUrl = `https://res.cloudinary.com/dxnxb4dus/image/upload/${publicId}.jpg`;  // Construct the URL
         setImageUrl(cloudinaryUrl);

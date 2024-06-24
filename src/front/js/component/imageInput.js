@@ -37,6 +37,7 @@ const ImageInput = ({ onImageUpload, name }) => {
         try {
             const image = await actions.uploadWorkImage(publicId);
             actions.setImage(publicId)
+            onImageUpload(publicId)
             console.log("Image uploaded:", image);
 
         } catch (error) {

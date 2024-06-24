@@ -10,9 +10,10 @@ import ImageCloudinary from '../component/imageCloudinary';
 const WorkDetail = ({ obra }) => {
 
   const [likeCount, setLikeCount] = useState(200);
-  const [liked, setLiked] = useState(false);
+  const [liked, setLiked] = useState("");
   const { id } = useParams();
   const { store, actions } = useContext(Context);
+  const userData = localStorage.getItem("userData")
   //const [workDetail,setWorkDetail]=useState()
 
   useEffect(() => {
@@ -29,19 +30,23 @@ const WorkDetail = ({ obra }) => {
   };
   const work = store.allWorks ? store.allWorks.find((work) => work.id === id) : null;
 
-
   const workString = JSON.stringify(work);//con esto guardamos en el localstorage la obra en detalle
   localStorage.setItem('work', workString)
 
-
-
+  const handleFavorites = () => {
+    if (!liked) {
+      setLiked(true)
+      actions.addToFavorites(work, userData)
+    } else if (liked) {
+      setLiked(false)
+      actions.deleteFromFavorites(work.id)
+    }
+  }
 
   return (
     <div className="container mt-5">
       <div className="work-detail mt-5">
         <div className="work-image mt-5">
-
-
           {work ?
             (<div className="row d-flex flex-nowrap ">
               <div className="col-6"><ImageCloudinary
@@ -71,7 +76,7 @@ const WorkDetail = ({ obra }) => {
                     </strong>
                   </p>
                   <div className="buttons ms-2">
-                    <button className="like-button" onClick={incrementLike}>
+                    <button className="like-button" onClick={() => handleFavorites()}>
                       <FaHeart />
                     </button>
                     {

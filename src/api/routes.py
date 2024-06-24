@@ -257,17 +257,41 @@ def delete_work(id):
         return jsonify({"Message": "Something went wrong", "Error": str(ex)}), 500
 
 ##---------------------FAVORITES---------------------##
-## Falta modificar para que las listas de favoritos se adapten al usuario activo
-@api.route('/favorites', methods=['POST'])
+
+@api.route('/favorites_client', methods=['POST'], endpoint="add_client_favorite")
 def add_favorite():
     data = request.json
     client_id = data.get("client_id")
     work_id = data.get("work_id")
 
+    favorite_id = str(uuid.uuid4())
+
     if not client_id or not work_id:
         return jsonify({"Error": "Client ID and Work ID are required"}), 400
 
-    new_favorite = Favorites(client_id=client_id, work_id=work_id)
+    new_favorite = Favorites(id=favorite_id, client_id=client_id, work_id=work_id)
+
+    try:
+        db.session.add(new_favorite)
+        db.session.commit()
+    except Exception as ex:
+        db.session.rollback()
+        return jsonify({"Message": "Something went wrong", "Error": str(ex)}), 500
+
+    return jsonify(new_favorite.serialize()), 201
+
+@api.route('/favorites_artist', methods=['POST'], endpoint="add_artist_favorite")
+def add_favorite():
+    data = request.json
+    artist_id = data.get("artist_id")
+    work_id = data.get("work_id")
+
+    favorite_id = str(uuid.uuid4())
+
+    if not artist_id or not work_id:
+        return jsonify({"Error": "Artist ID and Work ID are required"}), 400
+
+    new_favorite = Favorites(id=favorite_id, artist_id=artist_id, work_id=work_id)
 
     try:
         db.session.add(new_favorite)
@@ -279,28 +303,32 @@ def add_favorite():
     return jsonify(new_favorite.serialize()), 201
 
 @api.route('/favorites', methods=['GET'])
-## Pasar parámtro user_id para sacar favoritos de usuario
 def get_all_favorites():
-    favorites = Favorites.query.all()
+    user_id = request.args.get('user_id')
+    user_type = request.args.get('user_type')
+
+    if not user_id or not user_type:
+        return jsonify({"Error": "User ID and User Type are required"}), 400
+
+    if user_type == "client":
+        favorites = Favorites.query.filter_by(client_id=user_id).all()
+    elif user_type == "artist":
+        favorites = Favorites.query.filter_by(artist_id=user_id).all()
+    else:
+        return jsonify({"Error": "Invalid user type"}), 400
+
     return jsonify([favorite.serialize() for favorite in favorites]), 200
 
-@api.route('/favorites/<string:id>', methods=['GET'])
-def get_favorite(id):
-    favorite = Favorites.query.get_or_404(id)
-    return jsonify(favorite.serialize()), 200
-
-@api.route('/favorites/<string:id>', methods=['PUT'])
-def update_favorite(id):
-    data = request.json
-    favorite = Favorites.query.get_or_404(id)
-
-    favorite.client_id = data.get("client_id", favorite.client_id)
-    favorite.work_id = data.get("work_id", favorite.work_id)
+@api.route('/favorites/<string:work_id>', methods=['DELETE'])
+def delete_favorite(work_id):
 
     try:
+        favorite = Favorites.query.filter_by(work_id=work_id).first_or_404()
+
+        db.session.delete(favorite)
         db.session.commit()
     except Exception as ex:
         db.session.rollback()
         return jsonify({"Message": "Something went wrong", "Error": str(ex)}), 500
 
-    return jsonify(favorite.serialize()), 200
+    return jsonify({"Message": "Favorite deleted successfully"}), 200

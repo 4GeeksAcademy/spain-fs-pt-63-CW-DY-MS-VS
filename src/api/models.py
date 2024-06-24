@@ -81,16 +81,19 @@ class Favorites(db.Model):
     __tablename__ = 'favorites'
 
     id = db.Column(db.String(36), primary_key=True)
-    client_id = db.Column(db.String(36), db.ForeignKey('user_client.id'), nullable=False)
+    client_id = db.Column(db.String(36), db.ForeignKey('user_client.id'))
+    artist_id = db.Column(db.String(36), db.ForeignKey('user_artist.id'))
     work_id = db.Column(db.String(36), db.ForeignKey('work.id'), nullable=False)
 
     user_client = db.relationship(User_Client)
+    user_artist = db.relationship(User_Artist)
     work = db.relationship(Work)
 
     def serialize(self):
         return {
             "id": self.id,
             "client_id": self.client_id,
+            "artist_id": self.artist_id,
             "work_id": self.work_id
         }
 
