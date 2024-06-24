@@ -37,7 +37,7 @@ export const Home = () => {
 
   return (
     <div className="text-center mt-0 mb-5">
-      <div className="background-image-div">
+      <div className="background-image-div mt-5">
         <h1>“En cada momento se esconde una eternidad.”</h1>
       </div>
       <div>
