@@ -127,7 +127,7 @@ body {
 
  /* styles.css o el archivo CSS que estés utilizando */
  .footer {
-  font-size: 15px;
+  font-size: 13px;
   display: flex; 
   justify-content: center; 
   align-items: flex-end;
@@ -141,9 +141,8 @@ body {
   bottom: 0; 
   width: 100%; 
   z-index: 1000;
-  padding: 0px 0px;
-  margin-top: 0px;
-  margin-bottom: 0px;
+  margin-top: 12px;
+  padding-top: 10px;
 }
 
 .scrollable-div {
@@ -151,6 +150,6 @@ body {
   height:500px;
   border: 1px solid #ccc;
   padding: 10px;
-  overflow: auto; /* Esto activa el scroll en ambas direcciones si es necesario */
+  overflow: auto;
   margin-bottom: 10px;
 }
