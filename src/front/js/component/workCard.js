@@ -1,30 +1,24 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/workCard.css";
 import { Link } from 'react-router-dom';
-import { useParams } from "react-router-dom";
 import ImageCloudinary from '../component/imageCloudinary';
 
 const WorkCard = ({ work }) => {
   return (
-    <div className="row work-card">
-      <Link to={`/workDetail/${work.id}`}>
-        <div className="col-12 col-md-4">
-          <div className="container bg-white bg-opacity-50 h-100 d-flex justify-content-center flex-column gap-2 pt-2 align-items-center" style={{ width: "300px" }}>
-            <ImageCloudinary
-              imgId={work.image}
-              className=""
-              style={{ width: 'auto', height: '200px', objectFit: "contain" }}
-              onClick={() => { }}
-            />
-          </div>
-        </div>
-      </Link>
-      <h3>{work.title}</h3>
-      <p>{work.description}</p>
-      <p>{work.type}</p>
-      <p>{work.price} €</p>
-    </div>
+    <Link to={`/workDetail/${work.id}`} className="work-card">
+      <ImageCloudinary
+        imgId={work.image}
+        className="work-image"
+        style={{ width: '150px', height: '160px' }}
+      />
+      <div className="work-details text-light">
+        <h3>{work.title}</h3>
+        <p>{work.description}</p>
+        <p>{work.type}</p>
+        <p>{work.price} €</p>
+      </div>
+    </Link>
   );
 };
 
@@ -37,7 +31,7 @@ const WorkList = () => {
   }, []);
 
   return (
-    <div className="works-list">
+    <div className="works-list bg-dark">
       {store.allWorks && store.allWorks.length > 0 ? (
         store.allWorks.map((work, index) => (
           <WorkCard key={index} work={work} />

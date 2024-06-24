@@ -20,7 +20,7 @@ export const Galery = () => {
   }, []);
 
   return (
-    <div>
+    <div className='mt-5'>
       {allWorks?.map((el, index) => (
         el.works.length > 0 && (
           <div key={index} className='artist my-2'>
