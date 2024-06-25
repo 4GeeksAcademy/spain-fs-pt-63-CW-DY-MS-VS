@@ -24,19 +24,15 @@
 }
 
 .artist-name {
-  font-family: "Georgia", serif; /* Fuente bonita */
+  font-family: "Georgia", serif;
   font-size: 18px;
-  color: #333;
+  color: #7C77B9;
   padding: 10px;
   border-bottom: 1px solid #ccc;
 }
 
-.artist-name {
-  font-family: "Georgia", serif; /* Fuente bonita */
-  font-size: 18px;
-  color: #333;
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
+.artist-name a:hover {
+  color:#ccc;
 }
 
 .no-artists {

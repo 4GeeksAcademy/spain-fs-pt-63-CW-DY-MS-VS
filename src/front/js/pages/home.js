@@ -60,25 +60,24 @@ export const Home = () => {
       </div>
       <div className="scrollable-div "><WorkCard /></div>    
       
-    
-      <div className="showArtists text-center mb-3">
-        <h1 className="detalle mt-4 mb-4">Nuestros artistas</h1>
-        <div className="row mb-4 mt-4 p-4">
-          {store.artists && store.artists.length > 0 ? (
-            <ul className="list-group col-12">
-              {store.artists.map(artist => (
-                <li className="list-group-item2 bg-dark" key={artist.id}>
-                  <Link to={`artistGalery/${artist.id}`}>{artist.first_name} {artist.last_name}</Link>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <div className="col-12">
-              <p>No hay artistas disponibles</p>
-            </div>
-          )}
-        </div>
+      <div className="showArtists bg-light text-center mb-3">
+  <h1 className="detalle mt-4 mb-4">Nuestros artistas</h1>
+  <div className="row mb-4 mt-4 p-4">
+    {store.artists && store.artists.length > 0 ? (
+      <div className="row col-12">
+        {store.artists.map(artist => (
+          <div className="col-6 mb-2" key={artist.id}>
+            <p>
+              <Link to={`artistGalery/${artist.id}`}className="text-secondary">{artist.first_name} {artist.last_name}</Link>
+            </p>
+          </div>
+        ))}
       </div>
+    ) : (
+      <p>No hay artistas disponibles.</p>
+    )}
+  </div>
+</div>
     </div>
   )
 };
