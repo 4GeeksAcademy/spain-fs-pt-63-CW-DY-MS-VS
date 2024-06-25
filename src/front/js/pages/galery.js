@@ -18,7 +18,7 @@ export const Galery = () => {
 
     return () => { isMounted = false }
   }, []);
-  console.log(store.artistsWithWorks)
+ 
   return (
     <div className='mt-5'>
       {allWorks?.map((el, index) => (
