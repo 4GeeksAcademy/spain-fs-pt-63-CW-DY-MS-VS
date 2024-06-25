@@ -5,7 +5,7 @@ import { fill } from "@cloudinary/url-gen/actions/resize";
 import { useContext } from "react";
 import { Context } from "../store/appContext";
 
-const ImageInput = ({ onImageUpload, name }) => {
+const ImageInput = ({onImageUpload, name }) => {
     const cloudinaryRef = useRef()
     const widgetRef = useRef()
     const [imgId, setImgId] = useState("")
@@ -36,10 +36,9 @@ const ImageInput = ({ onImageUpload, name }) => {
     const handleUploadImage = async (publicId) => {
         try {
             const image = await actions.uploadWorkImage(publicId);
-            actions.setImage(publicId)
-            onImageUpload(publicId)
+            actions.setImage(publicId); 
+            onImageUpload(publicId);
             console.log("Image uploaded:", image);
-
         } catch (error) {
             console.error("Error uploading image:", error);
         }

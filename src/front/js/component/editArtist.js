@@ -5,18 +5,19 @@ import { Context } from "../store/appContext";
 
 
 
-export const EditUserClient = () => {
+export const EditUserArtist = () => {
     const { store, actions } = useContext(Context)
     const userData = JSON.parse(localStorage.getItem("userData"));
     const [first_name, setFirstName] = useState(userData.first_name);
     const [last_name, setLastName] = useState(userData.last_name);
+    const [description, setDescription] = useState(userData.description)
     const [password, setPassword] = useState({ value: '', isTouched: false });
     const [confirmPassword, setConfirmPassword] = useState({ value: '', isTouched: false });
     const navigate = useNavigate()
 
     const getIsFormValid1 = () => {
         return (
-            first_name && last_name
+            first_name && last_name && description
         )
     };
     const getIsFormValid2 = () => {
@@ -27,13 +28,13 @@ export const EditUserClient = () => {
     };
     const handleSubmit1 = () => {
         getIsFormValid1();
-        actions.updateUserClient(first_name, last_name);
+        actions.updateUserArtist(first_name, last_name, description);
         clearForm1();
         navigate("/profile")
     };
     const handleSubmit2 = () => {
         getIsFormValid2();
-        actions.updateUserClientPassword(password.value);
+        actions.updateUserArtistPassword(password.value);
         clearForm2();
         navigate("/profile")
     };
@@ -48,14 +49,17 @@ export const EditUserClient = () => {
     const clearForm1 = () => {
         setFirstName("");
         setLastName("");
+        setDescription("")
     };
     const clearForm2 = () => {
-        setPassword({value: "", isTouched: false, });
-        setConfirmPassword({value: "", isTouched: false, });
+        setPassword({ value: "", isTouched: false, });
+        setConfirmPassword({ value: "", isTouched: false, });
     };
+    console.log(store.userArtist,'prueba userArtist')
     return (
-        <div className="my-5">
 
+        <div className="my-5">
+        
             <form onSubmit={handleSubmit1} >
                 <div className="row mb-3">
 
@@ -81,9 +85,24 @@ export const EditUserClient = () => {
                 </div>
 
                 <div className="row mb-3">
+                    <label className="d-flex justify-content-center text-primary" htmlFor="floatingTextarea">Description</label>
+                    <div className="col-sm-5 m-auto">
+                        <div className="form-floating">
+                            <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea"
+                                value={description}
+                                onChange={(e) => {
+                                    setDescription(e.target.value)
+                                }}>
+                            </textarea>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div className="row mb-3">
                     <button type="submit" className="btn btn-primary col-sm-2  m-auto " onClick={() => handleSubmit1()} disabled={!getIsFormValid1()}>Save Changes</button>
                 </div>
-                
+
             </form>
 
             <div className="d-flex justify-content-center">
@@ -138,7 +157,7 @@ export const EditUserClient = () => {
                             </form>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={()=>clearForm2()}>Close</button>
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={() => clearForm2()}>Close</button>
                             <button type="button" className="btn btn-primary" onClick={() => handleSubmit2()} disabled={!getIsFormValid2()}>Save changes</button>
                         </div>
                     </div>

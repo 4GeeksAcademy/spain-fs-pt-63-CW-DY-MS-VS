@@ -115,14 +115,3 @@ class Shopping_Cart(db.Model):
             "client_id": self.client_id,
             "work_id": self.work_id
         }  
-    
-
-# class Order(db.Model):
-#     id = db.Column(db.Integer,db.ForeignKey('user_client.id'), primary_key=True)
-
-#     user_client = db.relationship(User_Client)
-
-#     def serialize(self):
-#         return {
-#             "id": self.id
-#         }  
