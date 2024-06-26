@@ -46,8 +46,7 @@ const WorkDetail = ({ obra }) => {
             (<div className="row d-flex flex-nowrap ">
               <div className="col-6"><ImageCloudinary
                 imgId={work.image}
-                className=" mb-5"
-                style={{ width: 'auto', height: '400px', objectFit: "contain", boxShadow: " 0 8px 12px rgba(0, 0, 0, 0.6)", border: "10px solid #000" }}
+                className=" mb-5 custom-image"
                 onClick={() => { }}
               /></div>
               <div className=" informacion-container col-6 mx-5">

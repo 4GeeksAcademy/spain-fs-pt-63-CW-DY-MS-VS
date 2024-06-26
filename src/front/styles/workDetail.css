@@ -15,7 +15,13 @@
   border-radius: 8px;
   margin-bottom: 10px;
 }
-
+.custom-image {
+  width: auto;
+  height: 400px;
+  object-fit: contain;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.6);
+  border: 10px solid #000;
+}
 .work-info {
   flex: 1;
   display: flex;
