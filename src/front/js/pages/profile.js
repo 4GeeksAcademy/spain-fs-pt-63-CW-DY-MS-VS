@@ -3,10 +3,6 @@ import { ArtistProfile } from "../component/profileArtist";
 import { ClientProfile } from "../component/profileClient";
 
 
-
-
-
-
 export const Profile = () => {
 const token  = localStorage.getItem("token")
 const userData = JSON.parse(localStorage.getItem("userData"));

@@ -51,7 +51,7 @@ export default function Shopping() {
           <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
         </svg> </div>
       </div>
-      <div className="alert alert-warning alert-dismissible fade show text-center p-3" role="alert" style={{ boxShadow: "0 0 20px rgba(0, 0, 0, 0.5)", }}>
+      <div className="alert alert-warning alert-dismissible fade show text-center p-3 shadow" role="alert">
 
         <strong>Tramitar pedidos</strong> (4 productos)
       </div>
@@ -61,43 +61,33 @@ export default function Shopping() {
 
 
       <div className="row mb-5 mt-3 p-3">
-        <div className="d-flex justify-content-center align-items-start gap w-100" style={{ height: "100%" }}>
+        <div className="d-flex justify-content-center align-items-start gap w-100 height-100">
 
-          <div className="p-2  flex-item d-flex flex-column align-items-center" style={{ flex: 1 }}>
+          <div className="p-2  flex-item d-flex flex-column align-items-center growth">
             <div className="row w-100">
               <div className="col-2 d-flex align-items-center justify-content-center">
                 <div className="form-check">
-                  <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" style={{ width: "30px", height: "30px" }} />
+                  <input className="form-check-input custom-checkbox" type="checkbox" value="" id="flexCheckDefault" />
 
                 </div>
               </div>
               <div className="col-10 d-flex align-items-center justify-content-center">
                 <img
                   src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7KVQ9F9Wlrnd1psv2F5ekTLP-veNiCSRXYTKIGFygntGCUAe3Qg0dICves2ObP2Y9CLU&usqp=CAU"
-                  className="card-img-top mt-2"
+                  className="card-img-top mt-2 custom-image"
                   alt="..."
-                  style={{
-                    height: "14rem",
-                    objectFit: "contain",
-                    border: "10px solid #000",
-                    padding: "10px",
-                    width: "14rem",
-                    alignSelf: "center",
-                    boxShadow: "0 0 20px rgba(0, 0, 0, 0.5)",
-                    backgroundColor: " #5d5b5b"
-                  }}
                 />
               </div>
             </div>
           </div>
 
-          <div className="p-2  flex-item" style={{ flex: 2, backgroundColor: "rgb(173, 222, 222)", boxShadow: "0 0 20px rgba(0, 0, 0, 0.5)", color: "black", borderRadius: "20px" }}>
+          <div className="p-2  flex-item">
             <div className="row d-flex">
               <div className="col-8"><h3>Cristo</h3></div>
-              <div className="col-4"><h3 style={{ fontFamily: "cursive" }}>150000.00 €</h3></div>
+              <div className="col-4"><h3 className="cursive-text">150000.00 €</h3></div>
             </div>
             <h4>Davinci</h4>
-            <p style={{ fontFamily: "cursive" }}>Sed non leo sit amet sem porttitor aliquet vitae egestas risus. In nec diam ac nunc aliquet sodales eu nec nunc. Duis consectetur egestas placerat. Ut consequat libero eget egestas laoreet. Nulla et rhoncus metus, sit amet mattis lectus. Proin sed porttitor justo. Etiam ullamcorper nibh et ipsum lacinia sodales. </p>
+            <p className="cursive-text">Sed non leo sit amet sem porttitor aliquet vitae egestas risus. In nec diam ac nunc aliquet sodales eu nec nunc. Duis consectetur egestas placerat. Ut consequat libero eget egestas laoreet. Nulla et rhoncus metus, sit amet mattis lectus. Proin sed porttitor justo. Etiam ullamcorper nibh et ipsum lacinia sodales. </p>
             <div className="text-end">
               <button className="mb-3 rounded-pill bg-info opacity-50 text-white">Comprar</button>
               <button className="mb-3 ms-1 rounded-pill bg-danger opacity-50 text-white ">Eliminar</button>
@@ -106,43 +96,33 @@ export default function Shopping() {
 
 
         </div>
-        <div className="d-flex justify-content-center align-items-start gap w-100" style={{ height: "100%" }}>
+        <div className="d-flex justify-content-center align-items-start gap-1 flex-container">
 
-          <div className="p-2  flex-item d-flex flex-column align-items-center" style={{ flex: 1 }}>
+          <div className="p-2  flex-item d-flex flex-column align-items-center flex-1">
             <div className="row w-100">
               <div className="col-2 d-flex align-items-center justify-content-center">
                 <div className="form-check">
-                  <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" style={{ width: "30px", height: "30px" }} />
+                  <input className="form-check-input custom-checkbox" type="checkbox" value="" id="flexCheckDefault"/>
 
                 </div>
               </div>
               <div className="col-10 d-flex align-items-center justify-content-center">
                 <img
                   src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/The_Last_Supper_-_Leonardo_Da_Vinci_-_High_Resolution_32x16.jpg/400px-The_Last_Supper_-_Leonardo_Da_Vinci_-_High_Resolution_32x16.jpg"
-                  className="card-img-top mt-2"
+                  className="card-img-top mt-2 custom-image"
                   alt="..."
-                  style={{
-                    height: "14rem",
-                    objectFit: "contain",
-                    border: "10px solid #000",
-                    padding: "10px",
-                    width: "14rem",
-                    alignSelf: "center",
-                    boxShadow: "0 0 20px rgba(0, 0, 0, 0.5)",
-                    backgroundColor: " #5d5b5b"
-                  }}
                 />
               </div>
             </div>
           </div>
 
-          <div className="p-2  flex-item" style={{ flex: 2, backgroundColor: "rgb(173, 222, 222)", boxShadow: "0 0 20px rgba(0, 0, 0, 0.5)", color: "black", borderRadius: "20px" }}>
+          <div className="p-2  flex-item">
             <div className="row d-flex">
               <div className="col-8"><h3>La Ultima Cena</h3></div>
-              <div className="col-4"><h3 style={{ fontFamily: "cursive" }}>150000.00 €</h3></div>
+              <div className="col-4"><h3 className="cursive-text">150000.00 €</h3></div>
             </div>
             <h4>Davinci</h4>
-            <p style={{ fontFamily: "cursive" }}>Sed non leo sit amet sem porttitor aliquet vitae egestas risus. In nec diam ac nunc aliquet sodales eu nec nunc. Duis consectetur egestas placerat. Ut consequat libero eget egestas laoreet. Nulla et rhoncus metus, sit amet mattis lectus. Proin sed porttitor justo. Etiam ullamcorper nibh et ipsum lacinia sodales. </p>
+            <p className="cursive-text">Sed non leo sit amet sem porttitor aliquet vitae egestas risus. In nec diam ac nunc aliquet sodales eu nec nunc. Duis consectetur egestas placerat. Ut consequat libero eget egestas laoreet. Nulla et rhoncus metus, sit amet mattis lectus. Proin sed porttitor justo. Etiam ullamcorper nibh et ipsum lacinia sodales. </p>
             <div className="text-end">
               <button className="mb-3 rounded-pill bg-info opacity-50 text-white">Comprar</button>
               <button className="mb-3 ms-1 rounded-pill bg-danger opacity-50 text-white ">Eliminar</button>
@@ -151,43 +131,33 @@ export default function Shopping() {
 
 
         </div>
-        <div className="d-flex justify-content-center align-items-start gap w-100" style={{ height: "100%" }}>
+        <div className="d-flex justify-content-center align-items-start gap-1 flex-container">
 
-          <div className="p-2  flex-item d-flex flex-column align-items-center" style={{ flex: 1 }}>
+          <div className="p-2  flex-item d-flex flex-column align-items-center flex-1">
             <div className="row w-100">
               <div className="col-2 d-flex align-items-center justify-content-center">
                 <div className="form-check">
-                  <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" style={{ width: "30px", height: "30px" }} />
+                  <input className="form-check-input custom-checkbox" type="checkbox" value="" id="flexCheckDefault"/>
 
                 </div>
               </div>
               <div className="col-10 d-flex align-items-center justify-content-center">
                 <img
                   src="https://www.singulart.com/blog/wp-content/uploads/2023/08/image-66-1140x859.png"
-                  className="card-img-top mt-2"
+                  className="card-img-top mt-2 custom-img"
                   alt="..."
-                  style={{
-                    height: "14rem",
-                    objectFit: "contain",
-                    border: "10px solid #000",
-                    padding: "10px",
-                    width: "14rem",
-                    alignSelf: "center",
-                    boxShadow: "0 0 20px rgba(0, 0, 0, 0.5)",
-                    backgroundColor: " #5d5b5b"
-                  }}
                 />
               </div>
             </div>
           </div>
 
-          <div className="p-2  flex-item" style={{ flex: 2, backgroundColor: "rgb(173, 222, 222)", boxShadow: "0 0 20px rgba(0, 0, 0, 0.5)", color: "black", borderRadius: "20px" }}>
+          <div className="p-2  flex-item">
             <div className="row d-flex">
               <div className="col-8"><h3>Anatomía</h3></div>
-              <div className="col-4"><h3 style={{ fontFamily: "cursive" }}>18000.00 €</h3></div>
+              <div className="col-4"><h3 className="cursive-text">18000.00 €</h3></div>
             </div>
             <h4>Rembrandt</h4>
-            <p style={{ fontFamily: "cursive" }}>Sed non leo sit amet sem porttitor aliquet vitae egestas risus. In nec diam ac nunc aliquet sodales eu nec nunc. Duis consectetur egestas placerat. Ut consequat libero eget egestas laoreet. Nulla et rhoncus metus, sit amet mattis lectus. Proin sed porttitor justo. Etiam ullamcorper nibh et ipsum lacinia sodales. </p>
+            <p className="cursive-text">Sed non leo sit amet sem porttitor aliquet vitae egestas risus. In nec diam ac nunc aliquet sodales eu nec nunc. Duis consectetur egestas placerat. Ut consequat libero eget egestas laoreet. Nulla et rhoncus metus, sit amet mattis lectus. Proin sed porttitor justo. Etiam ullamcorper nibh et ipsum lacinia sodales. </p>
             <div className="text-end">
               <button className="mb-3 rounded-pill bg-info opacity-50 text-white">Comprar</button>
               <button className="mb-3 ms-1 rounded-pill bg-danger opacity-50 text-white ">Eliminar</button>
@@ -196,50 +166,38 @@ export default function Shopping() {
 
 
         </div>
-        <div className="d-flex justify-content-center align-items-start gap w-100" style={{ height: "100%" }}>
+        <div className="d-flex justify-content-center align-items-start gap-1 flex-container">
 
-          <div className="p-2  flex-item d-flex flex-column align-items-center" style={{ flex: 1 }}>
+          <div className="p-2  flex-item d-flex flex-column align-items-center flex-1">
             <div className="row w-100">
               <div className="col-2 d-flex align-items-center justify-content-center">
                 <div className="form-check">
-                  <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" style={{ width: "30px", height: "30px" }} />
+                  <input className="form-check-input custom-checkbox" type="checkbox" value="" id="flexCheckDefault"/>
 
                 </div>
               </div>
               <div className="col-10 d-flex align-items-center justify-content-center">
                 <img
                   src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5VaoBzLEkT2poQhaAMGifoseZldgVH8Ipzg&s"
-                  className="card-img-top mt-2"
+                  className="card-img-top mt-2 custom-image"
                   alt="..."
-                  style={{
-                    height: "14rem",
-                    objectFit: "contain",
-                    border: "10px solid #000",
-                    padding: "10px",
-                    width: "14rem",
-                    alignSelf: "center",
-                    boxShadow: "0 0 20px rgba(0, 0, 0, 0.5)",
-                    backgroundColor: " #5d5b5b"
-                  }}
-                />
+                  />
               </div>
             </div>
           </div>
 
-          <div className="p-2  flex-item" style={{ flex: 2, backgroundColor: "rgb(173, 222, 222)", boxShadow: "0 0 20px rgba(0, 0, 0, 0.5)", color: "black", borderRadius: "20px" }}>
+          <div className="p-2  flex-item">
             <div className="row d-flex">
               <div className="col-8"><h3>Noche Estrellada</h3></div>
-              <div className="col-4"><h3 style={{ fontFamily: "cursive" }}>10000.00 €</h3></div>
+              <div className="col-4"><h3 className="cursive-text">10000.00 €</h3></div>
             </div>
             <h4>Dali</h4>
-            <p style={{ fontFamily: "cursive" }}>Sed non leo sit amet sem porttitor aliquet vitae egestas risus. In nec diam ac nunc aliquet sodales eu nec nunc. Duis consectetur egestas placerat. Ut consequat libero eget egestas laoreet. Nulla et rhoncus metus, sit amet mattis lectus. Proin sed porttitor justo. Etiam ullamcorper nibh et ipsum lacinia sodales. </p>
+            <p className="cursive-text">Sed non leo sit amet sem porttitor aliquet vitae egestas risus. In nec diam ac nunc aliquet sodales eu nec nunc. Duis consectetur egestas placerat. Ut consequat libero eget egestas laoreet. Nulla et rhoncus metus, sit amet mattis lectus. Proin sed porttitor justo. Etiam ullamcorper nibh et ipsum lacinia sodales. </p>
             <div className="text-end">
               <button className="mb-3 rounded-pill bg-info opacity-50 text-white">Comprar</button>
               <button className="mb-3 ms-1 rounded-pill bg-danger opacity-50 text-white ">Eliminar</button>
             </div>
           </div>
-
-
         </div>
       </div>
     </div>

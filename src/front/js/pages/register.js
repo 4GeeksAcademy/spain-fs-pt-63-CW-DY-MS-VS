@@ -2,9 +2,6 @@ import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 
-
-
-
 const PasswordErrorMessage = () => {
     return (
         <p className="FieldError">Password should have at least 8 characters</p>
