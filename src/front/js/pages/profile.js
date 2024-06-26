@@ -11,6 +11,7 @@ export const Profile = () => {
         <div>
             {token ? (<div className="container mt-5">
                 {
+
                         userData?.type==='artist' ? (< ArtistProfile />) : ( < ClientProfile />  )
                 }
             </div>) : null}

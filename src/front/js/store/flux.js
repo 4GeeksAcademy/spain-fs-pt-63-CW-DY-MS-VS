@@ -104,7 +104,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				})
 				const data = await resp.json()
 				localStorage.setItem("userData", JSON.stringify(data))
-				console.log(data)
+				
 				return data
 			},
 
@@ -120,7 +120,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 				})
 				const data = await resp.json()
-				console.log(data)
+				
 			},
 
 			updateUserArtist: async (first_name, last_name, description) => {
@@ -136,7 +136,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				});
 				const data = await resp.json()
 				localStorage.setItem("userData", JSON.stringify(data))
-				console.log(data)
+			
 				return data
 			},
 
@@ -152,7 +152,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 				})
 				const data = await resp.json()
-				console.log(data)
+				
 			},
 
 			getUserArtist: async () => {
@@ -250,7 +250,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}));
 
 						setStore({ ...store, gallery: artistsWithWorks })
-						console.log(artistsWithWorks);
+						
 						return artistsWithWorks
 					}
 				} catch (error) {
@@ -301,7 +301,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}, body: JSON.stringify(work)
 					})
 					const newWork = await resp.json()
-					console.log(newWork)
+					
 					return newWork
 				} catch (error) {
 					console.log("Error in FLUX", error)

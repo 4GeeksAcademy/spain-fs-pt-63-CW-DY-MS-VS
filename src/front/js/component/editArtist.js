@@ -53,7 +53,7 @@ export const EditUserArtist = () => {
         setPassword({ value: "", isTouched: false, });
         setConfirmPassword({ value: "", isTouched: false, });
     };
-    console.log(store.userArtist,'prueba userArtist')
+    
     return (
 
         <div className="my-5">

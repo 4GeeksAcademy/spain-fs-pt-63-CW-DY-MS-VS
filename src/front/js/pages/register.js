@@ -60,11 +60,11 @@ export const Register = () => {
     };
 
     return (
-        <div className="my-5">
+        <div className="my-5 mt-5">
 
             <form onSubmit={handleSubmit} >
-                <div className="row mb-3">
-
+                <div className="row mb-3 mt-5 text-center mb-3">
+                    <h3>Register</h3>
                     <div className="col-sm-5 m-auto">
                         <input type="name" className="form-control " id="inputName3"
                             value={first_name}
