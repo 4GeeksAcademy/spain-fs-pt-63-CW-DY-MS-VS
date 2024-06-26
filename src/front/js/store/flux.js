@@ -282,6 +282,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore()
 				setStore({ ...store, image: imgId })
 			},
+			// addSoppingCar:{},
 
 		}
 	}
