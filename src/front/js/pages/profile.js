@@ -13,7 +13,7 @@ const userData = JSON.parse(localStorage.getItem("userData"));
     return (
         <div>
             {
-                token ? (<div className="container mt-5">
+                token ? (<div className="container mt-5 mb-5">
                     {
                         userData?.type==='artist' ? (< ArtistProfile />) : ( < ClientProfile />  )
                     }
