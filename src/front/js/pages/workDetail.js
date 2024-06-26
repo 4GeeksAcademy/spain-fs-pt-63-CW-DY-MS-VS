@@ -17,6 +17,7 @@ const WorkDetail = ({ obra }) => {
 
   useEffect(() => {
     actions.getAllWorks();
+  
   }, []);
 
   const work = store.allWorks ? store.allWorks.find((work) => work.id === id) : null;
@@ -43,8 +44,20 @@ const WorkDetail = ({ obra }) => {
     }
     setLiked(!liked);
   };
+  console.log(work)
+  console.log(id)
+  console.log(userData)
+
+  const handleAddToCart = () => {
+    if (work) {
+      const itemToAdd = {client_id: userData.id, id: work.id,  quantity: 1, price: work.price };
+      actions.addShoppingCar(itemToAdd);
+    }
+  };
+  
 
 
+  console.log(localStorage)
   return (
     <div className="container mt-5">
       <div className="work-detail mt-5">
@@ -82,7 +95,7 @@ const WorkDetail = ({ obra }) => {
 
                     {
                       store.token ?
-                        (<button className="cart-button enviarShop">
+                        (<button className="cart-button enviarShop"  onClick={handleAddToCart}>
                           <IoCartSharp /> Añadir al carrito
                         </button>) : null
                     }

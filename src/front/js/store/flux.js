@@ -9,6 +9,32 @@ const getState = ({ getStore, getActions, setStore }) => {
 			userArtist: null
 		},
 		actions: {
+			addShoppingCar: async (item) => {
+                const store = getStore();
+                try {
+                   
+                    const response = await fetch(`https://supreme-space-zebra-jjj6xqj9pj54cx4q-3001.app.github.dev//shopping_cart/${item.id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(item)
+                    });
+
+                    if (response.ok) {
+                        
+                        const updatedCart = store.shoppingCart.map(cartItem =>
+                            cartItem.id === item.id ? item : cartItem
+                        );
+                        setStore({ shoppingCart: updatedCart });
+                    } else {
+                        console.error("Error updating item in cart", response.statusText);
+                    }
+                } catch (error) {
+                    console.error("Error updating item in cart", error);
+                }
+            },
+    
 			deleteToken: () => {
 				const store = getStore()
 				const token = localStorage.getItem("token")
