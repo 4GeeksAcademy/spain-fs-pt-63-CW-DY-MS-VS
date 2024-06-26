@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { ArtistProfile } from "../component/profileArtist";
 import { ClientProfile } from "../component/profileClient";
+import { Context } from "../store/appContext";
 
 export const Profile = () => {
     const token  = localStorage.getItem("token")
@@ -9,10 +10,10 @@ export const Profile = () => {
     return (
         <div>
             {token ? (<div className="container mt-5">
-                    {
+                {
                         userData?.type==='artist' ? (< ArtistProfile />) : ( < ClientProfile />  )
-                    }
-                </div>) : null}
+                }
+            </div>) : null}
         </div>
     );
 };

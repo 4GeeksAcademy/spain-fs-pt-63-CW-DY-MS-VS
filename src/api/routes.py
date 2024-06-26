@@ -91,6 +91,20 @@ def update_client():
         db.session.rollback()
         return jsonify({"Message": "Something went wrong", "Error": str(ex)}), 500
     
+@api.route('/user_client_image', methods=['PUT'], endpoint='update_client_image')
+@jwt_required()
+def update_picture():
+    id = get_jwt_identity()
+    data = request.json
+    client = User_Client.query.get_or_404(id)
+    client.image = data["image"]
+
+    try: 
+        db.session.commit()
+        return jsonify({"image": client.image})
+    except Exception as ex:
+        db.session.rollback()
+        return jsonify({"Message": "Something went wrong", "Error": str(ex)}), 500
 
 @api.route('/user_client', methods=['PUT'], endpoint='update_client_password')
 @jwt_required()
@@ -203,6 +217,20 @@ def update_artist():
         db.session.rollback()
         return jsonify({"Message": "Something went wrong", "Error": str(ex)}), 500
     
+@api.route('/user_artist_image', methods=['PUT'], endpoint='update_artist_image')
+@jwt_required()
+def update_picture():
+    id = get_jwt_identity()
+    data = request.json
+    client = User_Artist.query.get_or_404(id)
+    client.image = data["image"]
+
+    try: 
+        db.session.commit()
+        return jsonify({"image": client.image})
+    except Exception as ex:
+        db.session.rollback()
+        return jsonify({"Message": "Something went wrong", "Error": str(ex)}), 500
 
 @api.route('/user_artist', methods=['PUT'], endpoint='update_artist_password')
 @jwt_required()

@@ -4,13 +4,13 @@ import { FaHeart } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { IoCartSharp } from "react-icons/io5";
 import "../../styles/workDetail.css";
-import obraImagen from "../../img/creacion adan.jpeg";
 import { Context } from "../store/appContext";
 import ImageCloudinary from '../component/imageCloudinary';
+
 const WorkDetail = ({ obra }) => {
 
   const [likeCount, setLikeCount] = useState(200);
-  const [liked, setLiked] = useState("");
+  const [liked, setLiked] = useState(false);
   const { id } = useParams();
   const { store, actions } = useContext(Context);
   const userData = localStorage.getItem("userData")
@@ -20,14 +20,6 @@ const WorkDetail = ({ obra }) => {
     actions.getAllWorks();
   }, []);
 
-  const incrementLike = () => {
-    if (!liked) {
-      setLikeCount(likeCount + 1);
-    } else {
-      setLikeCount(likeCount - 1);
-    }
-    setLiked(!liked);
-  };
   const work = store.allWorks ? store.allWorks.find((work) => work.id === id) : null;
 
   const workString = JSON.stringify(work);//con esto guardamos en el localstorage la obra en detalle
@@ -85,19 +77,12 @@ const WorkDetail = ({ obra }) => {
                           <IoCartSharp /> Añadir al carrito
                         </button>) : null
                     }
-
                   </div>
                 </div></div>
             </div>
             ) : null
-
           }
-
-
-
-
         </div>
-
       </div>
     </div>
   );
