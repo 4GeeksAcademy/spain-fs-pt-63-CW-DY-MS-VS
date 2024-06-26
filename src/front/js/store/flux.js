@@ -9,11 +9,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			userArtist: null
 		},
 		actions: {
-			getWorks:()=>{
-
-
-			},
-
 			deleteToken: () => {
 				const store = getStore()
 				const token = localStorage.getItem("token")
@@ -37,8 +32,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					if (resp.ok) {
 						const data = await resp.json();
 
-						localStorage.setItem('token', data.token);
 						setStore({ ...store, token: data.token })
+						localStorage.setItem('token', JSON.stringify({ token: data.token, type: user.userType }));
+
 						if (user.userType === 'artist') {
 							await getActions().getUserArtist();
 						} else if (user.userType === "client") {
@@ -53,20 +49,49 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			getUserClient: async () => {
+				const store = getStore()
+				const token = JSON.parse(localStorage.getItem('token'))
 				const resp = await fetch(process.env.BACKEND_URL + '/api/user_client', {
 					headers: {
 						'Content-Type': 'application/json',
-						'Authorization': 'Bearer ' + localStorage.getItem('token')
+						'Authorization': 'Bearer ' + token.token
 					}
 				})
 				const data = await resp.json()
+
 				data.type = 'client';
 				localStorage.setItem("userData", JSON.stringify(data))
-				await setStore({ userClient: data })
+				await setStore({ userData: data })
+
+				console.log(store)
 				return data
 			},
 
-			updateUserClient: async (first_name,last_name) => {
+			updateUserImage: async (imgId) => {
+				const token = JSON.parse(localStorage.getItem("token")).token
+				const userData = JSON.parse(localStorage.getItem("userData"))
+				userData.image = imgId
+
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + `/api/user_${userData.type}_image`, {
+						method: "PUT",
+						headers: {
+							'Content-Type': 'application/json',
+							'Authorization': 'Bearer ' + token
+						},
+						body: JSON.stringify({ image: imgId })
+					})
+					const data = await resp.json()
+
+					localStorage.setItem("userData", JSON.stringify(userData))
+					return data
+				} catch (error) {
+					console.error('Error updating user image:', error);
+					throw error;  // Rethrow the error to handle it elsewhere if needed
+				}
+			},
+
+			updateUserClient: async (first_name, last_name) => {
 				const resp = await fetch(process.env.BACKEND_URL + `/api/user_client`, {
 					method: 'PUT',
 					headers: {
@@ -75,7 +100,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					},
 					body: JSON.stringify({
 						first_name: first_name, last_name: last_name
-					})	
+					})
 				})
 				const data = await resp.json()
 				localStorage.setItem("userData", JSON.stringify(data))
@@ -91,14 +116,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 						'Authorization': 'Bearer ' + localStorage.getItem('token')
 					},
 					body: JSON.stringify({
-						password:password
+						password: password
 					})
 				})
 				const data = await resp.json()
 				
 			},
 
-			updateUserArtist: async (first_name,last_name,description) => {
+			updateUserArtist: async (first_name, last_name, description) => {
 				const resp = await fetch(process.env.BACKEND_URL + `/api/user_artist`, {
 					method: 'PUT',
 					headers: {
@@ -106,8 +131,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 						'Authorization': 'Bearer ' + localStorage.getItem('token')
 					},
 					body: JSON.stringify({
-						first_name: first_name, last_name: last_name, description:description
-					})	
+						first_name: first_name, last_name: last_name, description: description
+					})
 				});
 				const data = await resp.json()
 				localStorage.setItem("userData", JSON.stringify(data))
@@ -123,30 +148,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 						'Authorization': 'Bearer ' + localStorage.getItem('token')
 					},
 					body: JSON.stringify({
-						password:password
+						password: password
 					})
 				})
 				const data = await resp.json()
 				
 			},
 
-
 			getUserArtist: async () => {
-				console.log('funciona')
+				const token = JSON.parse(localStorage.getItem('token'))
 				const resp = await fetch(process.env.BACKEND_URL + '/api/user_artist', {
 					headers: {
 						'Content-Type': 'application/json',
-						'Authorization': 'Bearer ' + localStorage.getItem('token')
+						'Authorization': 'Bearer ' + token.token
 					}
 				})
 				const data = await resp.json()
 				data.type = 'artist';
 				localStorage.setItem("userData", JSON.stringify(data))
-				await setStore({ userArtist: data })
+				await setStore({ userData: data })
 				return data
 			},
-
-			
 
 			registerUserClient: async (userClient) => {
 				try {
@@ -235,6 +257,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error('Error fetching data:', error);
 				}
 			},
+			getWork: async (id) => {
+				const resp = await fetch(process.env.BACKEND_URL + `/api/work/${id}`)
+				const data = await resp.json()
+
+				return data
+			},
+
 			getWorks: async (id) => {
 				const store = getStore()
 				const resp = await fetch(process.env.BACKEND_URL + `/api/works/user_artist/${id}`)
@@ -282,6 +311,101 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore()
 				setStore({ ...store, image: imgId })
 			},
+			addToFavorites: async (work, userData) => {
+				const store = getStore()
+				const user = JSON.parse(userData)
+				console.log(work, user)
+				try {
+					if (user.type === "client") {
+						const body = JSON.stringify({
+							client_id: user.id,
+							work_id: work.id,
+						})
+
+						const resp = await fetch(process.env.BACKEND_URL + `/api/favorites_${user.type}`, {
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json'
+							}, body: body
+						})
+						const workAdded = await resp.json()
+						setStore({ ...store, favorites: [...store.favorites, workAdded] })
+						console.log("Successfully added to favorites:", workAdded)
+
+					} else if (user.type === "artist") {
+						const body = JSON.stringify({
+							artist_id: user.id,
+							work_id: work.id
+						})
+
+						const resp = await fetch(process.env.BACKEND_URL + `/api/favorites_${user.type}`, {
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json'
+							}, body: body
+						})
+						const workAdded = await resp.json()
+						setStore({ ...store, favorites: [...store.favorites, workAdded] })
+						console.log("Successfully added to favorites:", workAdded)
+					}
+				} catch (error) {
+					console.log(error, "Failed to add to favorites.")
+				}
+			},
+			getFavorites: async (user) => {
+				const store = getStore()
+
+				try {
+					const query = new URLSearchParams({
+						user_id: user.id,
+						user_type: user.type
+					}).toString();
+
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/favorites?${query}`);
+					const favorites = await resp.json();
+
+					setStore({ ...store, favorites: favorites })
+					return favorites;
+				} catch (error) {
+					console.log(error, "Error fetching favorites");
+				}
+			},
+			getFavoritesWorks: async (user) => {
+				try {
+					const favorites = await getActions().getFavorites(user);
+
+					const worksPromises = favorites.map(favorite => getActions().getWork(favorite.work_id));
+					const worksArray = await Promise.all(worksPromises);
+
+					const flattenedWorksArray = worksArray.flat();
+
+					console.log(flattenedWorksArray)
+					return flattenedWorksArray;
+				} catch (error) {
+					console.log(error, "Error fetching works for favorites");
+				}
+			},
+			deleteFromFavorites: async (workId) => {
+				const store = getStore()
+				try {
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/favorites/${workId}`, {
+						method: 'DELETE',
+						headers: {
+							'Content-Type': 'application/json'
+						}
+					});
+
+					if (resp.ok) {
+						const updatedFavorites = store.favorites.filter(fav => fav.id !== workId);
+						setStore({ ...store, favorites: updatedFavorites });
+
+					} else {
+						throw new Error('Failed to delete favorite');
+					}
+				} catch (error) {
+					console.error('Error deleting favorite:', error.message);
+				}
+			}
 
 		}
 	}

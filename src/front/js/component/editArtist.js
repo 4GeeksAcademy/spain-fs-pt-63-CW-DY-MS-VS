@@ -2,15 +2,12 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 
-
-
-
 export const EditUserArtist = () => {
     const { store, actions } = useContext(Context)
     const userData = JSON.parse(localStorage.getItem("userData"));
-    const [first_name, setFirstName] = useState(userData.first_name);
-    const [last_name, setLastName] = useState(userData.last_name);
-    const [description, setDescription] = useState(userData.description)
+    const [first_name, setFirstName] = useState(userData?.first_name);
+    const [last_name, setLastName] = useState(userData?.last_name);
+    const [description, setDescription] = useState(userData?.description)
     const [password, setPassword] = useState({ value: '', isTouched: false });
     const [confirmPassword, setConfirmPassword] = useState({ value: '', isTouched: false });
     const navigate = useNavigate()
@@ -20,6 +17,7 @@ export const EditUserArtist = () => {
             first_name && last_name && description
         )
     };
+
     const getIsFormValid2 = () => {
         return (
             password.value.length >= 8 &&

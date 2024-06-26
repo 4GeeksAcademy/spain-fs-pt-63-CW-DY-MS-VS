@@ -8,8 +8,8 @@ import { Context } from "../store/appContext";
 export const EditUserClient = () => {
     const { store, actions } = useContext(Context)
     const userData = JSON.parse(localStorage.getItem("userData"));
-    const [first_name, setFirstName] = useState(userData.first_name);
-    const [last_name, setLastName] = useState(userData.last_name);
+    const [first_name, setFirstName] = useState(userData?.first_name);
+    const [last_name, setLastName] = useState(userData?.last_name);
     const [password, setPassword] = useState({ value: '', isTouched: false });
     const [confirmPassword, setConfirmPassword] = useState({ value: '', isTouched: false });
     const navigate = useNavigate()
@@ -50,8 +50,8 @@ export const EditUserClient = () => {
         setLastName("");
     };
     const clearForm2 = () => {
-        setPassword({value: "", isTouched: false, });
-        setConfirmPassword({value: "", isTouched: false, });
+        setPassword({ value: "", isTouched: false, });
+        setConfirmPassword({ value: "", isTouched: false, });
     };
     return (
         <div className="my-5">
@@ -83,7 +83,7 @@ export const EditUserClient = () => {
                 <div className="row mb-3">
                     <button type="submit" className="btn btn-primary col-sm-2  m-auto " onClick={() => handleSubmit1()} disabled={!getIsFormValid1()}>Save Changes</button>
                 </div>
-                
+
             </form>
 
             <div className="d-flex justify-content-center">
@@ -138,7 +138,7 @@ export const EditUserClient = () => {
                             </form>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={()=>clearForm2()}>Close</button>
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={() => clearForm2()}>Close</button>
                             <button type="button" className="btn btn-primary" onClick={() => handleSubmit2()} disabled={!getIsFormValid2()}>Save changes</button>
                         </div>
                     </div>
