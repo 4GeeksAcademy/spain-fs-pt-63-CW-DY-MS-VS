@@ -45,7 +45,7 @@ export const Home = () => {
         {showResults && (
           <div className="row mb-3 mt-4">
             <div className="col-sm-12">
-              <div className="list-group" style={{ textAlign: "left" }}>
+              <div className="list-group text to the left">
                 {filteredArtists.map((artist, index) => (
                   <div key={index} className="list-group-item1">
                     <Link to={`artistGalery/${artist.id}`}>

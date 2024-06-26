@@ -7,6 +7,10 @@
         lavanda: #7C77B9
    }
  */
+ .text to the left {
+  text-align: left;
+}
+
 .artist-list-container {
   width: 600px;
   margin: 0 auto;
