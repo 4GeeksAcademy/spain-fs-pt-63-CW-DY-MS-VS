@@ -45,11 +45,10 @@ const ArtistGallery = () => {
                 <div key={work.id} className="col-12 col-md-4 mb-3">
                   <div className="container bg-white bg-opacity-50 h-100 d-flex
                   justify-content-center flex-column gap-2 pt-2
-                  align-items-center" style={{ width: "300px" }}>
+                  align-items-center">
                     <ImageCloudinary
                       imgId={work.image}
-                      className=""
-                      style={{ width: 'auto', height: '200px', objectFit: "contain" }}
+                      className="custom image"
                       onClick={() => { }}
                     />
                     <p>{work.title}</p>
