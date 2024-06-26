@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User_Client, User_Artist, Work, Favorites
+from api.models import db, User_Client, User_Artist, Work, Favorites, Shopping_Cart
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 import uuid
@@ -398,3 +398,71 @@ def delete_favorite(work_id):
         return jsonify({"Message": "Something went wrong", "Error": str(ex)}), 500
 
     return jsonify({"Message": "Favorite deleted successfully"}), 200
+
+##---------------------SHOPPING CART---------------------##
+
+@api.route('/shopping_cart', methods=['POST'])
+def add_to_cart():
+    data = request.json
+    client_id = data.get("client_id")
+    work_id = data.get("work_id")
+    quantity = data.get("quantity", 1)
+
+    if not client_id or not work_id:
+        return jsonify({"Error": "Client ID and Work ID are required"}), 400
+
+    if quantity < 1:
+        return jsonify({"Error": "Quantity must be at least 1"}), 400
+
+    work = Work.query.get(work_id)
+    if not work:
+        return jsonify({"Error": "Work not found"}), 404
+
+    existing_cart_item = Shopping_Cart.query.filter_by(client_id=client_id, work_id=work_id).first()
+    if existing_cart_item:
+        existing_cart_item.quantity += quantity
+        existing_cart_item.total = work.price 
+    else:
+        cart_id = str(uuid.uuid4())
+        new_cart_item = Shopping_Cart(
+            id=cart_id,
+            client_id=client_id,
+            work_id=work_id,
+            quantity=quantity,
+            total=work.price
+        )
+        db.session.add(new_cart_item)
+
+    try:
+        db.session.commit()
+    except Exception as ex:
+        db.session.rollback()
+        return jsonify({"Message": "Something went wrong", "Error": str(ex)}), 500
+
+    return jsonify(new_cart_item.serialize() if not existing_cart_item else existing_cart_item.serialize()), 201
+
+@api.route('/shopping_cart/<string:client_id>', methods=['GET'])
+def get_cart_items(client_id):
+    if not client_id:
+        return jsonify({"Error": "Client ID is required"}), 400
+
+    cart_items = Shopping_Cart.query.filter_by(client_id=client_id).all()
+
+    if not cart_items:
+        return jsonify({"Message": "No items found in the shopping cart"}), 404
+
+    return jsonify([item.serialize() for item in cart_items]), 200
+
+@api.route('/shopping_cart/<string:cart_item_id>', methods=['DELETE'])
+def delete_cart_item(cart_item_id):
+
+    try:
+        cart_item = Shopping_Cart.query.filter_by(id=cart_item_id).first_or_404()
+
+        db.session.delete(cart_item)
+        db.session.commit()
+    except Exception as ex:
+        db.session.rollback()
+        return jsonify({"Message": "Something went wrong", "Error": str(ex)}), 500
+
+    return jsonify({"Message": "Item removed from cart successfully"}), 200
