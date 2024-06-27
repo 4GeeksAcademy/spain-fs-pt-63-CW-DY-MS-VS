@@ -49,10 +49,11 @@ const WorkDetail = ({ obra }) => {
           const itemToAdd = {
             client_id: userData.id,
             work_id: work.id,
-            quantity: 1
-            
+            quantity: 1,
+           
           };
           actions.addShoppingCar(itemToAdd);
+          
         } else {
           console.log('La propiedad id no existe en userData');
         }
@@ -88,7 +89,7 @@ const WorkDetail = ({ obra }) => {
                   <p className="like-count"><strong>{!liked ? <FaRegHeart /> : <FaHeart />} {likeCount}</strong></p>
                   <div className="buttons ms-2">
                     <button className="like-button" onClick={handleFavorites}><FaHeart /></button>
-                    {store.token && (
+                    {store.token && userData.client (
                       <button className="cart-button enviarShop" onClick={handleAddToCart}>
                         <IoCartSharp /> Añadir al carrito
                       </button>
