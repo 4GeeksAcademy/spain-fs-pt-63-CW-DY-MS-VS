@@ -34,9 +34,9 @@ export const ClientProfile = () => {
                 <h3>{store.userClient?.first_name} {store.userClient?.last_name}</h3>
                 <i type="button" className="far fa-edit fs-4 px-2" onClick={() => navigate('/edit')}  ></i>
             </div>
-            <div className="position-relative " style={{ width: '150px', height: '150px' }}>
-                <ImageCloudinary imgId={imageUrl} style={{ width: '100%', height: '100%', borderRadius: '50%' }} />
-                <div className="btn  position-absolute" onClick={() => toggleImageInput()} style={{ bottom: '10px', right: '10px' }} >
+            <div className="position-relative custom-modal">
+                <ImageCloudinary imgId={imageUrl} classNames={photo-claudinary}/>
+                <div className="btn  position-absolute bottom-modal" onClick={() => toggleImageInput()} >
                     {!isImageInputVisible && <ImageInput name="+" onImageUpload={handleImageUpload} />}
                 </div>
             </div>

@@ -12,7 +12,7 @@
   .row .col-12.col-md-4.mb-3 .container {
     width: 300px;
   }
-  .custom image {
+  .custom-image {
     width: auto;
     height: 200px;
     object-fit: contain;

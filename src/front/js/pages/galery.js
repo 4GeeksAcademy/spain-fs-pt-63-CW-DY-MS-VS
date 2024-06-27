@@ -36,7 +36,7 @@ export const Galery = () => {
                   align-items-center">
                     <Link to={`/workDetail/${work.id}`} ><ImageCloudinary
                       imgId={work.image}
-                      className="custom image"
+                      classNames="custom-image"
                       onClick={() => { }}
                     />
                     </Link>

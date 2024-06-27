@@ -17,7 +17,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 200px; /* Ancho fijo para cada tarjeta */
+  width: 200px;
 }
 
 .work-card .work-image {
@@ -25,6 +25,10 @@
   height: auto;
   object-fit: contain;
   border-radius: 8px;
+}
+.work-image {
+  width: 150px;
+  height: 160px;
 }
 
 .work-card .work-details {

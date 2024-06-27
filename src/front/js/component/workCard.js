@@ -10,7 +10,6 @@ const WorkCard = ({ work }) => {
       <ImageCloudinary
         imgId={work.image}
         className="work-image"
-        style={{ width: '150px', height: '160px' }}
       />
       <div className="work-details text-light">
         <h3>{work.title}</h3>

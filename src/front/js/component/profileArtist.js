@@ -15,9 +15,8 @@ const WorksImages = ({ works }) => {
                 <ImageCloudinary
                     key={index}
                     imgId={work.image}
-                    classNames="work-title d-flex flex-col"
+                    classNames="work-title d-flex flex-col custom-image"
                     onClick={() => { }}//handleWorkClick(work)
-                    style={{ cursor: 'pointer', textDecoration: 'underline', width: "auto", height: "150px" }}
                 />
             ))}
         </>
@@ -34,10 +33,10 @@ export const ArtistProfile = () => {
     const [imageUrl, setImageUrl] = useState(userData?.image)
     const [isImageInputVisible, setIsImageInputVisible] = useState(false);
     const navigate = useNavigate()
-    console.log(store.userArtist,'prueba userArtist2')
-    useEffect(()=>{
+    console.log(store.userArtist, 'prueba userArtist2')
+    useEffect(() => {
         actions.getUserArtist()
-    },[])
+    }, [])
     useEffect(() => {
 
         const getArtistWorks = async () => {
@@ -82,9 +81,9 @@ export const ArtistProfile = () => {
                         <h3>{store.userArtist?.first_name} {store.userArtist?.last_name}</h3>
                         <i type="button" className="far fa-edit fs-4 px-2" onClick={() => navigate('/edit')}  ></i>
                     </div>
-                    <div className="position-relative " style={{ width: '150px', height: '150px' }}>
-                        <ImageCloudinary imgId={imageUrl} style={{ width: '100%', height: '100%', borderRadius: '50%' }} />
-                        <div className="btn  position-absolute" onClick={() => toggleImageInput()} style={{ bottom: '10px', right: '10px' }} >
+                    <div className="position-relative custom-modal">
+                        <ImageCloudinary imgId={imageUrl} classNames={photo-Claudinary} />
+                        <div className="btn  position-absolute bottom-modal" onClick={() => toggleImageInput()}>
                             {!isImageInputVisible && <ImageInput name="+" onImageUpload={handleImageUpload} />}
                         </div>
                     </div>
@@ -104,7 +103,7 @@ export const ArtistProfile = () => {
                                 className="btn btn-secondary p-4 py-5 d-flex justify-content-center align-items-center"
                                 onClick={() => setOpenModal(true)}
                             >
-                                <MdOutlinePlaylistAdd style={{ width: "25px", height: "25px" }} />
+                                <MdOutlinePlaylistAdd className="custom-icon-size"/>
                             </button>
                         </div>
                         <WorksImages works={works} />
