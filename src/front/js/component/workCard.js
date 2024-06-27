@@ -9,7 +9,7 @@ const WorkCard = ({ work }) => {
     <Link to={`/workDetail/${work.id}`} className="work-card">
       <ImageCloudinary
         imgId={work.image}
-        className="work-image"
+        classNames="work-image"
       />
       <div className="work-details text-light">
         <h3>{work.title}</h3>

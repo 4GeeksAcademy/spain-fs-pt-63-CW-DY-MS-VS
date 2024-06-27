@@ -116,7 +116,7 @@ export default function Shopping() {
             </div>
           </div>
 
-          <div className="p-2  flex-item">
+          <div className="p-2 flex-item">
             <div className="row d-flex">
               <div className="col-8"><h3>La Ultima Cena</h3></div>
               <div className="col-4"><h3 className="cursive-text">150000.00 €</h3></div>

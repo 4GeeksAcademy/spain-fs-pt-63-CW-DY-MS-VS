@@ -5,15 +5,12 @@
 }
 
 .work-image {
-  flex: 1;
-}
-
-.work-image img {
   width: 100%;
   height: auto;
   border: 2px solid #ccc;
   border-radius: 8px;
   margin-bottom: 10px;
+  flex: 1;
 }
 .custom-image {
   width: auto;
@@ -21,6 +18,8 @@
   object-fit: contain;
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.6);
   border: 10px solid #000;
+  display: flex;
+  
 }
 .work-info {
   flex: 1;
@@ -38,14 +37,14 @@
 }
 
 .informacion-container {
-  flex: 1; /* Ocupa todo el espacio disponible */
+  flex: 1; 
   display: flex;
-  align-items: center; /* Alinea verticalmente el contenido */
+  align-items: center;
 }
 
 .informacion {
   text-align: start;
-  margin-left: 20px; /* Espacio entre la imagen y el texto */
+  margin-left: 20px;
 }
 .enviarShop{
   border-radius: 20px;

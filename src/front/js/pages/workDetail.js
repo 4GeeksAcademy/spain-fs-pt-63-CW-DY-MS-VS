@@ -30,10 +30,8 @@ const WorkDetail = ({ obra }) => {
   const work = store.allWorks ? store.allWorks.find((work) => work.id === id) : null;
 
 
-  const workString = JSON.stringify(work);//con esto guardamos en el localstorage la obra en detalle
+  const workString = JSON.stringify(work);
   localStorage.setItem('work', workString)
-
-
 
 
   return (
@@ -46,7 +44,7 @@ const WorkDetail = ({ obra }) => {
             (<div className="row d-flex flex-nowrap ">
               <div className="col-6"><ImageCloudinary
                 imgId={work.image}
-                className=" mb-5 custom-image"
+                classNames="custom-image"
                 onClick={() => { }}
               /></div>
               <div className=" informacion-container col-6 mx-5">

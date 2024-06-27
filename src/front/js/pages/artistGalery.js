@@ -48,7 +48,7 @@ const ArtistGallery = () => {
                   align-items-center">
                     <ImageCloudinary
                       imgId={work.image}
-                      className="custom image"
+                      classNames="custom-image"
                       onClick={() => { }}
                     />
                     <p>{work.title}</p>
