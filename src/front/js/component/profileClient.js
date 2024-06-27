@@ -3,44 +3,56 @@ import { useNavigate } from "react-router-dom";
 import ImageCloudinary from "./imageCloudinary";
 import ImageInput from "./imageInput";
 import { Context } from "../store/appContext";
-
-
-
-
+import { getCloudinaryUrl } from "../utils";
+import WorksImages from "./WorksImages";
 
 export const ClientProfile = () => {
     const userData = JSON.parse(localStorage.getItem("userData"));
     const navigate = useNavigate();
     const { store, actions } = useContext(Context)
-    const [imageUrl, setImageUrl] = useState(userData?.image)
-    const [isImageInputVisible, setIsImageInputVisible] = useState(false);
+    const [imageId, setImageId] = useState(userData?.image)
+    const [works, setWorks] = useState([]);
+
+    const handleImageUpload = (publicId) => {
+        actions.updateUserImage(publicId)
+        setImageId(publicId);
+    };
 
     useEffect(() => {
         actions.getUserClient()
+        const getFavorites = async () => {
+            const favorites = await actions.getFavoritesWorks(userData)
+            setWorks(favorites)
+        }
+        getFavorites()
     }, [])
 
-    const handleImageUpload = (publicId) => {
-        const cloudinaryUrl = `https://res.cloudinary.com/dxnxb4dus/image/upload/${publicId}.jpg`;  // Construct the URL
-        setImageUrl(cloudinaryUrl);
-        setIsImageInputVisible(false)
-    };
-    const toggleImageInput = () => {
-        setIsImageInputVisible(!isImageInputVisible);
-    };
 
     return (
         <div>
             <div className="d-flex">
-                <h3>{store.userClient?.first_name} {store.userClient?.last_name}</h3>
+                <h3>{userData?.first_name} {userData?.last_name}</h3>
                 <i type="button" className="far fa-edit fs-4 px-2" onClick={() => navigate('/edit')}  ></i>
             </div>
             <div className="position-relative custom-modal">
-                <ImageCloudinary imgId={imageUrl} classNames={photo-claudinary}/>
-                <div className="btn  position-absolute bottom-modal" onClick={() => toggleImageInput()} >
-                    {!isImageInputVisible && <ImageInput name="+" onImageUpload={handleImageUpload} />}
+                <ImageCloudinary imgId={imageId} classNames="photo-claudinary"/>
+                <div className="btn  position-absolute bottom-modal">
+                    <ImageInput name="+" onImageUpload={handleImageUpload} />
+                </div>
+            </div>
+
+            <div>
+                <label className="form-label">Favorites:</label>
+                <div className="d-flex align-items-center flex-wrap gap-2 border rounded-2 border-secondary p-3">
+                    <WorksImages works={works} />
+                </div>
+                <div className="card my-2 w-75 mb-5">
+                    <h5 className="card-header">Description</h5>
+                    <div className="card-body">
+                        <p className="card-text">{store.userArtist?.description}</p>
+                    </div>
                 </div>
             </div>
         </div>
-
     )
 }

@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User_Client, User_Artist, Work, Favorites
+from api.models import db, User_Client, User_Artist, Work, Favorites, Shopping_Cart
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 import uuid
@@ -91,6 +91,20 @@ def update_client():
         db.session.rollback()
         return jsonify({"Message": "Something went wrong", "Error": str(ex)}), 500
     
+@api.route('/user_client_image', methods=['PUT'], endpoint='update_client_image')
+@jwt_required()
+def update_picture():
+    id = get_jwt_identity()
+    data = request.json
+    client = User_Client.query.get_or_404(id)
+    client.image = data["image"]
+
+    try: 
+        db.session.commit()
+        return jsonify({"image": client.image})
+    except Exception as ex:
+        db.session.rollback()
+        return jsonify({"Message": "Something went wrong", "Error": str(ex)}), 500
 
 @api.route('/user_client', methods=['PUT'], endpoint='update_client_password')
 @jwt_required()
@@ -203,6 +217,20 @@ def update_artist():
         db.session.rollback()
         return jsonify({"Message": "Something went wrong", "Error": str(ex)}), 500
     
+@api.route('/user_artist_image', methods=['PUT'], endpoint='update_artist_image')
+@jwt_required()
+def update_picture():
+    id = get_jwt_identity()
+    data = request.json
+    client = User_Artist.query.get_or_404(id)
+    client.image = data["image"]
+
+    try: 
+        db.session.commit()
+        return jsonify({"image": client.image})
+    except Exception as ex:
+        db.session.rollback()
+        return jsonify({"Message": "Something went wrong", "Error": str(ex)}), 500
 
 @api.route('/user_artist', methods=['PUT'], endpoint='update_artist_password')
 @jwt_required()
@@ -295,17 +323,41 @@ def delete_work(id):
         return jsonify({"Message": "Something went wrong", "Error": str(ex)}), 500
 
 ##---------------------FAVORITES---------------------##
-## Falta modificar para que las listas de favoritos se adapten al usuario activo
-@api.route('/favorites', methods=['POST'])
+
+@api.route('/favorites_client', methods=['POST'], endpoint="add_client_favorite")
 def add_favorite():
     data = request.json
     client_id = data.get("client_id")
     work_id = data.get("work_id")
 
+    favorite_id = str(uuid.uuid4())
+
     if not client_id or not work_id:
         return jsonify({"Error": "Client ID and Work ID are required"}), 400
 
-    new_favorite = Favorites(client_id=client_id, work_id=work_id)
+    new_favorite = Favorites(id=favorite_id, client_id=client_id, work_id=work_id)
+
+    try:
+        db.session.add(new_favorite)
+        db.session.commit()
+    except Exception as ex:
+        db.session.rollback()
+        return jsonify({"Message": "Something went wrong", "Error": str(ex)}), 500
+
+    return jsonify(new_favorite.serialize()), 201
+
+@api.route('/favorites_artist', methods=['POST'], endpoint="add_artist_favorite")
+def add_favorite():
+    data = request.json
+    artist_id = data.get("artist_id")
+    work_id = data.get("work_id")
+
+    favorite_id = str(uuid.uuid4())
+
+    if not artist_id or not work_id:
+        return jsonify({"Error": "Artist ID and Work ID are required"}), 400
+
+    new_favorite = Favorites(id=favorite_id, artist_id=artist_id, work_id=work_id)
 
     try:
         db.session.add(new_favorite)
@@ -317,23 +369,69 @@ def add_favorite():
     return jsonify(new_favorite.serialize()), 201
 
 @api.route('/favorites', methods=['GET'])
-## Pasar parámtro user_id para sacar favoritos de usuario
 def get_all_favorites():
-    favorites = Favorites.query.all()
+    user_id = request.args.get('user_id')
+    user_type = request.args.get('user_type')
+
+    if not user_id or not user_type:
+        return jsonify({"Error": "User ID and User Type are required"}), 400
+
+    if user_type == "client":
+        favorites = Favorites.query.filter_by(client_id=user_id).all()
+    elif user_type == "artist":
+        favorites = Favorites.query.filter_by(artist_id=user_id).all()
+    else:
+        return jsonify({"Error": "Invalid user type"}), 400
+
     return jsonify([favorite.serialize() for favorite in favorites]), 200
 
-@api.route('/favorites/<string:id>', methods=['GET'])
-def get_favorite(id):
-    favorite = Favorites.query.get_or_404(id)
-    return jsonify(favorite.serialize()), 200
+@api.route('/favorites/<string:work_id>', methods=['DELETE'])
+def delete_favorite(work_id):
 
-@api.route('/favorites/<string:id>', methods=['PUT'])
-def update_favorite(id):
+    try:
+        favorite = Favorites.query.filter_by(work_id=work_id).first_or_404()
+
+        db.session.delete(favorite)
+        db.session.commit()
+    except Exception as ex:
+        db.session.rollback()
+        return jsonify({"Message": "Something went wrong", "Error": str(ex)}), 500
+
+    return jsonify({"Message": "Favorite deleted successfully"}), 200
+
+##---------------------SHOPPING CART---------------------##
+
+@api.route('/shopping_cart', methods=['POST'])
+def add_to_cart():
     data = request.json
-    favorite = Favorites.query.get_or_404(id)
+    client_id = data.get("client_id")
+    work_id = data.get("work_id")
+    quantity = data.get("quantity", 1)
 
-    favorite.client_id = data.get("client_id", favorite.client_id)
-    favorite.work_id = data.get("work_id", favorite.work_id)
+    if not client_id or not work_id:
+        return jsonify({"Error": "Client ID and Work ID are required"}), 400
+
+    if quantity < 1:
+        return jsonify({"Error": "Quantity must be at least 1"}), 400
+
+    work = Work.query.get(work_id)
+    if not work:
+        return jsonify({"Error": "Work not found"}), 404
+
+    existing_cart_item = Shopping_Cart.query.filter_by(client_id=client_id, work_id=work_id).first()
+    if existing_cart_item:
+        existing_cart_item.quantity += quantity
+        existing_cart_item.total = work.price 
+    else:
+        cart_id = str(uuid.uuid4())
+        new_cart_item = Shopping_Cart(
+            id=cart_id,
+            client_id=client_id,
+            work_id=work_id,
+            quantity=quantity,
+            total=work.price
+        )
+        db.session.add(new_cart_item)
 
     try:
         db.session.commit()
@@ -341,4 +439,30 @@ def update_favorite(id):
         db.session.rollback()
         return jsonify({"Message": "Something went wrong", "Error": str(ex)}), 500
 
-    return jsonify(favorite.serialize()), 200
+    return jsonify(new_cart_item.serialize() if not existing_cart_item else existing_cart_item.serialize()), 201
+
+@api.route('/shopping_cart/<string:client_id>', methods=['GET'])
+def get_cart_items(client_id):
+    if not client_id:
+        return jsonify({"Error": "Client ID is required"}), 400
+
+    cart_items = Shopping_Cart.query.filter_by(client_id=client_id).all()
+
+    if not cart_items:
+        return jsonify({"Message": "No items found in the shopping cart"}), 404
+
+    return jsonify([item.serialize() for item in cart_items]), 200
+
+@api.route('/shopping_cart/<string:cart_item_id>', methods=['DELETE'])
+def delete_cart_item(cart_item_id):
+
+    try:
+        cart_item = Shopping_Cart.query.filter_by(id=cart_item_id).first_or_404()
+
+        db.session.delete(cart_item)
+        db.session.commit()
+    except Exception as ex:
+        db.session.rollback()
+        return jsonify({"Message": "Something went wrong", "Error": str(ex)}), 500
+
+    return jsonify({"Message": "Item removed from cart successfully"}), 200

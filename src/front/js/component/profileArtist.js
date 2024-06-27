@@ -5,45 +5,34 @@ import WorksComponent from "../component/worksComponent";
 import ImageCloudinary from "../component/imageCloudinary";
 import { useNavigate } from "react-router-dom";
 import ImageInput from "./imageInput";
-
-
-
-const WorksImages = ({ works }) => {
-    return (
-        <>
-            {works.map((work, index) => (
-                <ImageCloudinary
-                    key={index}
-                    imgId={work.image}
-                    classNames="work-title d-flex flex-col custom-image"
-                    onClick={() => { }}//handleWorkClick(work)
-                />
-            ))}
-        </>
-    )
-}
+import { getCloudinaryUrl } from "../utils";
+import WorksImages from "./WorksImages";
 
 export const ArtistProfile = () => {
     const userData = JSON.parse(localStorage.getItem("userData"));
     const { store, actions } = useContext(Context)
     const [works, setWorks] = useState([]);
+    const [favorites, setFavorites] = useState([])
     const [salesBalance, setSalesBalance] = useState(0);
     const [openModal, setOpenModal] = useState(false)
     const [selectedWork, setSelectedWork] = useState("");
-    const [imageUrl, setImageUrl] = useState(userData?.image)
-    const [isImageInputVisible, setIsImageInputVisible] = useState(false);
+    const [imageId, setImageId] = useState(userData?.image)
     const navigate = useNavigate()
-    console.log(store.userArtist, 'prueba userArtist2')
-    useEffect(() => {
-        actions.getUserArtist()
-    }, [])
-    useEffect(() => {
 
+
+    useEffect(() => {
         const getArtistWorks = async () => {
             const artistWorks = await actions.getWorks(userData?.id)
             setWorks(artistWorks)
         }
+
+        const getFavorites = async () => {
+            const favoritesArr = await actions.getFavoritesWorks(userData)
+            setFavorites(favoritesArr)
+        }
+
         getArtistWorks()
+        getFavorites()
     }, []);
 
     const addWork = (newWork) => {
@@ -59,12 +48,8 @@ export const ArtistProfile = () => {
     };
 
     const handleImageUpload = (publicId) => {
-        const cloudinaryUrl = `https://res.cloudinary.com/dxnxb4dus/image/upload/${publicId}.jpg`;  // Construct the URL
-        setImageUrl(cloudinaryUrl);
-        setIsImageInputVisible(false)
-    };
-    const toggleImageInput = () => {
-        setIsImageInputVisible(prevState => !prevState);
+        actions.updateUserImage(publicId)
+        setImageId(publicId);
     };
 
     //TO DO: eliminar obra 
@@ -108,16 +93,20 @@ export const ArtistProfile = () => {
                         </div>
                         <WorksImages works={works} />
                     </div>
+                    <div>
+                        <label className="form-label">Favorites:</label>
+                        <div className="d-flex align-items-center flex-wrap gap-2 border rounded-2 border-secondary p-3">
+                            <WorksImages works={favorites} />
+                        </div>
+                    </div>
                     <div className="card my-2 w-75 mb-5">
                         <h5 className="card-header">Description</h5>
                         <div className="card-body">
-                            <p className="card-text">{store.userArtist?.description}</p>
+                            <p className="card-text">{userData?.description}</p>
                         </div>
                     </div>
                 </div>
             </div>
-
-
             }
         </div>
     );
