@@ -77,9 +77,9 @@ body {
 
 .navbar {
   font-size: 15px;
-  display: flex; /* Usar flex para alinear el contenido */
-  justify-content: center; /* Centra horizontalmente el contenido */
-  align-items: center; /* Centra verticalmente el contenido */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: #ffffff;
   font-family: "Playfair Display", serif;
   font-optical-sizing: auto;
@@ -87,12 +87,11 @@ body {
   top: 0;
   width: 100%;
   z-index: 500;
-  background-color: #000000; /* Fondo negro */
-  height: 40px; /* Ajusta la altura según tus necesidades */
-  padding: 0; /* Elimina el padding para centrar perfectamente */
-  margin: 0; /* Asegura que no haya márgenes adicionales */
+  background-color: #000000;
+  height: 40px;
+  padding: 0;
+  margin: 0;
 }
-
 
 .nav-item:last-child {
   margin-right: 0;
@@ -111,7 +110,7 @@ body {
 
   padding-bottom: 4px;
 
-  padding-bottom: 4px; /* Ajusta el padding según el grosor de la línea */
+  padding-bottom: 4px;
 
   cursor: pointer;
   scale: 1;
@@ -129,19 +128,21 @@ body {
 
 .footer {
   display: flex;
-  justify-content: center; /* Centra horizontalmente */
-  align-items: center; /* Centra verticalmente */
-  height: 30px; /* Ajusta la altura según tus necesidades */
+  justify-content: center;
+  align-items: center;
+  height: 30px;
   background-color: #000000;
   color: #ffffff;
   font-family: "Playfair Display", serif;
   font-optical-sizing: auto;
   position: fixed;
-  bottom: 0; /* Posiciona el pie de página en la parte inferior */
+  bottom: 0; 
   width: 100%;
   z-index: 1000;
-  padding: 0; /* Elimina el padding para centrar perfectamente */
-  margin: 0; /* Asegura que no haya márgenes adicionales */
+  padding: 0;
+
+  margin-top: 50px;
+  margin-bottom: 2px;
 }
 
 .showArtists {
@@ -206,6 +207,6 @@ body {
   height: 500px;
   border: 1px solid #ccc;
   padding: 10px;
-  overflow: auto; /* Esto activa el scroll en ambas direcciones si es necesario */
+  overflow: auto; 
   margin-bottom: 10px;
 }

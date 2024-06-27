@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import ImageInput from "./imageInput";
+import { Context } from "../store/appContext";
 
 const WorksComponent = ({ onSubmit, closeModal, }) => {
 
