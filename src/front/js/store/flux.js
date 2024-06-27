@@ -9,32 +9,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 			userArtist: null
 		},
 		actions: {
-			addShoppingCar: async (item) => {
-                const store = getStore();
-                try {
-                   
-                    const response = await fetch(`https://supreme-space-zebra-jjj6xqj9pj54cx4q-3001.app.github.dev//shopping_cart/${item.id}`, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(item)
-                    });
-
-                    if (response.ok) {
-                        
-                        const updatedCart = store.shoppingCart.map(cartItem =>
-                            cartItem.id === item.id ? item : cartItem
-                        );
-                        setStore({ shoppingCart: updatedCart });
-                    } else {
-                        console.error("Error updating item in cart", response.statusText);
-                    }
-                } catch (error) {
-                    console.error("Error updating item in cart", error);
-                }
-            },
-    
+			 addShoppingCar : async (itemToAdd) => {
+				const store = getStore();
+				try {
+					const response = await fetch('https://supreme-space-zebra-jjj6xqj9pj54cx4q-3001.app.github.dev/shopping_cart', {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json'
+						},
+						body: JSON.stringify(itemToAdd)
+					});
+			
+					if (response.ok) {
+						const updatedItem = await response.json();
+						setStore({ shoppingCart: [...store.shoppingCart, updatedItem] });
+					} else {
+						console.error("Error updating item in cart", response.statusText);
+					}
+				} catch (error) {
+					console.error("Error updating item in cart", error);
+				}
+			},
 			deleteToken: () => {
 				const store = getStore()
 				const token = localStorage.getItem("token")
@@ -44,6 +39,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					setStore({ ...store, token: null, userClient: null, userArtist: null })
 				}
 			},
+			
 			login: async (user) => {
 				const store = getStore()
 				try {
@@ -130,7 +126,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				})
 				const data = await resp.json()
 				localStorage.setItem("userData", JSON.stringify(data))
-				
+
 				return data
 			},
 
@@ -146,7 +142,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 				})
 				const data = await resp.json()
-				
+
 			},
 
 			updateUserArtist: async (first_name, last_name, description) => {
@@ -162,7 +158,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				});
 				const data = await resp.json()
 				localStorage.setItem("userData", JSON.stringify(data))
-			
+
 				return data
 			},
 
@@ -178,7 +174,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 				})
 				const data = await resp.json()
-				
+
 			},
 
 			getUserArtist: async () => {
@@ -276,7 +272,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}));
 
 						setStore({ ...store, gallery: artistsWithWorks })
-						
+
 						return artistsWithWorks
 					}
 				} catch (error) {
@@ -327,7 +323,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}, body: JSON.stringify(work)
 					})
 					const newWork = await resp.json()
-					
+
 					return newWork
 				} catch (error) {
 					console.log("Error in FLUX", error)
