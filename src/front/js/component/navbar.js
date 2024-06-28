@@ -9,7 +9,7 @@ export const Navbar = () => {
   const userData = JSON.parse(localStorage.getItem("userData"));
 
   return (
-    <nav className="navbar navbar-dark navbar-expand-lg  bg-body-tertiary">
+    <nav className="navbar navbar-dark navbar-expand-lg">
       <div className="container-fluid">
         <IoFlowerOutline />
         <button className="navbar-toggler mt-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

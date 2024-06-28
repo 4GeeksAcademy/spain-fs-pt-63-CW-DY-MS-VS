@@ -1,4 +1,5 @@
 .navbar {
+    background-color: #000000;
     font-size: 18px;
     display: block;
     color: #ffffff;
@@ -8,9 +9,9 @@
     top: 0;
     width: 100%;
     z-index: 1000;
-    background-color: #000000;
-    padding: 10px 0;
-    margin: 4px;
+    padding: 4px 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .navbar .nav-item:last-child {
@@ -20,7 +21,6 @@
 .navbar .nav-item {
     padding: 1px 3px;
     margin-right: 7px;
-    display: inline-block;
 }
 
 .navbar .nav-link {
@@ -29,6 +29,15 @@
     position: relative;
     padding: 8px 15px;
     display: inline-block;
+}
+.navbar .nav-link:hover::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px; /* Ajusta la posición del subrayado */
+    height: 2px;
+    width: 100%;
+    background-color: #7c77b9; /* Color del subrayado */
 }
 
 .navbar .nav-link:hover:not(.login) {
