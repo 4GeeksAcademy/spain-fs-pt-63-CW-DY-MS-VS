@@ -11,35 +11,44 @@ const WorkDetail = ({ obra }) => {
   const [liked, setLiked] = useState(false);
   const { id } = useParams();
   const { store, actions } = useContext(Context);
-  const userDataString = localStorage.getItem('userData');
+  const userData = JSON.parse(localStorage.getItem("userData"))
+  const [favorites, setFavorites] = useState([])
+  const [work, setWork] = useState(null);
+
 
   useEffect(() => {
     actions.getAllWorks();
+
+    const fetchWork = async () => {
+      const foundWork = store.allWorks ? await store.allWorks.find((w) => w.id === id) : null;
+      setWork(foundWork);
+    };
+
+    fetchWork();
+
+    const getFavorites = async () => {
+      const favoritesArr = await actions.getFavoritesWorks(userData);
+      setFavorites(favoritesArr);
+    };
+
+    getFavorites();
   }, []);
 
-  const work = store.allWorks ? store.allWorks.find((work) => work.id === id) : null;
+  console.log("FAVS", favorites)
+  console.log("WORK", work)
 
-  const workString = JSON.stringify(work);
-  localStorage.setItem('work', workString);
 
   const handleFavorites = () => {
-    if (!liked) {
-      setLiked(true);
-      actions.addToFavorites(work, userDataString);
-    } else {
-      setLiked(false);
-      actions.deleteFromFavorites(work.id);
+    if (!favorites.some((fav) => fav.id === work.id)) {
+      actions.addToFavorites(work, userData)
+      setFavorites([...favorites, work])
+    } else if (favorites.some((fav) => fav.id === work.id)) {
+      setFavorites(favorites.filter(fav => fav.id !== work.id))
+      actions.deleteFromFavorites(work.id)
     }
-  };
+  }
 
-  const incrementLike = () => {
-    if (!liked) {
-      setLikeCount(likeCount + 1);
-    } else {
-      setLikeCount(likeCount - 1);
-    }
-    setLiked(!liked);
-  };
+  //Actualizar si da tiempo para leer cantidad de likes que tiene un producto (Aunque yo creo que no dará tiempo)
 
   const handleAddToCart = () => {
     if (userDataString) {
@@ -69,24 +78,30 @@ const WorkDetail = ({ obra }) => {
     <div className="container mt-5">
       <div className="work-detail mt-5">
         <div className="work-image mt-5">
-          {work ? (
-            <div className="row d-flex flex-nowrap">
+          {work &&
+            (<div className="row d-flex flex-nowrap ">
               <div className="col-6">
                 <ImageCloudinary
                   imgId={work.image}
                   className="mb-5"
-                  style={{ width: 'auto', height: '400px', objectFit: "contain", boxShadow: "0 8px 12px rgba(0, 0, 0, 0.6)", border: "10px solid #000" }}
+                  style={{ width: 'auto', height: '400px', objectFit: "contain", boxShadow: " 0 8px 12px rgba(0, 0, 0, 0.6)", border: "10px solid #000" }}
                   onClick={() => { }}
-                />
-              </div>
-              <div className="informacion-container col-6 mx-5">
+                /></div>
+              <div className=" informacion-container col-6 mx-5">
                 <div className="work-info mx-5">
                   <h5>{work.title}</h5>
                   <p>{work.description}</p>
                   <p>Año:<strong>{work.year}</strong></p>
                   <p>Type of Work : {work.type}</p>
-                  <p><strong>Precio: </strong>{work.price} €</p>
-                  <p className="like-count"><strong>{!liked ? <FaRegHeart /> : <FaHeart />} {likeCount}</strong></p>
+                  <p>
+                    <strong>Precio: </strong>
+                    {work.price} €
+                  </p>
+                  <p className="like-count">
+                    <strong>
+                      {favorites.some((fav) => fav.id === work.id) ? <FaHeart /> : <FaRegHeart />} {likeCount}
+                    </strong>
+                  </p>
                   <div className="buttons ms-2">
                     <button className="like-button" onClick={handleFavorites}><FaHeart /></button>
                     {store.token && userData.client (
@@ -98,7 +113,8 @@ const WorkDetail = ({ obra }) => {
                 </div>
               </div>
             </div>
-          ) : null}
+            )
+          }
         </div>
       </div>
     </div>

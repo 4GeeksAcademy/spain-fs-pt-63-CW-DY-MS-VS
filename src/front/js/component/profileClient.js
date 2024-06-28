@@ -14,8 +14,8 @@ export const ClientProfile = () => {
     const [works, setWorks] = useState([]);
 
     const handleImageUpload = (publicId) => {
-        actions.updateUserImage(publicId)
         setImageId(publicId);
+        actions.updateUserImage(publicId)
     };
 
     useEffect(() => {
@@ -37,7 +37,7 @@ export const ClientProfile = () => {
             <div className="position-relative rounded-circle" style={{ width: '150px', height: '150px' }}>
                 <ImageCloudinary className="rounded-circle" classNames={"rounded-circle"} imgId={imageId} style={{ width: '100%', height: '100%' }} />
                 <div className="btn position-absolute" style={{ bottom: '10px', right: '10px' }} >
-                    <ImageInput name="+" onImageUpload={handleImageUpload} />
+                    <ImageInput isInForm={false} name="+" onImageUpload={handleImageUpload} />
                 </div>
             </div>
 
@@ -45,12 +45,6 @@ export const ClientProfile = () => {
                 <label className="form-label">Favorites:</label>
                 <div className="d-flex align-items-center flex-wrap gap-2 border rounded-2 border-secondary p-3">
                     <WorksImages works={works} />
-                </div>
-                <div className="card my-2 w-75 mb-5">
-                    <h5 className="card-header">Description</h5>
-                    <div className="card-body">
-                        <p className="card-text">{store.userArtist?.description}</p>
-                    </div>
                 </div>
             </div>
         </div>

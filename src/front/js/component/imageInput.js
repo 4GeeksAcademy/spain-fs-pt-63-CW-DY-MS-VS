@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Cloudinary } from "@cloudinary/url-gen/index";
 import { AdvancedImage } from '@cloudinary/react';
 import { fill } from "@cloudinary/url-gen/actions/resize";
 import { useContext } from "react";
 import { Context } from "../store/appContext";
 
-const ImageInput = ({ onImageUpload, name }) => {
+const ImageInput = ({ onImageUpload, name, isInForm }) => {
     const cloudinaryRef = useRef()
     const widgetRef = useRef()
     const [imgId, setImgId] = useState("")
@@ -24,11 +23,7 @@ const ImageInput = ({ onImageUpload, name }) => {
         })
     }, []);
 
-    const cld = new Cloudinary({
-        cloud: {
-            cloudName: 'dxnxb4dus'
-        }
-    });
+    const cld = process.env.CLOUDINARY_KEY
 
     const myImage = imgId ? cld.image(imgId) : null
     myImage && myImage.resize(fill().height(225))
@@ -48,7 +43,7 @@ const ImageInput = ({ onImageUpload, name }) => {
         <div>
             {!myImage && <button className="btn btn-secondary d-flex align-items-center justify-content-center" onClick={() =>
                 widgetRef.current.open()}>{name}</button>}
-            {/* {myImage && <AdvancedImage cldImg={myImage} />} */}
+            {myImage && isInForm && <AdvancedImage cldImg={myImage} />}
         </div>
     )
 }
