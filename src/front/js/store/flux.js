@@ -7,24 +7,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 			works: null,
 			userClient: null,
 			userArtist: null,
-			
-
 		},
 		actions: {
 			addShoppingCar: async (itemToAdd) => {
 				const store = getStore();
 				try {
-					const response = await fetch('https://supreme-space-zebra-jjj6xqj9pj54cx4q-3001.app.github.dev/api/shopping_cart', {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/shopping_cart`, {
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json'
 						},
 						body: JSON.stringify(itemToAdd)
 					});
-			
+
 					if (response.ok) {
 						const updatedItem = await response.json();
-						setStore({ shoppingCart: [...store.shoppingCart, updatedItem] });
+						const currentShoppingCart = Array.isArray(store.shoppingCart) ? store.shoppingCart : [];
+						setStore({ ...store, shoppingCart: [...currentShoppingCart, updatedItem] });
 					} else {
 						console.error("Error updating item in cart", response.statusText);
 					}
@@ -32,53 +31,50 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error("Error updating item in cart", error);
 				}
 			},
-			
-			getShoppingCart: async () => {
-				try {
-				  const userData = JSON.parse(localStorage.getItem("userData"));
-				  if (!userData || !userData.id) {
-					throw new Error("User data not found in localStorage or missing id.");
-				  }
-			  
-				  const response = await fetch(`https://supreme-space-zebra-jjj6xqj9pj54cx4q-3001.app.github.dev/api/shopping_cart/${userData.id}`);
-			  
-				  if (!response.ok) {
-					throw new Error(`Failed to fetch shopping cart data. Status: ${response.status}`);
-				  }
-			  
-				  const data = await response.json();
-			  
-				  setStore(prevState => ({
-					...prevState,
-					shoppingCart: data || []
-					
-				  }));
-				  return data
-				} catch (error) {
-				  console.error('Error fetching shopping cart:', error);
-				}
-			  },
 
-			  
-			  deleteItemFromCart: async (cartItemId) => {
+			getShoppingCart: async () => {
+				const store = getStore()
 				try {
-				  const response = await fetch(`https://supreme-space-zebra-jjj6xqj9pj54cx4q-3001.app.github.dev/api/shopping_cart/${cartItemId}`, {
-					method: 'DELETE'
-				  });
-				  if (response.ok) {
-			
-					const store = getStore();
-					const updatedCart = store.cart.filter(item => item.id !== cartItemId);
-					setStore({ cart: updatedCart });
-				  } else {
-					console.error("Error deleting item from cart");
-				  }
+					const userData = JSON.parse(localStorage.getItem("userData"));
+					if (!userData || !userData.id) {
+						throw new Error("User data not found in localStorage or missing id.");
+					}
+
+					const response = await fetch(`${process.env.BACKEND_URL}/api/shopping_cart/${userData.id}`);
+
+					if (!response.ok) {
+						throw new Error(`Failed to fetch shopping cart data. Status: ${response.status}`);
+					}
+
+					const data = await response.json();
+
+					setStore({ ...store, shoppingCart: data });
+					return data
 				} catch (error) {
-				  console.error("Error deleting item from cart:", error);
+					console.error('Error fetching shopping cart:', error);
 				}
-			  },
-		
-			  
+			},
+
+
+			deleteItemFromCart: async (cartItemId) => {
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/shopping_cart/${cartItemId}`, {
+						method: 'DELETE'
+					});
+					if (response.ok) {
+
+						const store = getStore();
+						const updatedCart = store.shoppingCart.filter(item => item.id !== cartItemId);
+						setStore({ shoppingCart: updatedCart });
+					} else {
+						console.error("Error deleting item from cart");
+					}
+				} catch (error) {
+					console.error("Error deleting item from cart:", error);
+				}
+			},
+
+
 			deleteToken: () => {
 				const store = getStore()
 				const token = localStorage.getItem("token")
@@ -301,7 +297,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ ...store, artists: data });
 				return data
 			},
-			
+
 			getArtistsWithWorks: async () => {
 				const store = getStore()
 
