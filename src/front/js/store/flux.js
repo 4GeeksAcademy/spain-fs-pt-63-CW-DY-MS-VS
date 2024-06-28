@@ -162,67 +162,86 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			updateUserClient: async (first_name, last_name) => {
+				const token = JSON.parse(localStorage.getItem("token")).token
 				const resp = await fetch(process.env.BACKEND_URL + `/api/user_client`, {
 					method: 'PUT',
 					headers: {
 						'Content-Type': 'application/json',
-						'Authorization': 'Bearer ' + localStorage.getItem('token')
+						'Authorization': 'Bearer ' + token
 					},
 					body: JSON.stringify({
 						first_name: first_name, last_name: last_name
 					})
 				})
 				const data = await resp.json()
-				localStorage.setItem("userData", JSON.stringify(data))
-				
+				const existingData = JSON.parse(localStorage.getItem("userData"))
+
+				const updatedData = {
+					...existingData,
+					first_name: first_name,
+					last_name: last_name,
+				}
+
+				localStorage.setItem("userData", JSON.stringify(updatedData))
 				return data
 			},
 
 			updateUserClientPassword: async (password) => {
-				const resp = await fetch(process.env.BACKEND_URL + `/api/user_client`, {
+				const token = JSON.parse(localStorage.getItem("token")).token
+				const resp = await fetch(process.env.BACKEND_URL + `/api/user_client/password`, {
 					method: 'PUT',
 					headers: {
 						'Content-Type': 'application/json',
-						'Authorization': 'Bearer ' + localStorage.getItem('token')
+						'Authorization': 'Bearer ' + token
 					},
 					body: JSON.stringify({
 						password: password
 					})
 				})
 				const data = await resp.json()
-				
+
 			},
 
 			updateUserArtist: async (first_name, last_name, description) => {
+				const token = JSON.parse(localStorage.getItem("token")).token
 				const resp = await fetch(process.env.BACKEND_URL + `/api/user_artist`, {
 					method: 'PUT',
 					headers: {
 						'Content-Type': 'application/json',
-						'Authorization': 'Bearer ' + localStorage.getItem('token')
+						'Authorization': 'Bearer ' + token
 					},
 					body: JSON.stringify({
 						first_name: first_name, last_name: last_name, description: description
 					})
 				});
 				const data = await resp.json()
-				localStorage.setItem("userData", JSON.stringify(data))
-			
+				const existingData = JSON.parse(localStorage.getItem("userData"))
+
+				const updatedData = {
+					...existingData,
+					first_name: first_name,
+					last_name: last_name,
+					description: description
+				}
+
+				localStorage.setItem("userData", JSON.stringify(updatedData))
 				return data
 			},
 
 			updateUserArtistPassword: async (password) => {
-				const resp = await fetch(process.env.BACKEND_URL + `/api/user_artist`, {
+				const token = JSON.parse(localStorage.getItem("token")).token
+				const resp = await fetch(process.env.BACKEND_URL + `/api/user_artist/password`, {
 					method: 'PUT',
 					headers: {
 						'Content-Type': 'application/json',
-						'Authorization': 'Bearer ' + localStorage.getItem('token')
+						'Authorization': 'Bearer ' + token
 					},
 					body: JSON.stringify({
 						password: password
 					})
 				})
 				const data = await resp.json()
-				
+
 			},
 
 			getUserArtist: async () => {
@@ -282,6 +301,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ ...store, artists: data });
 				return data
 			},
+			
 			getArtistsWithWorks: async () => {
 				const store = getStore()
 
@@ -320,7 +340,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}));
 
 						setStore({ ...store, gallery: artistsWithWorks })
-						
+
 						return artistsWithWorks
 					}
 				} catch (error) {
@@ -371,7 +391,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}, body: JSON.stringify(work)
 					})
 					const newWork = await resp.json()
-					
+
 					return newWork
 				} catch (error) {
 					console.log("Error in FLUX", error)
@@ -383,8 +403,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			addToFavorites: async (work, userData) => {
 				const store = getStore()
-				const user = JSON.parse(userData)
-				console.log(work, user)
+				const user = userData
+
 				try {
 					if (user.type === "client") {
 						const body = JSON.stringify({

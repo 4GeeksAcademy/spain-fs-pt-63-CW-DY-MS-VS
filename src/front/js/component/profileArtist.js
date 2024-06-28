@@ -63,13 +63,13 @@ export const ArtistProfile = () => {
                 {openModal && <WorksComponent onSubmit={handleOnSubmit} closeModal={() => setOpenModal(false)} />}
                 <div>
                     <div className="d-flex">
-                        <h3>{store.userArtist?.first_name} {store.userArtist?.last_name}</h3>
+                        <h3>{userData?.first_name} {userData?.last_name}</h3>
                         <i type="button" className="far fa-edit fs-4 px-2" onClick={() => navigate('/edit')}  ></i>
                     </div>
                     <div className="position-relative " style={{ width: '150px', height: '150px', borderRadius: '50%' }}>
                         <ImageCloudinary imgId={imageId} classNames={"rounded-circle"} style={{ width: '100%', height: '100%' }} />
                         <div className="btn  position-absolute" style={{ bottom: '10px', right: '10px' }} >
-                            <ImageInput name="+" onImageUpload={handleImageUpload} />
+                            <ImageInput isInForm={false} name="+" onImageUpload={handleImageUpload} />
                         </div>
                     </div>
                 </div>

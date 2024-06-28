@@ -23,7 +23,7 @@ const WorksComponent = ({ onSubmit, closeModal, }) => {
                         <button type="button" className="btn-close" onClick={closeModal}></button>
                     </div>
                     <div className="my-2">
-                        <ImageInput name={"Select Image"} />
+                        <ImageInput isInForm={true} name={"Select Image"} />
                     </div>
                     <input type="text" className="form-control" required
                         onChange={(e) => newWork = { ...newWork, title: e.target.value }} placeholder="Title" />

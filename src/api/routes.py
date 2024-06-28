@@ -1,16 +1,13 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-from flask import Flask, request, jsonify, url_for, Blueprint
+from flask import Flask, request, jsonify, Blueprint
 from api.models import db, User_Client, User_Artist, Work, Favorites, Shopping_Cart
-from api.utils import generate_sitemap, APIException
+from api.utils import generate_sitemap
 from flask_cors import CORS
 import uuid
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, JWTManager
-from flask_bcrypt import Bcrypt, generate_password_hash, check_password_hash
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
+from flask_bcrypt import Bcrypt
 
 api = Blueprint('api', __name__)
 app = Flask(__name__)
@@ -106,7 +103,7 @@ def update_picture():
         db.session.rollback()
         return jsonify({"Message": "Something went wrong", "Error": str(ex)}), 500
 
-@api.route('/user_client', methods=['PUT'], endpoint='update_client_password')
+@api.route('/user_client/password', methods=['PUT'], endpoint='update_client_password')
 @jwt_required()
 def update_client_password():
     id = get_jwt_identity()
@@ -179,7 +176,6 @@ def get_artist():
 
 @api.route('/user_artist/<string:id>', methods=['GET'], endpoint='get_artist')
 def get_artist_from_id(id):
-    print(id)
     artist = User_Artist.query.filter_by(id = id).first()
     return jsonify(artist.serialize()), 200
 
@@ -188,7 +184,6 @@ def get_artist_from_id(id):
 def get_all_artists():
     artists = User_Artist.query.all()
     artists = [artist.serialize() for artist in artists]
-    print(artists)
     return jsonify(artists), 200
 
 @api.route('/works/user_artist/<string:artist_id>', methods=['GET'], endpoint='get_works_by_artist')
@@ -232,9 +227,9 @@ def update_picture():
         db.session.rollback()
         return jsonify({"Message": "Something went wrong", "Error": str(ex)}), 500
 
-@api.route('/user_artist', methods=['PUT'], endpoint='update_artist_password')
+@api.route('/user_artist/password', methods=['PUT'], endpoint='update_artist_password')
 @jwt_required()
-def update_client_password():
+def update_artist_password():
     id = get_jwt_identity()
     data = request.json
     client = User_Artist.query.get_or_404(id)
@@ -281,7 +276,7 @@ def create_work():
 def get_all_works():
     works = Work.query.all()
     works = [work.serialize() for work in works]
-    print(works)
+
     return jsonify(works), 200
 
 @api.route('/work/<string:id>', methods=['GET'])
