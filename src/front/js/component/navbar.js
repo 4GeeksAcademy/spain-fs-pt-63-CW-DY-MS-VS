@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import { IoFlowerOutline } from "react-icons/io5";
+import "./../../styles/navbar.css"
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
@@ -15,7 +16,7 @@ export const Navbar = () => {
         <button className="navbar-toggler mt-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
+        <div className="collapse navbar-collapse mb-3 bg-black" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
               <Link className="nav-link active" aria-current="page" to="/">Home</Link>
@@ -42,11 +43,11 @@ export const Navbar = () => {
 
           {
             token ? (
-              <Link to="/"><button className="btn btn-outline-success" onClick={actions.deleteToken}>Logout</button></Link>
+              <Link to="/"><button className="btn btn-outline-light" onClick={actions.deleteToken}>Logout</button></Link>
 
             ) : (
               <Link className="login " to="/login">
-                <button className="btn btn-outline-success " type="submit">Login</button>
+                <button className="btn btn-outline-light " type="submit">Login</button>
               </Link>)
           }
         </div>
