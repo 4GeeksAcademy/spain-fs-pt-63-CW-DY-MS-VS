@@ -42,11 +42,11 @@ export const Navbar = () => {
 
           {
             token ? (
-              <Link to="/"><button className="btn btn-outline-success" onClick={actions.deleteToken}>Logout</button></Link>
+              <Link to="/"><button className="btn btn-outline-light" onClick={actions.deleteToken}>Logout</button></Link>
 
             ) : (
               <Link className="login " to="/login">
-                <button className="btn btn-outline-success " type="submit">Login</button>
+                <button className="btn btn-outline-light " type="submit">Login</button>
               </Link>)
           }
         </div>
