@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import { IoFlowerOutline } from "react-icons/io5";
-import "./../../styles/navbar.css";
+import "./../../styles/navbar.css"
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
@@ -16,7 +16,7 @@ export const Navbar = () => {
         <button className="navbar-toggler mt-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
+        <div className="collapse navbar-collapse bg-black" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
               <Link className="nav-link active" aria-current="page" to="/">Home</Link>
