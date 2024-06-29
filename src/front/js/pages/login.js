@@ -18,8 +18,8 @@ const Login = () => {
   };
 
   return (
-    <div className="container text-center">
-      <h1 className="mt-5 mb-5">Login</h1>
+    <div className="container d-flex flex-column align-items-center justify-content-center vh-100">
+      <h1 className="mt-5 mb-4">Login</h1>
 
       <form onSubmit={handleSubmit}>
         <div>
@@ -73,10 +73,10 @@ const Login = () => {
         </div>
 
         <div>
-          <button className="mt-5 go" type="submit">
+          <button className="btn btn-primary w-100 mt-5 go" type="submit">
             Login
           </button>
-          <Link to="/register"><p className="mt-5">¡Register here!</p></Link>
+          <Link to="/register"><p className="d-block mt-3 text-center">¡Register here!</p></Link>
         </div>
       </form>
     </div>
