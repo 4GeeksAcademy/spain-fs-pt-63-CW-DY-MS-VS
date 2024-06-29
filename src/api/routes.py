@@ -82,7 +82,6 @@ def update_client():
         return jsonify({
             "first_name": client.first_name,
             "last_name": client.last_name,
-            "description": client.description
         })
     except Exception as ex:
         db.session.rollback()
