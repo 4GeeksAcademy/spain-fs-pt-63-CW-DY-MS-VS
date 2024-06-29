@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { AdvancedImage } from '@cloudinary/react';
 import { fill } from "@cloudinary/url-gen/actions/resize";
 import { useContext } from "react";
+import { Cloudinary } from "@cloudinary/url-gen";
 import { Context } from "../store/appContext";
 
 const ImageInput = ({ onImageUpload, name, isInForm }) => {
@@ -23,7 +24,11 @@ const ImageInput = ({ onImageUpload, name, isInForm }) => {
         })
     }, []);
 
-    const cld = process.env.CLOUDINARY_KEY
+    const cld = new Cloudinary({
+        cloud: {
+            cloudName: process.env.CLOUDINARY_KEY
+        }
+    });
 
     const myImage = imgId ? cld.image(imgId) : null
     myImage && myImage.resize(fill().height(225))
