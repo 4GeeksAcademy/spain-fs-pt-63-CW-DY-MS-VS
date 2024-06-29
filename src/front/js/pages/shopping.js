@@ -11,7 +11,7 @@ const Shopping = () => {
 
   useEffect(() => {
     actions.getAllWorks().then((worksResponse) => setWorks(worksResponse));
-  }, [actions]);
+  }, []);
 
   useEffect(() => {
     const getCart = async () => {
@@ -24,16 +24,22 @@ const Shopping = () => {
     };
 
     getCart();
-  }, [actions]);
+  }, []);
 
   useEffect(() => {
     if (cart && cart.length > 0) {
       const total = cart.reduce((acc, item) => acc + item.total, 0);
       setSubTotal(total);
     }
-  }, [cart]);
+  }, []);
 
- 
+
+  const handleDeleteItem = (id) => {
+    actions.deleteItemFromCart(id)
+    const updatedCart = cart.filter(item => item.id !== id)
+    setCart(updatedCart)
+  }
+
 
   return (
     <div className="container text-center justify-content-center mt-5">
@@ -48,7 +54,7 @@ const Shopping = () => {
             const work = works.find(work => work.id === item.work_id);
             return (
               <div key={index} className="col-12 mb-3">
-                
+
                 <div className="card w-100">
                   <div className="card-body d-flex align-items-center">
                     {work && (
@@ -65,7 +71,7 @@ const Shopping = () => {
                       <p className="card-text">{item.total.toFixed(2)} €</p>
                       <button
                         className="btn btn-danger"
-                        onClick={() => actions.deleteItemFromCart(item.id)}
+                        onClick={() => handleDeleteItem(item.id)}
                       >
                         Eliminar <MdOutlineDeleteForever />
                       </button>
@@ -84,4 +90,3 @@ const Shopping = () => {
 };
 
 export default Shopping;
-               

@@ -14,7 +14,7 @@ const WorkDetail = ({ obra }) => {
   const userData = JSON.parse(localStorage.getItem("userData"))
   const [favorites, setFavorites] = useState([])
   const [work, setWork] = useState(null);
-
+  const userDataString = localStorage.getItem('userData');
 
   useEffect(() => {
     actions.getAllWorks();
@@ -59,10 +59,10 @@ const WorkDetail = ({ obra }) => {
             client_id: userData.id,
             work_id: work.id,
             quantity: 1,
-           
+
           };
           actions.addShoppingCar(itemToAdd);
-          
+
         } else {
           console.log('La propiedad id no existe en userData');
         }
@@ -104,7 +104,7 @@ const WorkDetail = ({ obra }) => {
                   </p>
                   <div className="buttons ms-2">
                     <button className="like-button" onClick={handleFavorites}><FaHeart /></button>
-                    {store.token && userData.client (
+                    {userData.type === "client" && (
                       <button className="cart-button enviarShop" onClick={handleAddToCart}>
                         <IoCartSharp /> Añadir al carrito
                       </button>
