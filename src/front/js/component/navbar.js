@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import { IoFlowerOutline } from "react-icons/io5";
-import "./../../styles/navbar.css"
+import "./../../styles/navbar.css";
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
