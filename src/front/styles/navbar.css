@@ -1,5 +1,5 @@
 .navbar {
-    font-size: 15px;
+    font-size: 18px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,7 +13,7 @@
     background-color: #000000;
     height: 70px;
     padding: 0;
-    margin: 0;
+    margin-bottom: 10px;
   }
   
   
@@ -44,7 +44,7 @@
     position: absolute;
     left: 0;
     bottom: 0;
-    height: 1px;
+    height: 3px;
     width: 100%;
     background-color: #7c77b9;
     border-radius: 3px;
