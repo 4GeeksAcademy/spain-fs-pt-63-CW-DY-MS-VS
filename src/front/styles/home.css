@@ -166,19 +166,33 @@ body {
   background-color: rgb(255, 255, 250);
 }
 .background-image-div {
-  background-image: url("https://pre00.deviantart.net/4cf3/th/pre/f/2010/271/f/b/fb08ddc0b09c8dbc2de2b0a7e022ebab-d2xy78s.jpg");
-
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
+  position: relative;
   height: 300px;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: top;
-  position: relative;
-  color: rgb(115, 99, 78);
   margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.background-image-div::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/2560px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  opacity: 0.8;  /* Adjust this value for desired opacity */
+  z-index: -1;  /* Ensure the pseudo-element is behind the content */
+}
+
+.jumbotron{
+  font-size: 3rem;
 }
 
 .showArtists {
@@ -203,4 +217,17 @@ body {
   padding: 10px;
   overflow: auto; 
   margin-bottom: 10px;
+}
+
+.scrollable-div::-webkit-scrollbar {
+  width: 10px;
+}
+.scrollable-div::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+}
+
+.scrollable-div::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  border: 6px solid rgba(0, 0, 0, 0.786);
 }

@@ -9,14 +9,18 @@ const WorkCard = ({ work }) => {
     <Link to={`/workDetail/${work.id}`} className="work-card">
       <ImageCloudinary
         imgId={work.image}
-        className="work-image"
-        style={{ width: '150px', height: '160px' }}
+        classNames="work-image"
       />
-      <div className="work-details text-light">
-        <h3>{work.title}</h3>
-        <p>{work.description}</p>
-        <p>{work.type}</p>
-        <p>{work.price} €</p>
+      <div className="work-details text-light justify-self-start justify-content-between ">
+        <div className="d-flex flex-column align-items-start">
+          <h3 className="fs-4 m-0">{work.title}</h3>
+          <p className="text-start fs-6 m-0">{work.description}</p>
+        </div>
+        <div className="d-flex justify-self-end justify-content-between w-100">
+          <p className="m-0">{work.type}</p>
+          <p className="m-0">{work.price} €</p>
+        </div>
+
       </div>
     </Link>
   );
@@ -31,7 +35,7 @@ const WorkList = () => {
   }, []);
 
   return (
-    <div className="works-list bg-dark">
+    <div className="works-list">
       {store.allWorks && store.allWorks.length > 0 ? (
         store.allWorks.map((work, index) => (
           <WorkCard key={index} work={work} />

@@ -14,7 +14,7 @@ export const Home = () => {
 
   useEffect(() => {
     actions.getAllArtists();
-   
+
   }, []);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export const Home = () => {
 
   const handleSearch = (query) => {
     if (query) {
-         const filtered = store.artists.filter(artist =>
+      const filtered = store.artists.filter(artist =>
         artist.first_name.toLowerCase().includes(query.toLowerCase()) ||
         artist.last_name.toLowerCase().includes(query.toLowerCase())
       );
@@ -37,8 +37,8 @@ export const Home = () => {
 
   return (
     <div className="text-center mt-0 mb-5">
-      <div className="background-image-div mt-5">
-        <h1>“En cada momento se esconde una eternidad.”</h1>
+      <div className="background-image-div d-flex align-items-center">
+        <h1 className="text-white text-center fw-bold jumbotron">“COMPARTE TU LADO ARTÍSTICO.”</h1>
       </div>
       <div>
         <Search onSearch={handleSearch} />
@@ -58,16 +58,14 @@ export const Home = () => {
           </div>
         )}
       </div>
-      <div className="scrollable-div "><WorkCard /></div>    
-      
-    
+      <div className="scrollable-div"><WorkCard /></div>
       <div className="showArtists text-center mb-3">
         <h1 className="detalle mt-4 mb-4">Nuestros artistas</h1>
         <div className="row mb-4 mt-4 p-4">
           {store.artists && store.artists.length > 0 ? (
             <ul className="list-group col-12">
               {store.artists.map(artist => (
-                <li className="list-group-item2 bg-dark" key={artist.id}>
+                <li className="list-group-item2 border" key={artist.id}>
                   <Link to={`artistGalery/${artist.id}`}>{artist.first_name} {artist.last_name}</Link>
                 </li>
               ))}
