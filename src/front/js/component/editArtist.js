@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 export const EditUserArtist = () => {
-    const { store, actions } = useContext(Context)
+    const {  actions } = useContext(Context)
     const userData = JSON.parse(localStorage.getItem("userData"));
     const [first_name, setFirstName] = useState(userData?.first_name);
     const [last_name, setLastName] = useState(userData?.last_name);
@@ -35,6 +35,7 @@ export const EditUserArtist = () => {
         actions.updateUserArtistPassword(password.value);
         clearForm2();
         navigate("/profile")
+        document.getElementById("changePasswordModal").click();
     };
     const PasswordErrorMessage = () => {
         return (
@@ -104,7 +105,7 @@ export const EditUserArtist = () => {
             </form>
 
             <div className="d-flex justify-content-center">
-                <p type='button' className="text-danger  " data-bs-toggle="modal" data-bs-target="#changePasswordModal">Change Password</p>
+                <p type='button' className="btn btn-primary  " data-bs-toggle="modal" data-bs-target="#changePasswordModal">Change Password</p>
             </div>
 
             <div className="modal fade" id="changePasswordModal" tabIndex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">

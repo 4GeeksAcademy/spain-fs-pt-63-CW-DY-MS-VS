@@ -32,10 +32,6 @@ const ArtistGallery = () => {
       <div className="row d-flex">
         <div className="col-12 text-start mb-5"><h2>{`${artistEncontrado.first_name} ${artistEncontrado.last_name}`}</h2></div>
       </div>
-
-      <div className="row d-flex">
-        <div className="col-12 text-start mb-5"><h3 className="text-secondary">Email:</h3> <h2>{`${artistEncontrado.email} `}</h2></div>
-      </div>
       <div className="col-12 text-start mb-5"><h2>{`${artistEncontrado.description} `}</h2></div>
       <div className="row d-flex">
       </div>

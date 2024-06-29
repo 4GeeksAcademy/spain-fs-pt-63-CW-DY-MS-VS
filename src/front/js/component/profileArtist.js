@@ -13,14 +13,13 @@ export const ArtistProfile = () => {
     const { store, actions } = useContext(Context)
     const [works, setWorks] = useState([]);
     const [favorites, setFavorites] = useState([])
-    const [salesBalance, setSalesBalance] = useState(0);
     const [openModal, setOpenModal] = useState(false)
-    const [selectedWork, setSelectedWork] = useState("");
     const [imageId, setImageId] = useState(userData?.image)
     const navigate = useNavigate()
 
 
     useEffect(() => {
+        actions.getUserArtist()
         const getArtistWorks = async () => {
             const artistWorks = await actions.getWorks(userData?.id)
             setWorks(artistWorks)
@@ -52,32 +51,24 @@ export const ArtistProfile = () => {
         setImageId(publicId);
     };
 
-    //TO DO: eliminar obra 
-    // const removeWork = (id) => {
-    //     setWorks(works.filter(work => work.id !== id));
-    // };
-
+ 
     return (
         <div>
             {<div>
                 {openModal && <WorksComponent onSubmit={handleOnSubmit} closeModal={() => setOpenModal(false)} />}
                 <div>
-                    <div className="d-flex">
-                        <h3>{userData?.first_name} {userData?.last_name}</h3>
-                        <i type="button" className="far fa-edit fs-4 px-2" onClick={() => navigate('/edit')}  ></i>
-                    </div>
-                    <div className="position-relative " style={{ width: '150px', height: '150px', borderRadius: '50%' }}>
-                        <ImageCloudinary imgId={imageId} classNames={"rounded-circle"} style={{ width: '100%', height: '100%' }} />
-                        <div className="btn  position-absolute" style={{ bottom: '10px', right: '10px' }} >
-                            <ImageInput isInForm={false} name="+" onImageUpload={handleImageUpload} />
-                        </div>
+                <div className="d-flex ">
+                <div className="position-relative rounded-circle my-5" style={{ width: '150px', height: '150px' }}>
+                    <ImageCloudinary className="rounded-circle" classNames={"rounded-circle"} imgId={imageId} style={{ width: '100%', height: '100%' }} />
+                    <div className="btn  position-absolute " style={{ bottom: '10px', right: '10px' }} >
+                        <ImageInput isInForm={false} name="+" onImageUpload={handleImageUpload} />
                     </div>
                 </div>
-                <div className="mb-3">
-                    <div className="balance">
-                        <span>Balance de Ventas: </span>
-                        <p>{salesBalance}</p>
-                    </div>
+                <div className="d-flex m-auto mx-5 ">
+                    <h3>{userData?.first_name} {userData?.last_name}</h3>
+                    <i type="button" className="far fa-edit fs-4 px-2 text-danger" onClick={() => navigate('/edit')}  ></i>
+                </div>
+            </div>
                 </div>
                 <div className="">
                     <label className="form-label">Obras:</label>
