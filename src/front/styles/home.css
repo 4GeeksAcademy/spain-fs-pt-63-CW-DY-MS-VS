@@ -1,7 +1,233 @@
-/*
-    home.css: This website contains selectors only used in home.css
+/* 
+    Colores: {
+        blanco: #FFFFFF
+        negro: #000000
+        gris-oscuro: #272727
+        gris-claro: #A5A5A5
+        lavanda: #7C77B9
+   }
+ */
+.artist-list-container {
+  width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+}
 
-    All pages share the styles on index.css but you should create 
-    one more css for each page that will contain the selected used 
-    on that page only (the ones not reused in other pages).
-*/
+.artist-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.artist-name {
+  font-family: "Georgia", serif;
+  font-size: 18px;
+  color: #333;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+
+
+.no-artists {
+  text-align: center;
+  font-family: "Georgia", serif;
+  font-size: 18px;
+  color: #999;
+}
+.frase {
+  background-color: #7c77b9;
+  border-radius: 20px;
+  color: #ffffff;
+}
+body {
+  background-color: #a5a5a5;
+}
+#search-input {
+  border-radius: 15px;
+  margin-bottom: 10px;
+}
+.buscar {
+  border-radius: 8px;
+  background-color: #7c77b9;
+  color: #ffffff;
+  box-shadow: 0 8px 12px rgba(0, 0, 78, 0.2);
+}
+.card {
+  width: 300px;
+}
+.detalle {
+  color: #7c77b9;
+}
+.fixed-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.navbar {
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 500;
+  background-color: #000000;
+  height: 40px;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-item:last-child {
+  margin-right: 0;
+}
+
+.nav-item {
+  padding: 20px 30px;
+  margin-right: 7px;
+}
+.navbar a:hover:not(.login) {
+  display: inline-block;
+  background-size: 100% 14px;
+  border-radius: 30px;
+  background-repeat: no-repeat;
+  background-position: 0 95%;
+
+  padding-bottom: 4px;
+
+  padding-bottom: 4px;
+
+  cursor: pointer;
+  scale: 1;
+}
+.navbar a:hover:not(.login)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1px;
+  width: 100%;
+  background-color: #7c77b9;
+  border-radius: 3px;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  background-color: #000000;
+  color: #ffffff;
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  position: fixed;
+  bottom: 0; 
+  width: 100%;
+  z-index: 1000;
+  padding: 0;
+
+  margin-top: 50px;
+  margin-bottom: 2px;
+}
+
+.showArtists {
+  width: 600px;
+  margin: 0 auto;
+  padding: 3px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: "Arial", sans-serif;
+  background-color: dimgrey;
+}
+.list-group-item2 {
+  color: rgb(255, 252, 252);
+}
+.list-group-item1 {
+  color: #0c0a0a;
+}
+.list-group {
+  width: 600px;
+  margin: 0 auto;
+  padding: 3px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: "Arial", sans-serif;
+  background-color: rgb(255, 255, 250);
+}
+.background-image-div {
+  position: relative;
+  height: 300px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: top;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.background-image-div::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/2560px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  opacity: 0.8;  /* Adjust this value for desired opacity */
+  z-index: -1;  /* Ensure the pseudo-element is behind the content */
+}
+
+.jumbotron{
+  font-size: 3rem;
+}
+
+.showArtists {
+  width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: "Arial", sans-serif;
+  background-color: dimgrey;
+}
+
+.list-group-item {
+  color: aliceblue;
+}
+
+.scrollable-div {
+  width: 100%;
+  height: 500px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  overflow: auto; 
+  margin-bottom: 10px;
+}
+
+.scrollable-div::-webkit-scrollbar {
+  width: 10px;
+}
+.scrollable-div::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+}
+
+.scrollable-div::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  border: 6px solid rgba(0, 0, 0, 0.786);
+}

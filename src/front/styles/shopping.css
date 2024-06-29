@@ -1,0 +1,19 @@
+.flex-item {
+  margin-right: 0.5rem; 
+}
+
+.gap {
+  gap: 0.5rem; 
+  color: rgb(71, 109, 109);
+}
+.letras{
+  display: flex;
+  position: relative;
+  float: center;
+  box-shadow:  0 8px 12px rgba(0, 0, 0, 0.6);
+  border-radius: 20px;
+  align-items: center;
+  justify-content: center;
+  margin-left: 180px;
+  
+}
