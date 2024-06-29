@@ -124,12 +124,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 				})
 				const data = await resp.json()
-
 				data.type = 'client';
 				localStorage.setItem("userData", JSON.stringify(data))
 				await setStore({ userData: data })
 
-				console.log(store)
 				return data
 			},
 

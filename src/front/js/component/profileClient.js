@@ -9,7 +9,7 @@ import WorksImages from "./WorksImages";
 export const ClientProfile = () => {
     const userData = JSON.parse(localStorage.getItem("userData"));
     const navigate = useNavigate();
-    const { store, actions } = useContext(Context)
+    const {  actions } = useContext(Context)
     const [imageId, setImageId] = useState(userData?.image)
     const [works, setWorks] = useState([]);
 
@@ -30,16 +30,19 @@ export const ClientProfile = () => {
 
     return (
         <div>
-            <div className="d-flex">
-                <h3>{userData?.first_name} {userData?.last_name}</h3>
-                <i type="button" className="far fa-edit fs-4 px-2" onClick={() => navigate('/edit')}  ></i>
-            </div>
-            <div className="position-relative rounded-circle" style={{ width: '150px', height: '150px' }}>
-                <ImageCloudinary className="rounded-circle" classNames={"rounded-circle"} imgId={imageId} style={{ width: '100%', height: '100%' }} />
-                <div className="btn position-absolute" style={{ bottom: '10px', right: '10px' }} >
-                    <ImageInput isInForm={false} name="+" onImageUpload={handleImageUpload} />
+            <div className="d-flex ">
+                <div className="position-relative rounded-circle my-5" style={{ width: '150px', height: '150px' }}>
+                    <ImageCloudinary className="rounded-circle" classNames={"rounded-circle"} imgId={imageId} style={{ width: '100%', height: '100%' }} />
+                    <div className="btn  position-absolute " style={{ bottom: '10px', right: '10px' }} >
+                        <ImageInput isInForm={false} name="+" onImageUpload={handleImageUpload} />
+                    </div>
+                </div>
+                <div className="d-flex m-auto mx-5 ">
+                    <h3>{userData?.first_name} {userData?.last_name}</h3>
+                    <i type="button" className="far fa-edit fs-4 px-2 text-danger" onClick={() => navigate('/edit')}  ></i>
                 </div>
             </div>
+
 
             <div>
                 <label className="form-label">Favorites:</label>
