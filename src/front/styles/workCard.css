@@ -3,7 +3,7 @@
   flex-wrap: wrap;
   gap: 16px; /* Espacio entre las tarjetas */
   justify-content: center; /* Centra las tarjetas horizontalmente */
-  background-color: #343a40; /* Color de fondo oscuro */
+  /* background-color: #343a40; Color de fondo oscuro */
   padding: 16px; /* Espacio alrededor del contenido */
 }
 
@@ -11,23 +11,31 @@
   background-color: #212529;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
+  padding: 0.5rem;
   text-decoration: none;
   color: inherit;
   display: flex;
+  justify-content: space-between;
   flex-direction: column;
-  align-items: center;
-  width: 200px; /* Ancho fijo para cada tarjeta */
+  width: 250px; /* Ancho fijo para cada tarjeta */
+  height: 100%;
+}
+
+.work-image{
+  width: 100%;
+  min-height: 200px;
+  max-height: 200px;
 }
 
 .work-card .work-image {
-  width: 100%;
-  height: auto;
   object-fit: contain;
   border-radius: 8px;
 }
 
 .work-card .work-details {
-  margin-top: 1rem;
-  text-align: center;
+  gap: 10px;
+}
+
+.work-details{
+  min-height: 130px;
 }

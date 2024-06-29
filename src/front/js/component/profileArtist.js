@@ -5,7 +5,6 @@ import WorksComponent from "../component/worksComponent";
 import ImageCloudinary from "../component/imageCloudinary";
 import { useNavigate } from "react-router-dom";
 import ImageInput from "./imageInput";
-import { getCloudinaryUrl } from "../utils";
 import WorksImages from "./WorksImages";
 
 export const ArtistProfile = () => {

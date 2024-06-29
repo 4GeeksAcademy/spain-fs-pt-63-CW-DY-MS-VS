@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
+import { FaSearch } from "react-icons/fa";
 import "../../styles/search.css";
-
-
 
 export const Search = ({ onSearch }) => {
   const [query, setQuery] = useState('');
@@ -15,17 +14,17 @@ export const Search = ({ onSearch }) => {
   };
 
   return (
-    <div className="search-bar mb-5 ">
+    <div className="my-4 d-flex justify-content-center align-items-center">
       <input
-        className="isearch w-10 text-center"
+        className="isearch w-50 py-2 text-center"
         type="text"
         value={query}
         onChange={handleInputChange}
         placeholder="Buscar artista..."
       />
-      <button className='btsearch' onClick={handleSearch}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
-        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-      </svg></button>
+      <button className='btsearch' onClick={handleSearch}>
+        <FaSearch className='mb-1' />
+      </button>
     </div>
   );
 };
