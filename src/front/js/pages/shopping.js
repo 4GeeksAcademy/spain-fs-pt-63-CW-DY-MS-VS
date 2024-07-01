@@ -41,7 +41,6 @@ const Shopping = () => {
     setCart(updatedCart)
   }
 
-  console.log(subTotal)
 
   return (
     <div className="container text-center justify-content-center mt-5">
@@ -63,7 +62,6 @@ const Shopping = () => {
                       <div className="me-3 w-50">
                         <ImageCloudinary
                           imgId={work.image}
-                          className=""
                           style={{ width: 'auto', height: '150px', objectFit: "contain", boxShadow: "0 8px 12px rgba(0, 0, 0, 0.6)" }}
                         />
                       </div>

@@ -463,7 +463,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					const flattenedWorksArray = worksArray.flat();
 
-					console.log(flattenedWorksArray)
 					return flattenedWorksArray;
 				} catch (error) {
 					console.log(error, "Error fetching works for favorites");

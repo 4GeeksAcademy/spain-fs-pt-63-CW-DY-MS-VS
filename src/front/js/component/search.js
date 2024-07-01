@@ -16,7 +16,7 @@ export const Search = ({ onSearch }) => {
   return (
     <div className="my-4 d-flex justify-content-center align-items-center">
       <input
-        className="isearch w-50 py-2 text-center"
+        className="isearch w-25 py-2 text-center"
         type="text"
         value={query}
         onChange={handleInputChange}

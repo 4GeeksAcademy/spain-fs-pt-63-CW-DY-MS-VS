@@ -72,8 +72,6 @@ const WorkDetail = ({ obra }) => {
     }
   };
 
-  console.log(work)
-
   return (
     <div className="col-12 position-absolute top-50 start-50 translate-middle d-flex justify-content-center align-items-center">
       <div className="work-detail">
@@ -84,7 +82,6 @@ const WorkDetail = ({ obra }) => {
                 <ImageCloudinary
                   imgId={work.image}
                   classNames="work-image-detail"
-                  onClick={() => { }}
                 />
               </div>
               <div className=" informacion-container col-6">
@@ -92,10 +89,10 @@ const WorkDetail = ({ obra }) => {
                   <h3>{work.title}</h3>
                   <div className="border"></div>
                   <p>{work.description}</p>
-                  <p>Año: <strong>{work.year}</strong></p>
+                  <p>Year: <strong>{work.year}</strong></p>
                   <p>Type of Work: {work.type}</p>
                   <p>
-                    <strong>Precio: </strong>
+                    <strong>Price: </strong>
                     {work.price} €
                   </p>
                   <p className="like-count">
@@ -107,7 +104,7 @@ const WorkDetail = ({ obra }) => {
                     {userData && <button className="btn like-button" onClick={handleFavorites}><FaHeart className="p-0" /></button>}
                     {userData?.type === "client" && (
                       <button className="btn btn-light cart-button enviarShop" onClick={handleAddToCart}>
-                        <IoCartSharp /> Añadir al carrito
+                        <IoCartSharp /> Add To Cart
                       </button>
                     )}
                   </div>
