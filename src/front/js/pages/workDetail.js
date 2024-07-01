@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { IoCartSharp } from "react-icons/io5";
 import { useParams } from "react-router-dom";
-import "../../styles/workDetail.css";
 import { Context } from "../store/appContext";
 import ImageCloudinary from '../component/imageCloudinary';
+import "../../styles/workDetail.css";
 
 const WorkDetail = ({ obra }) => {
   const [likeCount, setLikeCount] = useState(200);
@@ -20,6 +20,7 @@ const WorkDetail = ({ obra }) => {
     actions.getAllWorks();
 
     const fetchWork = async () => {
+      const fetchAll = await actions.getArtistsWithWorks()
       const foundWork = store.allWorks ? await store.allWorks.find((w) => w.id === id) : null;
       setWork(foundWork);
     };
@@ -31,12 +32,11 @@ const WorkDetail = ({ obra }) => {
       setFavorites(favoritesArr);
     };
 
-    getFavorites();
+    if (userData) {
+      getFavorites();
+    }
+
   }, []);
-
-  console.log("FAVS", favorites)
-  console.log("WORK", work)
-
 
   const handleFavorites = () => {
     if (!favorites.some((fav) => fav.id === work.id)) {
@@ -47,8 +47,6 @@ const WorkDetail = ({ obra }) => {
       actions.deleteFromFavorites(work.id)
     }
   }
-
-  //Actualizar si da tiempo para leer cantidad de likes que tiene un producto (Aunque yo creo que no dará tiempo)
 
   const handleAddToCart = () => {
     if (userDataString) {
@@ -74,38 +72,41 @@ const WorkDetail = ({ obra }) => {
     }
   };
 
+  console.log(work)
+
   return (
-    <div className="container mt-5">
-      <div className="work-detail mt-5">
-        <div className="work-image mt-5">
+    <div className="col-12 position-absolute top-50 start-50 translate-middle d-flex justify-content-center align-items-center">
+      <div className="work-detail">
+        <div className="">
           {work &&
-            (<div className="row d-flex flex-nowrap ">
-              <div className="col-6">
+            (<div className="row d-flex frame">
+              <div className="col-md-6 d-flex p-0">
                 <ImageCloudinary
                   imgId={work.image}
-                  className="mb-5"
-                  style={{ width: 'auto', height: '400px', objectFit: "contain", boxShadow: " 0 8px 12px rgba(0, 0, 0, 0.6)", border: "10px solid #000" }}
+                  classNames="work-image-detail"
                   onClick={() => { }}
-                /></div>
-              <div className=" informacion-container col-6 mx-5">
-                <div className="work-info mx-5">
-                  <h5>{work.title}</h5>
+                />
+              </div>
+              <div className=" informacion-container col-6">
+                <div className="work-info">
+                  <h3>{work.title}</h3>
+                  <div className="border"></div>
                   <p>{work.description}</p>
-                  <p>Año:<strong>{work.year}</strong></p>
-                  <p>Type of Work : {work.type}</p>
+                  <p>Año: <strong>{work.year}</strong></p>
+                  <p>Type of Work: {work.type}</p>
                   <p>
                     <strong>Precio: </strong>
                     {work.price} €
                   </p>
                   <p className="like-count">
                     <strong>
-                      {favorites.some((fav) => fav.id === work.id) ? <FaHeart /> : <FaRegHeart />} {likeCount}
+                      {favorites && favorites.some((fav) => fav.id === work.id) ? <FaHeart /> : <FaRegHeart />} {likeCount}
                     </strong>
                   </p>
-                  <div className="buttons ms-2">
-                    <button className="like-button" onClick={handleFavorites}><FaHeart /></button>
-                    {userData.type === "client" && (
-                      <button className="cart-button enviarShop" onClick={handleAddToCart}>
+                  <div className="buttons mt-5">
+                    {userData && <button className="btn like-button" onClick={handleFavorites}><FaHeart className="p-0" /></button>}
+                    {userData?.type === "client" && (
+                      <button className="btn btn-light cart-button enviarShop" onClick={handleAddToCart}>
                         <IoCartSharp /> Añadir al carrito
                       </button>
                     )}

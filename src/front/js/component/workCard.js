@@ -11,16 +11,15 @@ const WorkCard = ({ work }) => {
         imgId={work.image}
         classNames="work-image"
       />
-      <div className="work-details text-light justify-self-start justify-content-between ">
+      <div className="work-details d-flex flex-column text-light justify-content-between p-2">
         <div className="d-flex flex-column align-items-start">
           <h3 className="fs-4 m-0">{work.title}</h3>
-          <p className="text-start fs-6 m-0">{work.description}</p>
+          <p className="text-start fs-6 m-0 overflow-auto">{work.description}</p>
         </div>
         <div className="d-flex justify-self-end justify-content-between w-100">
           <p className="m-0">{work.type}</p>
           <p className="m-0">{work.price} €</p>
         </div>
-
       </div>
     </Link>
   );
