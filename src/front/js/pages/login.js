@@ -1,11 +1,11 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/login.css";
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 
 const Login = () => {
-  const { store, actions } = useContext(Context);
+  const {  actions } = useContext(Context);
   const [user, setUser] = useState({ email: "", password: "", userType: "" });
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await actions.login(user);
-    localStorage.token?(navigate("/")):alert("Usuario o contraseña incorrecto")
+    localStorage.token?(navigate("/")):alert("Incorrect email or password")
     
   };
 
