@@ -38,7 +38,6 @@ const ImageInput = ({ onImageUpload, name, isInForm }) => {
             const image = await actions.uploadWorkImage(publicId);
             actions.setImage(publicId);
             onImageUpload(publicId);
-            console.log("Image uploaded:", image);
         } catch (error) {
             console.error("Error uploading image:", error);
         }

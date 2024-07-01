@@ -20,9 +20,9 @@ const ArtistGallery = () => {
     return null;
   };
 
-  const artistEncontrado = findArtistById(id);
+  const artistFound = findArtistById(id);
 
-  if (!artistEncontrado) {
+  if (!artistFound) {
     return <p>No se encontró ningún artista con el ID {id}</p>;
   }
 
@@ -32,16 +32,16 @@ const ArtistGallery = () => {
     <div className="my-5 container d-flex flex-column justify-content-center">
       <div className="d-flex flex-column flex-sm-row header-container align-items-center gap-4">
         <ImageCloudinary
-          imgId={artistEncontrado.image}
+          imgId={artistFound.image}
           classNames={"w-25 w-sm-75 w-md-25 rounded-circle artist-profile-image"}
         />
         <div className="border border-dark p-4 header">
           <div className="col-12 text-start">
-            <h1>{`${artistEncontrado.first_name} ${artistEncontrado.last_name}`}</h1>
+            <h1>{`${artistFound.first_name} ${artistFound.last_name}`}</h1>
           </div>
           <div className="border border-white w-100 mb-3"></div>
           <div className="col-12 text-start mb-5">
-            <h4 className="p-0 m-0">{`${artistEncontrado.description} `}</h4>
+            <h4 className="p-0 m-0">{`${artistFound.description} `}</h4>
           </div>
         </div>
       </div>
@@ -54,7 +54,6 @@ const ArtistGallery = () => {
               <ImageCloudinary
                 imgId={work.image}
                 classNames="work-image"
-                onClick={() => { }}
               />
               <p className="w-100 h-100 p-3 m-0 text-center text-light work-details">{work.title}</p>
             </div>

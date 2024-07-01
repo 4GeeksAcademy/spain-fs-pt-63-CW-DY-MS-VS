@@ -4,7 +4,6 @@ import { Context } from '../store/appContext'
 import ImageCloudinary from '../component/imageCloudinary'
 import "../../styles/home.css"
 import "../../styles/workCard.css"
-import { width } from '@fortawesome/free-regular-svg-icons/faAddressBook'
 
 export const Galery = () => {
   const { store, actions } = useContext(Context)
@@ -36,8 +35,7 @@ export const Galery = () => {
                     <Link className='h-100' to={`/workDetail/${work.id}`} >
                       <ImageCloudinary
                         imgId={work.image}
-                        classNames="work-image-gallery object-fit-cover"
-                        style={{ width }}
+                        classNames="work-image-gallery object-fit-cover w-100"
                       />
                     </Link>
                     <h5 className='text-white text-center w-100 h-100 work-details p-3 m-0'>{work.title}</h5>
