@@ -41,9 +41,9 @@ const WorksComponent = ({ onSubmit, closeModal, }) => {
                     <select className="form-select" required
                         onChange={(e) => newWork = { ...newWork, year: e.target.value }}>
                         <option value={""}>Select Year</option>
-                        <option value={2020}>2020</option>
-                        <option value={2010}>2010</option>
-                        <option value={2000}>2000</option>
+                        {Array.from({ length: 2024 - 1980 + 1 }, (_, i) => (
+                            <option key={i} value={1980 + i}>{1980 + i}</option>
+                        ))}
                     </select>
                     <button type="submit" className="btn btn-primary align-self-end">Save</button>
                 </div>
