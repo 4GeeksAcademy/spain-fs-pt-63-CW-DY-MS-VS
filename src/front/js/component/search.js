@@ -20,7 +20,7 @@ export const Search = ({ onSearch }) => {
         type="text"
         value={query}
         onChange={handleInputChange}
-        placeholder="Buscar artista..."
+        placeholder="Search Artist..."
       />
       <button className='btsearch' onClick={handleSearch}>
         <FaSearch className='mb-1' />

@@ -70,7 +70,7 @@ export const ArtistProfile = () => {
             </div>
                 </div>
                 <div className="">
-                    <label className="form-label">Obras:</label>
+                    <label className="form-label">Works:</label>
                     <div className="d-flex align-items-center flex-wrap gap-2 border rounded-2 border-secondary p-3">
                         <div className="p-2 border-dashed rounded-2 me-3">
                             <button

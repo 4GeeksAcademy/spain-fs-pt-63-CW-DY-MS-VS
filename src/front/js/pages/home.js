@@ -38,7 +38,7 @@ export const Home = () => {
   return (
     <div className="text-center mt-0">
       <div className="background-image-div d-flex align-items-center">
-        <h1 className="text-white text-center fw-bold jumbotron">“COMPARTE TU LADO ARTÍSTICO.”</h1>
+        <h1 className="text-white text-center fw-bold jumbotron">“SHARE YOUR ARTISTIC SIDE.”</h1>
       </div>
       <div>
         <Search onSearch={handleSearch} />
@@ -61,7 +61,7 @@ export const Home = () => {
       <div className="scrollable-div"><WorkCard /></div>
       <div className="h-100 pb-4">
         <div className="showArtists text-center mt-4">
-          <h1 className="detalle my-3">Nuestros artistas</h1>
+          <h1 className="detalle my-3">Our Artists</h1>
           <div className="row mb-4 p-4">
             {store.artists && store.artists.length > 0 ? (
               <ul className="list-group col-12">
@@ -73,7 +73,7 @@ export const Home = () => {
               </ul>
             ) : (
               <div className="col-12">
-                <p>No hay artistas disponibles</p>
+                <p>There is no Artists</p>
               </div>
             )}
           </div>
