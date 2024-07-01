@@ -3,6 +3,7 @@ import { Context } from "../store/appContext";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import ImageCloudinary from '../component/imageCloudinary';
 import "../../styles/shopping.css";
+
 const Shopping = () => {
   const [subTotal, setSubTotal] = useState(0);
   const { store, actions } = useContext(Context);
@@ -31,7 +32,7 @@ const Shopping = () => {
       const total = cart.reduce((acc, item) => acc + item.total, 0);
       setSubTotal(total);
     }
-  }, []);
+  }, [cart]);
 
 
   const handleDeleteItem = (id) => {
@@ -40,6 +41,7 @@ const Shopping = () => {
     setCart(updatedCart)
   }
 
+  console.log(subTotal)
 
   return (
     <div className="container text-center justify-content-center mt-5">
@@ -58,7 +60,7 @@ const Shopping = () => {
                 <div className="card w-100">
                   <div className="card-body d-flex align-items-center">
                     {work && (
-                      <div className="work-image me-3">
+                      <div className="me-3 w-50">
                         <ImageCloudinary
                           imgId={work.image}
                           className=""

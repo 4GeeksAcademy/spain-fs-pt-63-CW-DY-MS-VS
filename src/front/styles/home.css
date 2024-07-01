@@ -9,7 +9,6 @@
  */
 .artist-list-container {
   width: 600px;
-  margin: 0 auto;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -30,8 +29,6 @@
   padding: 10px;
   border-bottom: 1px solid #ccc;
 }
-
-
 
 .no-artists {
   text-align: center;
@@ -61,7 +58,7 @@ body {
   width: 300px;
 }
 .detalle {
-  color: #7c77b9;
+  color: white;
 }
 .fixed-img {
   width: 100%;
@@ -130,13 +127,9 @@ body {
   font-family: "Playfair Display", serif;
   font-optical-sizing: auto;
   position: fixed;
-  bottom: 0; 
   width: 100%;
   z-index: 1000;
   padding: 0;
-
-  margin-top: 50px;
-  margin-bottom: 2px;
 }
 
 .showArtists {
@@ -156,6 +149,9 @@ body {
   color: #0c0a0a;
 }
 .list-group {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   width: 600px;
   margin: 0 auto;
   padding: 3px;
@@ -165,15 +161,17 @@ body {
   font-family: "Arial", sans-serif;
   background-color: rgb(255, 255, 250);
 }
+
 .background-image-div {
   position: relative;
-  height: 300px;
+  height: 250px;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: top;
   margin-bottom: 10px;
   overflow: hidden;
+  margin-top: 70px;
 }
 
 .background-image-div::before {
@@ -197,22 +195,25 @@ body {
 
 .showArtists {
   width: 600px;
-  margin: 0 auto;
-  padding: 20px;
+  padding: 15px;
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-family: "Arial", sans-serif;
   background-color: dimgrey;
+  margin-bottom: 40px;
 }
 
 .list-group-item {
   color: aliceblue;
 }
+.artist-container:hover{
+  background-color: #c9c9f0;
+}
 
 .scrollable-div {
   width: 100%;
-  height: 500px;
+  height: 700px;
   border: 1px solid #ccc;
   padding: 10px;
   overflow: auto; 
@@ -230,4 +231,40 @@ body {
 .scrollable-div::-webkit-scrollbar-thumb {
   border-radius: 10px;
   border: 6px solid rgba(0, 0, 0, 0.786);
+}
+
+.artist-links{
+  width: 50%;
+  color: black !important; /* or your desired color */
+  text-decoration: none !important;
+  cursor: pointer !important;
+}
+
+.artist-links-gallery{
+  border-radius: 15px;
+  background-color: #333;
+  color: white !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+}
+
+.gallery-container {
+  margin-top: 70px;
+  padding-bottom: 100px;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:active {
+  text-decoration: none;
 }

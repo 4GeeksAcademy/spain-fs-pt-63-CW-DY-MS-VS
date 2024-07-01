@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { useParams } from "react-router-dom";
 import ImageCloudinary from '../component/imageCloudinary'
+import "../../styles/workCard.css"
 const ArtistGallery = () => {
   const { store, actions } = useContext(Context);
   const { id } = useParams();
@@ -28,30 +29,37 @@ const ArtistGallery = () => {
   const works = store.works || [];
 
   return (
-    <div className="container text-center">
-      <div className="row d-flex">
-        <div className="col-12 text-start mb-5"><h2>{`${artistEncontrado.first_name} ${artistEncontrado.last_name}`}</h2></div>
+    <div className="my-5 container d-flex flex-column justify-content-center">
+      <div className="d-flex flex-column flex-sm-row header-container align-items-center gap-4">
+        <ImageCloudinary
+          imgId={artistEncontrado.image}
+          classNames={"w-25 w-sm-75 w-md-25 rounded-circle artist-profile-image"}
+        />
+        <div className="border border-dark p-4 header">
+          <div className="col-12 text-start">
+            <h1>{`${artistEncontrado.first_name} ${artistEncontrado.last_name}`}</h1>
+          </div>
+          <div className="border border-white w-100 mb-3"></div>
+          <div className="col-12 text-start mb-5">
+            <h4 className="p-0 m-0">{`${artistEncontrado.description} `}</h4>
+          </div>
+        </div>
       </div>
-      <div className="col-12 text-start mb-5"><h2>{`${artistEncontrado.description} `}</h2></div>
-      <div className="row d-flex">
-      </div>
-
-      <div className="row">
+      <div className="row mb-5">
         {works.map(work => (
-                <div key={work.id} className="col-12 col-md-4 mb-3">
-                  <div className="container bg-white bg-opacity-50 h-100 d-flex
-                  justify-content-center flex-column gap-2 pt-2
-                  align-items-center" style={{ width: "300px" }}>
-                    <ImageCloudinary
-                      imgId={work.image}
-                      className=""
-                      style={{ width: 'auto', height: '200px', objectFit: "contain" }}
-                      onClick={() => { }}
-                    />
-                    <p>{work.title}</p>
-                  </div>
-                </div>
-              ))}
+          <div key={work.id} className="col-12 col-md-4 mb-3 d-flex justify-content-center align-items-center">
+            <div className="h-100 d-flex
+                  justify-content-center flex-column 
+                  align-items-center work-card-gallery gallery-frame ">
+              <ImageCloudinary
+                imgId={work.image}
+                classNames="work-image"
+                onClick={() => { }}
+              />
+              <p className="w-100 h-100 p-3 m-0 text-center text-light work-details">{work.title}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

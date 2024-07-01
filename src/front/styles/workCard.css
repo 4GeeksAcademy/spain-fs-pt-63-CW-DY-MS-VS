@@ -8,28 +8,45 @@
 }
 
 .work-card {
-  background-color: #212529;
+  border: #212529 solid ;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 0.5rem;
   text-decoration: none;
   color: inherit;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  width: 300px; /* Ancho fijo para cada tarjeta */
+  height: auto;
+}
+
+.work-card-gallery {
+  border: #212529 solid ;
+  background-color: #21252996;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  color: inherit;
+  display: flex;
   flex-direction: column;
   width: 250px; /* Ancho fijo para cada tarjeta */
-  height: 100%;
+  height: auto;
+}
+
+.work-image-gallery{
+  width: 100%;
+  max-height: 250px;
+  min-height: 250px;
+  max-width: 235px;
+  object-fit: cover;
 }
 
 .work-image{
-  width: 100%;
-  min-height: 200px;
-  max-height: 200px;
-}
-
-.work-card .work-image {
-  object-fit: contain;
-  border-radius: 8px;
+  max-height: 250px;
+  min-height: 250px;
+  background-color: #2125294d;
+  object-fit: cover;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 .work-card .work-details {
@@ -37,5 +54,13 @@
 }
 
 .work-details{
-  min-height: 130px;
+  background-color: #212529;
+  height: 100%;
+  padding: 5px;
+}
+
+.gallery-frame{
+  border: 8px solid transparent;
+  border-image: url("https://img.freepik.com/free-photo/wooden-textured-background_53876-14865.jpg") 30;
+  /* border: 15px solid rgb(55, 40, 14); */
 }
